@@ -6,4 +6,7 @@
     <color name="DarkPurple">#420080</color>
     <color name="LightPurple">#C280FF</color>
     <color name="BackendColor">#8080FF</color>
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="colorButton">#ECECEC</color>
+
 </resources>

@@ -1,9 +1,128 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Post_item">
+    tools:context=".Post_item"
+    android:background="@color/LightPurple">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <GridView
+        android:layout_marginTop="10dp"
+        android:id="@+id/grid_view"
+        android:layout_width="368dp"
+        android:layout_height="244dp"
+        android:layout_marginLeft="20dp"
+        android:background="@drawable/text_view_border"
+        android:columnWidth="110dp"
+        android:horizontalSpacing="4dp"
+        android:numColumns="3"
+        android:verticalSpacing="4dp">
+
+    </GridView>
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_below="@+id/grid_view"
+        android:layout_marginLeft="20dp"
+        android:text="NAME" />
+
+    <EditText
+        android:id="@+id/input_name"
+        android:layout_width="192dp"
+        android:layout_height="40dp"
+        android:layout_below="@+id/name"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="2dp"
+        android:hint="Item Name" />
+
+    <TextView
+        android:id="@+id/brand"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/input_name"
+        android:layout_marginLeft="20dp"
+        android:text="BRAND" />
+
+    <EditText
+        android:id="@+id/input_brand"
+        android:layout_width="192dp"
+        android:layout_height="40dp"
+        android:layout_below="@+id/brand"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="2dp"
+        android:hint="Item Brand" />
+
+    <TextView
+        android:id="@+id/price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/input_brand"
+        android:layout_marginLeft="20dp"
+        android:text="PRICE"/>
+
+    <EditText
+        android:id="@+id/input_price"
+        android:layout_width="192dp"
+        android:layout_height="40dp"
+        android:layout_below="@+id/price"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="2dp"
+        android:hint="$" />
+
+    <EditText
+        android:id="@+id/description"
+        android:layout_width="368dp"
+        android:layout_height="60dp"
+        android:layout_below="@+id/input_price"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/text_view_border"
+        android:hint="Description"
+        android:maxLines="4"
+        android:minLines="1"
+        android:maxLength="120"
+        android:paddingTop="5dp"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/count"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/description"
+        android:layout_marginLeft="350dp"
+        android:text="0/120" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="73dp"
+        android:layout_below="@+id/count"
+        android:layout_marginTop="6dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/DarkPurple"
+            android:text="CANCEL" />
+
+        <Button
+            android:id="@+id/post"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginLeft="5dp"
+            android:background="@color/DarkPurple"
+            android:text="POST" />
+    </LinearLayout>
+
+
+
+
+</RelativeLayout>

@@ -3,9 +3,11 @@
     <color name="colorPrimary">#6200EE</color>
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
-    <color name="DarkPurple">#420080</color>
-    <color name="LightPurple">#C280FF</color>
-    <color name="BackendColor">#8080FF</color>
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="colorButton">#ECECEC</color>
+    <color name="colorlightpurple">#F3EAFF</color>
+    <color name="colorbackground">#F8F8FF</color>
+    <color name="colordarkpurple">#5B358D</color>
     <color name="background">#1AC280FF</color>
     <color name="buttonBackground">#C7420080</color>
     <color name="buttonFont">#FFFF</color>

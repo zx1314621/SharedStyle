@@ -3,6 +3,8 @@
     <color name="colorPrimary">#6200EE</color>
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="colorButton">#ECECEC</color>
     <color name="colorlightpurple">#F3EAFF</color>
     <color name="colorbackground">#F8F8FF</color>
     <color name="colordarkpurple">#5B358D</color>

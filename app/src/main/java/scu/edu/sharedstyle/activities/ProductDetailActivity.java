@@ -1,4 +1,4 @@
-package scu.edu.sharedstyle;
+package scu.edu.sharedstyle.activities;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.android.material.tabs.TabLayout;
@@ -20,6 +21,8 @@ import com.google.android.material.tabs.TabLayoutMediator;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import scu.edu.sharedstyle.R;
 
 public class ProductDetailActivity extends FragmentActivity {
 
@@ -39,6 +42,18 @@ public class ProductDetailActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.product_detail);
+
+
+        Bundle bundle =getIntent().getExtras();
+
+        String itemName = bundle.getString("itemName");
+        String item_brand = bundle.getString("item_brand");
+        Double item_price = bundle.getDouble("item_price");
+        int img_url = bundle.getInt("img_url");
+        String img_desc = bundle.getString("img_desc");
+
+
+        Toast.makeText(this, "itemName :" + itemName, Toast.LENGTH_SHORT).show();
 
         //For image load test
         url.add("https://s3.ax1x.com/2020/11/11/BvRJZF.jpg");

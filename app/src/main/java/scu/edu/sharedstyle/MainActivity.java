@@ -1,30 +1,76 @@
 package scu.edu.sharedstyle;
 
+import android.content.Intent;
 import android.os.Bundle;
-
-import com.google.android.material.bottomnavigation.BottomNavigationView;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.next.easynavigation.view.EasyNavigationBar;
+
+import java.util.ArrayList;
+import java.util.List;
+
+
+import scu.edu.sharedstyle.Fragment.MainPageFragment;
+import scu.edu.sharedstyle.Fragment.ProfileFragment;
+import scu.edu.sharedstyle.activities.Test;
+import scu.edu.sharedstyle.recyclerview.GridRecyclerViewAdapter;
 
 public class MainActivity extends AppCompatActivity {
 
+
+    private EasyNavigationBar navigationBar;
+    private String[] tabText = {"MainPage","", "Profile"};
+    private int[] normalIcon = {R.drawable.ic_baseline_home_not_select, R.drawable.ic_baseline_add_24, R.drawable.ic_baseline_person_not_selected};
+    private int[] selectIcon = {R.drawable.ic_baseline_home_24, R.drawable.ic_baseline_add_24, R.drawable.ic_baseline_person_24};
+
+    private List<Fragment> fragments = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        BottomNavigationView navView = findViewById(R.id.nav_view);
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_home, R.id.navigation_profile)
+
+        navigationBar = findViewById(R.id.navigationBar);
+
+        fragments.add(new MainPageFragment());
+        fragments.add(new ProfileFragment());
+
+        navigationBar.titleItems(tabText)
+                .normalIconItems(normalIcon)
+                .selectIconItems(selectIcon)
+                .fragmentList(fragments)
+                .mode(EasyNavigationBar.MODE_ADD)
+                .onTabClickListener(new EasyNavigationBar.OnTabClickListener() {
+                    @Override
+                    public boolean onTabClickEvent(View view, int position) {
+                        if (position == 1) {
+                            Intent intent = new Intent(MainActivity.this, Test.class);
+
+                            startActivity(intent);
+                        }
+                        return false;
+                    }
+
+                })
+                .fragmentManager(getSupportFragmentManager())
                 .build();
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-        NavigationUI.setupWithNavController(navView, navController);
+
+
+        init();
+
+
+
+
+    }
+
+    private void init() {
+
+
+
     }
 
 }

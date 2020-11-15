@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
-import scu.edu.sharedstyle.MainActivity;
+import scu.edu.sharedstyle.activities.MainActivity;
 import scu.edu.sharedstyle.R;
 import scu.edu.sharedstyle.model.Item;
 import scu.edu.sharedstyle.recyclerview.GridRecyclerViewAdapter;
@@ -76,10 +76,10 @@ public class MainPageFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_main_page, container, false);
         mGridRv = view.findViewById(R.id.RV_grid_id);
 
-        mGridRv.setLayoutManager(new GridLayoutManager(getContext(), 2));
+        mGridRv.setLayoutManager(new GridLayoutManager(getActivity(), 2));
 
 
-        mGridRv.setAdapter(new GridRecyclerViewAdapter(getContext(), getData()));
+        mGridRv.setAdapter(new GridRecyclerViewAdapter(getActivity(), getData()));
         // Inflate the layout for this fragment
         return view;
     }
@@ -88,21 +88,21 @@ public class MainPageFragment extends Fragment {
 
         List<Item> itemList = new ArrayList<>();
         Item item1 = new Item();
-        item1.setImg_url(R.drawable.item1);
+        item1.setImg_url(R.drawable.main_item1);
         item1.setItemName("item1");
         item1.setBrand("gucci");
         item1.setPrice(1000);
         itemList.add(item1);
 
         Item item2 = new Item();
-        item2.setImg_url(R.drawable.item2);
+        item2.setImg_url(R.drawable.main_item2);
         item2.setItemName("item2");
         item2.setBrand("lv");
         item2.setPrice(2000);
         itemList.add(item2);
 
         Item item3 = new Item();
-        item3.setImg_url(R.drawable.item3);
+        item3.setImg_url(R.drawable.main_item3);
         item3.setItemName("item3");
         item3.setBrand("YSL");
         item3.setPrice(600);
@@ -110,35 +110,35 @@ public class MainPageFragment extends Fragment {
 
 
         Item item4 = new Item();
-        item4.setImg_url(R.drawable.item4);
+        item4.setImg_url(R.drawable.main_item4);
         item4.setItemName("item4");
         item4.setBrand("gucci");
         item4.setPrice(1000);
         itemList.add(item4);
 
         Item item5 = new Item();
-        item5.setImg_url(R.drawable.item5);
+        item5.setImg_url(R.drawable.main_item5);
         item5.setItemName("item5");
         item5.setBrand("lv");
         item5.setPrice(2000);
         itemList.add(item5);
 
         Item item6 = new Item();
-        item6.setImg_url(R.drawable.item6);
+        item6.setImg_url(R.drawable.main_item6);
         item6.setItemName("item6");
         item6.setBrand("YSL");
         item6.setPrice(600);
         itemList.add(item6);
 
         Item item7 = new Item();
-        item7.setImg_url(R.drawable.item7);
+        item7.setImg_url(R.drawable.main_item7);
         item7.setItemName("item7");
         item7.setBrand("gucci");
         item7.setPrice(1000);
         itemList.add(item7);
 
         Item item8 = new Item();
-        item8.setImg_url(R.drawable.item8);
+        item8.setImg_url(R.drawable.main_item8);
         item8.setItemName("item8");
         item8.setBrand("gucci");
         item8.setPrice(1000);

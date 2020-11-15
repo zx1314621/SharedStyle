@@ -15,7 +15,6 @@
         app:layout_constraintTop_toTopOf="parent">
 
 
-
     </androidx.viewpager2.widget.ViewPager2>
 
     <com.google.android.material.tabs.TabLayout
@@ -26,6 +25,8 @@
         app:tabGravity="center"
         app:tabIndicatorHeight="0dp"
         app:layout_constraintBottom_toBottomOf="@id/pager"/>
+
+
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/leftGuideline"
@@ -48,10 +49,10 @@
         android:layout_height="wrap_content"
         android:text="@string/product_name"
         android:textSize="20sp"
-        android:layout_marginBottom="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         app:layout_constraintStart_toStartOf="@id/leftGuideline"
-        app:layout_constraintTop_toBottomOf="@+id/pager" />
+        app:layout_constraintTop_toBottomOf="@id/pager"/>
+
 
     <TextView
         android:id="@+id/product_brand"
@@ -59,8 +60,7 @@
         android:layout_height="wrap_content"
         android:text="@string/product_brand"
         android:textSize="20sp"
-        android:layout_marginBottom="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         app:layout_constraintStart_toStartOf="@id/leftGuideline"
         app:layout_constraintTop_toBottomOf="@+id/product_name" />
 
@@ -108,11 +108,12 @@
         app:layout_constraintStart_toStartOf="@id/leftGuideline" />
 
     <EditText
-        android:id="@+id/price"
+        android:id="@+id/product_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
         android:gravity="center"
+        android:focusable="false"
         android:inputType="numberDecimal"
         android:text="10.00"
 

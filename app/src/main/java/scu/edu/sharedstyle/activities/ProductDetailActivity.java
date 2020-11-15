@@ -19,6 +19,7 @@ import com.bumptech.glide.Glide;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,11 +32,13 @@ public class ProductDetailActivity extends FragmentActivity {
     private TextView productName;
     private TextView productBrand;
     private TextView productDescription;
+    private TextView productPrice;
     private Button buyNow;
 
 
     //For image load test
-    private ArrayList<String> url = new ArrayList<>();
+    private ArrayList<Integer> url=new ArrayList<>();
+//    private ArrayList<String> url = new ArrayList<>();
 
 
     @Override
@@ -56,9 +59,10 @@ public class ProductDetailActivity extends FragmentActivity {
         Toast.makeText(this, "itemName :" + itemName, Toast.LENGTH_SHORT).show();
 
         //For image load test
-        url.add("https://s3.ax1x.com/2020/11/11/BvRJZF.jpg");
-        url.add("https://images.macrumors.com/t/GWt5RjGgFZHXv4jPG-W9BHTKqSU=/1960x/https://images.macrumors.com/article-new/2020/11/new-m1-chip.jpg");
-        url.add("https://www.longchamp.com/dw/image/v2/BCVX_PRD/on/demandware.static/-/Sites-LC-master-catalog/default/dw48cfd7a3/images/DIS/L1899089556_0.png?sw=500&sh=500&sm=fit");
+//        url.add("https://s3.ax1x.com/2020/11/11/BvRJZF.jpg");
+//        url.add("https://images.macrumors.com/t/GWt5RjGgFZHXv4jPG-W9BHTKqSU=/1960x/https://images.macrumors.com/article-new/2020/11/new-m1-chip.jpg");
+//        url.add("https://www.longchamp.com/dw/image/v2/BCVX_PRD/on/demandware.static/-/Sites-LC-master-catalog/default/dw48cfd7a3/images/DIS/L1899089556_0.png?sw=500&sh=500&sm=fit");
+        url.add(img_url);
 
         viewPager2 = findViewById(R.id.pager);
         viewPager2.setAdapter(new ScreenSlidePagerAdapter(url));
@@ -78,7 +82,13 @@ public class ProductDetailActivity extends FragmentActivity {
         productName=findViewById(R.id.product_name);
         productBrand=findViewById(R.id.product_brand);
         productDescription=findViewById(R.id.product_description);
+        productPrice=findViewById(R.id.product_price);
 
+        productName.setText(itemName);
+        productBrand.setText(item_brand);
+        productDescription.setText(img_desc);
+        NumberFormat nm=NumberFormat.getInstance();
+        productPrice.setText(nm.format(item_price));
 
 
     }
@@ -90,10 +100,15 @@ public class ProductDetailActivity extends FragmentActivity {
 
     private static class ScreenSlidePagerAdapter extends RecyclerView.Adapter<ScreenSlidePagerAdapter.CardViewHolder> {
         private Context context;
-        private List<String> imageList;
-        public ScreenSlidePagerAdapter(List<String> imageList){
-            this.imageList =imageList;
-        }
+        private List<Integer> imageList;
+
+//        private List<String> imageList;
+//        public ScreenSlidePagerAdapter(List<String> imageList){
+//            this.imageList =imageList;
+//        }
+
+        public ScreenSlidePagerAdapter(List<Integer> imageList){this.imageList=imageList;}
+
 
         @NonNull
         @Override
@@ -122,10 +137,13 @@ public class ProductDetailActivity extends FragmentActivity {
                 imageView = itemView.findViewById(R.id.product_image);
             }
 
-            public void setImageView(String url){
-                Glide.with(context)
-                        .load(url)
-                        .into(imageView);
+//            public void setImageView(String url){
+//                Glide.with(context)
+//                        .load(url)
+//                        .into(imageView);
+//            }
+            public void setImageView(int url){
+                imageView.setImageResource(url);
             }
         }
     }

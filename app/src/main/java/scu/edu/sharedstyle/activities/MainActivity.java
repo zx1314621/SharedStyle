@@ -1,4 +1,4 @@
-package scu.edu.sharedstyle;
+package scu.edu.sharedstyle.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,8 +6,6 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 
 import com.next.easynavigation.view.EasyNavigationBar;
@@ -18,8 +16,8 @@ import java.util.List;
 
 import scu.edu.sharedstyle.Fragment.MainPageFragment;
 import scu.edu.sharedstyle.Fragment.ProfileFragment;
-import scu.edu.sharedstyle.activities.Test;
-import scu.edu.sharedstyle.recyclerview.GridRecyclerViewAdapter;
+import scu.edu.sharedstyle.activities.Post_item;
+import scu.edu.sharedstyle.R;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -49,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public boolean onTabClickEvent(View view, int position) {
                         if (position == 1) {
-                            Intent intent = new Intent(MainActivity.this, Test.class);
+                            Intent intent = new Intent(MainActivity.this, Post_item.class);
 
                             startActivity(intent);
                         }

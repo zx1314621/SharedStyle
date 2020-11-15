@@ -1,4 +1,4 @@
-package scu.edu.sharedstyle;
+package scu.edu.sharedstyle.activities;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
@@ -20,6 +20,8 @@ import com.google.android.material.tabs.TabLayoutMediator;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import scu.edu.sharedstyle.R;
 
 public class ProductDetailActivity extends FragmentActivity {
 

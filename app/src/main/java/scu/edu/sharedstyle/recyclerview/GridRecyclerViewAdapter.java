@@ -1,6 +1,7 @@
 package scu.edu.sharedstyle.recyclerview;
 
 import android.content.Context;
+import android.content.Intent;
 import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import scu.edu.sharedstyle.R;
+import scu.edu.sharedstyle.activities.ProductDetailActivity;
 import scu.edu.sharedstyle.model.Item;
 
 public class GridRecyclerViewAdapter extends RecyclerView.Adapter<GridRecyclerViewAdapter.MyViewHolder> {
@@ -50,6 +52,10 @@ public class GridRecyclerViewAdapter extends RecyclerView.Adapter<GridRecyclerVi
             @Override
             public void onClick(View view) {
                 Toast.makeText(mContext, "pos:" + position, Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(mContext, ProductDetailActivity.class);
+
+                mContext.startActivity(intent);
+
             }
         });
     }

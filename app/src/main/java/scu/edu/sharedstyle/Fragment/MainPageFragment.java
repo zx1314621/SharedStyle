@@ -92,6 +92,7 @@ public class MainPageFragment extends Fragment {
         item1.setItemName("item1");
         item1.setBrand("gucci");
         item1.setPrice(1000);
+        item1.setItemDesc("This is Item1");
         itemList.add(item1);
 
         Item item2 = new Item();
@@ -99,6 +100,7 @@ public class MainPageFragment extends Fragment {
         item2.setItemName("item2");
         item2.setBrand("lv");
         item2.setPrice(2000);
+        item2.setItemDesc("This is item2");
         itemList.add(item2);
 
         Item item3 = new Item();
@@ -106,6 +108,7 @@ public class MainPageFragment extends Fragment {
         item3.setItemName("item3");
         item3.setBrand("YSL");
         item3.setPrice(600);
+        item3.setItemDesc("This is item3");
         itemList.add(item3);
 
 
@@ -114,6 +117,7 @@ public class MainPageFragment extends Fragment {
         item4.setItemName("item4");
         item4.setBrand("gucci");
         item4.setPrice(1000);
+        item4.setItemDesc("This is item4");
         itemList.add(item4);
 
         Item item5 = new Item();
@@ -121,6 +125,7 @@ public class MainPageFragment extends Fragment {
         item5.setItemName("item5");
         item5.setBrand("lv");
         item5.setPrice(2000);
+        item5.setItemDesc("This is item5");
         itemList.add(item5);
 
         Item item6 = new Item();
@@ -128,6 +133,7 @@ public class MainPageFragment extends Fragment {
         item6.setItemName("item6");
         item6.setBrand("YSL");
         item6.setPrice(600);
+        item6.setItemDesc("This is item6");
         itemList.add(item6);
 
         Item item7 = new Item();
@@ -135,6 +141,7 @@ public class MainPageFragment extends Fragment {
         item7.setItemName("item7");
         item7.setBrand("gucci");
         item7.setPrice(1000);
+        item7.setItemDesc("This is item7");
         itemList.add(item7);
 
         Item item8 = new Item();
@@ -142,6 +149,7 @@ public class MainPageFragment extends Fragment {
         item8.setItemName("item8");
         item8.setBrand("gucci");
         item8.setPrice(1000);
+        item8.setItemDesc("This is item8");
         itemList.add(item8);
 
         return (ArrayList<Item>) itemList;

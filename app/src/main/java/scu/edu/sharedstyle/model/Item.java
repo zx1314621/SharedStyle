@@ -7,6 +7,7 @@ public class Item {
     private String condition;
     private double price;
     private String brand;
+    private int Img_url;
 
     public String getCondition() {
         return condition;
@@ -31,8 +32,6 @@ public class Item {
     public void setBrand(String brand) {
         this.brand = brand;
     }
-
-    private int Img_url;
 
     public int getItemId() {
         return itemId;

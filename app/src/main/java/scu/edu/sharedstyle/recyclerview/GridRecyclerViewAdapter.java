@@ -2,6 +2,7 @@ package scu.edu.sharedstyle.recyclerview;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -51,9 +52,16 @@ public class GridRecyclerViewAdapter extends RecyclerView.Adapter<GridRecyclerVi
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(mContext, "pos:" + position, Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(mContext, ProductDetailActivity.class);
 
+                Bundle bundle = new Bundle();
+
+                bundle.putString("itemName", itemList.get(position).getItemName());
+                bundle.putString("item_brand", itemList.get(position).getBrand());
+                bundle.putDouble("item_price",itemList.get(position).getPrice());
+                bundle.putInt("img_url", itemList.get(position).getImg_url());
+                bundle.putString("img_desc", itemList.get(position).getItemDesc());
+                intent.putExtras(bundle);
                 mContext.startActivity(intent);
 
             }

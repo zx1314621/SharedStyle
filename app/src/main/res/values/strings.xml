@@ -1,5 +1,11 @@
 <resources>
     <string name="app_name">SharedStyle</string>
+    <string name="title_activity_scrolling">ScrollingActivity</string>
+    <string name="product_name">Product Name</string>
+    <string name="product_brand">Product Brand</string>
+    <string name="product_description">Product Description</string>
+    <string name="buy_now">BUY NOW</string>
+    <string name="total_price">Total Price: $</string>
     <string name="title_home">Home</string>
     <string name="title_profile">Profile</string>
     <string name="title_post">Post</string>

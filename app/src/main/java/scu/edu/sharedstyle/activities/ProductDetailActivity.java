@@ -1,13 +1,17 @@
 package scu.edu.sharedstyle.activities;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -25,7 +29,7 @@ import java.util.List;
 
 import scu.edu.sharedstyle.R;
 
-public class ProductDetailActivity extends FragmentActivity {
+public class ProductDetailActivity extends AppCompatActivity {
 
     private ViewPager2 viewPager2;
     private TabLayout tabLayout;
@@ -34,6 +38,9 @@ public class ProductDetailActivity extends FragmentActivity {
     private TextView productDescription;
     private TextView productPrice;
     private Button buyNow;
+    private String itemName;
+    private String item_brand;
+    private double item_price;
 
 
     //For image load test
@@ -46,14 +53,22 @@ public class ProductDetailActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.product_detail);
 
+        ActionBar actionBar=getSupportActionBar();
+        if(actionBar != null){
+            actionBar.setHomeButtonEnabled(true);
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+
+
 
         Bundle bundle =getIntent().getExtras();
 
-        String itemName = bundle.getString("itemName");
-        String item_brand = bundle.getString("item_brand");
-        Double item_price = bundle.getDouble("item_price");
+        itemName = bundle.getString("itemName");
+        item_brand = bundle.getString("item_brand");
+        item_price = bundle.getDouble("item_price");
         int img_url = bundle.getInt("img_url");
         String img_desc = bundle.getString("img_desc");
+
 
 
         Toast.makeText(this, "itemName :" + itemName, Toast.LENGTH_SHORT).show();
@@ -96,6 +111,22 @@ public class ProductDetailActivity extends FragmentActivity {
     public void onBackPressed() {
 
         finish();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            this.finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    public void buy(View view) {
+        Intent intent = new Intent(this, Purchase.class);
+        intent.putExtra("name", itemName);
+        intent.putExtra("price", item_price);
+        startActivity(intent);
     }
 
     private static class ScreenSlidePagerAdapter extends RecyclerView.Adapter<ScreenSlidePagerAdapter.CardViewHolder> {

@@ -66,7 +66,11 @@
     <ScrollView
         android:layout_width="match_parent"
         android:id="@+id/scrollView"
-        android:layout_height="250dp"
+        android:layout_height="230dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginEnd="10dp"
         app:layout_constraintEnd_toStartOf="@id/rightGuideline"
         app:layout_constraintStart_toEndOf="@id/leftGuideline"
         android:background="#FFFF"
@@ -76,8 +80,6 @@
             android:id="@+id/product_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
             android:text="@string/product_description"
             android:textSize="14sp" />
 
@@ -89,6 +91,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/buy_now"
+        android:onClick="buy"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="parent"

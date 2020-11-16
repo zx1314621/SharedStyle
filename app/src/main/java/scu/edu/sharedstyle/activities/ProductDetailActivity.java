@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,6 +35,9 @@ public class ProductDetailActivity extends FragmentActivity {
     private TextView productDescription;
     private TextView productPrice;
     private Button buyNow;
+    private String itemName;
+    private String item_brand;
+    private double item_price;
 
 
     //For image load test
@@ -49,9 +53,9 @@ public class ProductDetailActivity extends FragmentActivity {
 
         Bundle bundle =getIntent().getExtras();
 
-        String itemName = bundle.getString("itemName");
-        String item_brand = bundle.getString("item_brand");
-        Double item_price = bundle.getDouble("item_price");
+        itemName = bundle.getString("itemName");
+        item_brand = bundle.getString("item_brand");
+        item_price = bundle.getDouble("item_price");
         int img_url = bundle.getInt("img_url");
         String img_desc = bundle.getString("img_desc");
 
@@ -96,6 +100,13 @@ public class ProductDetailActivity extends FragmentActivity {
     public void onBackPressed() {
 
         finish();
+    }
+
+    public void buy(View view) {
+        Intent intent = new Intent(this, Purchase.class);
+        intent.putExtra("name", itemName);
+        intent.putExtra("price", item_price);
+        startActivity(intent);
     }
 
     private static class ScreenSlidePagerAdapter extends RecyclerView.Adapter<ScreenSlidePagerAdapter.CardViewHolder> {

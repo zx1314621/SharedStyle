@@ -134,7 +134,7 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_cardnum" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName2"
+        android:id="@+id/et_holdername"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@color/colorlightpurple"
@@ -148,7 +148,7 @@
         app:layout_constraintTop_toTopOf="@+id/tv_card" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName3"
+        android:id="@+id/et_cardnum"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@color/colorlightpurple"
@@ -162,12 +162,12 @@
         app:layout_constraintTop_toTopOf="@+id/tv_cardnum" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName4"
+        android:id="@+id/et_expdate"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@color/colorlightpurple"
         android:ems="10"
-        android:hint="Expiration Date"
+        android:hint="MM/YY"
         android:inputType="textPersonName"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="@+id/tv_expd"
@@ -186,7 +186,7 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_expd" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName5"
+        android:id="@+id/et_cvs"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@color/colorlightpurple"
@@ -205,6 +205,7 @@
         android:layout_height="wrap_content"
         android:background="@color/colordarkpurple"
         android:text="Confirm"
+        android:onClick="alert"
         android:textColor="#FFFFFF"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -218,6 +219,7 @@
         android:layout_height="wrap_content"
         android:background="@color/colordarkpurple"
         android:text="Cancel"
+        android:onClick="cancel"
         android:textColor="#FFFFFF"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="@+id/bt_confirm"

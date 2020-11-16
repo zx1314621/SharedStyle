@@ -88,15 +88,15 @@ public class MainPageFragment extends Fragment {
 
         mGridRv.setAdapter(new GridRecyclerViewAdapter(getActivity(), getData()));
 
-        search = view.findViewById(R.id.search);
-        editText = view.findViewById(R.id.et_search);
-        search.setOnClickListener(new View.OnClickListener() {
+        //search = view.findViewById(R.id.search);
+        //editText = view.findViewById(R.id.et_search);
+        /*search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Toast.makeText(getActivity(), "This is search:" + editText.getText(), Toast.LENGTH_SHORT).show();
             }
         });
-        // Inflate the layout for this fragment
+        // Inflate the layout for this fragment*/
         return view;
     }
 

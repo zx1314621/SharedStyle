@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Post_item"
+    tools:context=".activities.Post_item"
     android:background="@color/colorlightpurple">
 
     <GridView

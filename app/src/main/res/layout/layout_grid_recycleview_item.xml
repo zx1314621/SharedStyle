@@ -1,11 +1,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/White"
+    android:background="@color/colorbackground"
     android:orientation="vertical"
-    android:padding="20dp"
-    android:divider="@android:color/transparent"
-    android:dividerHeight="50dp"
+    android:padding="10dp"
+    android:layout_marginRight="5dp"
+    android:layout_marginLeft="2dp"
+    android:layout_marginTop="7dp"
+    android:layout_marginBottom="3dp"
     >
 
     <ImageView

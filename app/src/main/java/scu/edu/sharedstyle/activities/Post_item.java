@@ -1,4 +1,4 @@
-package scu.edu.sharedstyle;
+package scu.edu.sharedstyle.activities;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -54,6 +54,8 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Locale;
 
+import scu.edu.sharedstyle.R;
+
 public class Post_item extends AppCompatActivity {
     Button cancel;
     Button post;
@@ -63,8 +65,6 @@ public class Post_item extends AppCompatActivity {
     ArrayList<HashMap<String, Object>> images;
     SimpleAdapter simpleAdapter = null;     //适配器
     GridView gridView;
-    private int windowheight;
-    private int windowwidth;
     private TextView textView;
     private EditText description;
 
@@ -77,8 +77,6 @@ public class Post_item extends AppCompatActivity {
         cancel = findViewById(R.id.cancel);
         //setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         WindowManager wm=(WindowManager) getSystemService(WINDOW_SERVICE);
-        windowheight=wm.getDefaultDisplay().getHeight();
-        windowwidth=wm.getDefaultDisplay().getWidth();
         getWindow().setSoftInputMode(WindowManager.LayoutParams.
                 SOFT_INPUT_ADJUST_PAN);
 //        //锁定屏幕
@@ -193,7 +191,7 @@ public class Post_item extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(Post_item.this, MainActivity.class);
                 startActivity(intent);
-                Toast.makeText(Post_item.this, "post successfullt", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Post_item.this, "post successfully", Toast.LENGTH_SHORT).show();
             }
         });
 

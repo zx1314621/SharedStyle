@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorbackground">
+
+
+
+
+    <com.next.easynavigation.view.EasyNavigationBar
+        android:id="@+id/navigationBar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:Easy_addIconSize="50dp"
+        app:Easy_navigationHeight="50dp"
+        app:Easy_addLayoutHeight="0dp"
+        app:Easy_addLayoutBottom="10dp"
+        app:Easy_addLayoutRule="RULE_CENTER"/>
+    
+
+
+
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

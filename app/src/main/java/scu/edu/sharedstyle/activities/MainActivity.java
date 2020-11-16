@@ -1,6 +1,7 @@
 package scu.edu.sharedstyle.activities;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -9,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 
+import com.next.easynavigation.constant.Anim;
 import com.next.easynavigation.view.EasyNavigationBar;
 
 import java.util.ArrayList;
@@ -33,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        getSupportActionBar().hide();
         navigationBar = findViewById(R.id.navigationBar);
 
         fragments.add(new MainPageFragment());
@@ -44,6 +46,9 @@ public class MainActivity extends AppCompatActivity {
                 .selectIconItems(selectIcon)
                 .fragmentList(fragments)
                 .mode(EasyNavigationBar.MODE_ADD)
+                .normalTextColor(R.color.Gray)
+                .selectTextColor(R.color.colordarkpurple)
+                .anim(Anim.ZoomIn)
                 .onTabClickListener(new EasyNavigationBar.OnTabClickListener() {
                     @Override
                     public boolean onTabClickEvent(View view, int position) {

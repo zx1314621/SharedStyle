@@ -13,4 +13,6 @@
     <color name="buttonFont">#FFFF</color>
     <color name="dotColor">#C7420080</color>
     <color name="White">#FFFFFF</color>
+    <color name="Black">#000000</color>
+    <color name="Gray">#808080</color>
 </resources>

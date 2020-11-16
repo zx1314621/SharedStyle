@@ -9,6 +9,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,6 +61,8 @@ public class MainPageFragment extends Fragment {
         return fragment;
     }
 
+    private EditText editText;
+    private Button search;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,6 +70,8 @@ public class MainPageFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+
 
 
     }
@@ -80,6 +87,15 @@ public class MainPageFragment extends Fragment {
 
 
         mGridRv.setAdapter(new GridRecyclerViewAdapter(getActivity(), getData()));
+
+        search = view.findViewById(R.id.search);
+        editText = view.findViewById(R.id.et_search);
+        search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getActivity(), "This is search:" + editText.getText(), Toast.LENGTH_SHORT).show();
+            }
+        });
         // Inflate the layout for this fragment
         return view;
     }

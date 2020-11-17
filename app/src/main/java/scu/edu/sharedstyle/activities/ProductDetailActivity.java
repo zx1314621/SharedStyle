@@ -3,13 +3,13 @@ package scu.edu.sharedstyle.activities;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,15 +19,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 import scu.edu.sharedstyle.R;
+import scu.edu.sharedstyle.model.GlideApp;
 
 public class ProductDetailActivity extends AppCompatActivity {
 
@@ -41,6 +43,7 @@ public class ProductDetailActivity extends AppCompatActivity {
     private String itemName;
     private String item_brand;
     private double item_price;
+
 
 
     //For image load test
@@ -60,7 +63,6 @@ public class ProductDetailActivity extends AppCompatActivity {
         }
 
 
-
         Bundle bundle =getIntent().getExtras();
 
         itemName = bundle.getString("itemName");
@@ -69,7 +71,7 @@ public class ProductDetailActivity extends AppCompatActivity {
         int img_url = bundle.getInt("img_url");
         String img_desc = bundle.getString("img_desc");
 
-
+        
 
         Toast.makeText(this, "itemName :" + itemName, Toast.LENGTH_SHORT).show();
 
@@ -129,9 +131,11 @@ public class ProductDetailActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+
     private static class ScreenSlidePagerAdapter extends RecyclerView.Adapter<ScreenSlidePagerAdapter.CardViewHolder> {
         private Context context;
         private List<Integer> imageList;
+        private StorageReference mstorageReference;
 
 //        private List<String> imageList;
 //        public ScreenSlidePagerAdapter(List<String> imageList){
@@ -168,14 +172,15 @@ public class ProductDetailActivity extends AppCompatActivity {
                 imageView = itemView.findViewById(R.id.product_image);
             }
 
-//            public void setImageView(String url){
-//                Glide.with(context)
-//                        .load(url)
-//                        .into(imageView);
-//            }
             public void setImageView(int url){
-                imageView.setImageResource(url);
+                mstorageReference= FirebaseStorage.getInstance().getReferenceFromUrl("gs://bionic-run-191808.appspot.com/cat.jpeg");
+                GlideApp.with(context)
+                        .load(mstorageReference)
+                        .into(imageView);
+
             }
+//            public void setImageView(int url){ imageView.setImageResource(url); }
+
         }
     }
 

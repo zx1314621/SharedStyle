@@ -15,11 +15,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.MainActivity"></activity>
-        <activity android:name=".activities.Post_item"></activity>
-        <activity android:name=".activities.ProductDetailActivity">
+        <activity android:name=".activities.MainActivity"/>
+        <activity android:name=".activities.Post_item"/>
+        <activity android:name=".activities.ProductDetailActivity"/>
 
-        </activity>
 
         <activity
             android:name=".activities.LogIn"

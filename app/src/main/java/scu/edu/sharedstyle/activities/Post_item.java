@@ -108,9 +108,9 @@ public class Post_item extends AppCompatActivity {
          * 通过适配器实现
          * SimpleAdapter参数imageItem为数据源 R.layout.griditem_addpic为布局
          */
-        Bitmap bmp1 = BitmapFactory.decodeResource(getResources(), R.drawable.item1);
-        Bitmap bmp2 = BitmapFactory.decodeResource(getResources(), R.drawable.item2);
-        Bitmap bmp3 = BitmapFactory.decodeResource(getResources(), R.drawable.item3);
+        Bitmap bmp1 = BitmapFactory.decodeResource(getResources(), R.drawable.main_item1);
+        Bitmap bmp2 = BitmapFactory.decodeResource(getResources(), R.drawable.main_item2);
+        Bitmap bmp3 = BitmapFactory.decodeResource(getResources(), R.drawable.main_item3);
         bmp = BitmapFactory.decodeResource(getResources(), R.drawable.imageadd);
         images= new ArrayList<HashMap<String, Object>>();
         HashMap<String, Object> map = new HashMap<String, Object>();
@@ -146,15 +146,17 @@ public class Post_item extends AppCompatActivity {
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                if( images.size() == 7) { //第一张为默认图片
-                    Toast.makeText(Post_item.this, "The number of photos is up to seven", Toast.LENGTH_SHORT).show();
-                }
                 if(position == 0){
-                    Toast.makeText(Post_item.this, "Add a photo", Toast.LENGTH_SHORT).show();
-                    //选择图片
+                    if( images.size() == 7) { //第一张为默认图片
+                        Toast.makeText(Post_item.this, "The number of photos is up to seven", Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        Toast.makeText(Post_item.this, "Add a photo", Toast.LENGTH_SHORT).show();
+                        //选择图片
 //                    Intent intent = new Intent(Intent.ACTION_PICK,
 //                            android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
 //                    startActivityForResult(intent, IMAGE_OPEN);
+                    }
 
                     final String [] strs=new String[]{"Take photo","Album"};
                     AlertDialog.Builder builder=new AlertDialog.Builder(Post_item.this);
@@ -281,7 +283,7 @@ public class Post_item extends AppCompatActivity {
             file.mkdir();
             String Filename = path + File.separator + name;
             Matrix m = new Matrix();
-            m.setRotate(90,(float) source.getWidth() / 2, (float) source.getHeight() / 2);
+            //m.setRotate(90,(float) source.getWidth() / 2, (float) source.getHeight() / 2);
             final Bitmap bitmap = Bitmap.createBitmap(source, 0, 0, source.getWidth(), source.getHeight(), m, true);
             HashMap<String, Object> new_map = new HashMap<String, Object>();
             new_map.put("itemImage", bitmap);

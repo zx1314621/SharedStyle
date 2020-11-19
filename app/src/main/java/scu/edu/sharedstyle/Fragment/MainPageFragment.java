@@ -2,6 +2,8 @@ package scu.edu.sharedstyle.Fragment;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -12,6 +14,18 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FirebaseStorage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,6 +77,9 @@ public class MainPageFragment extends Fragment {
 
     private EditText editText;
     private Button search;
+    private ArrayList<Item> ItemList=new ArrayList<>();
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,12 +90,33 @@ public class MainPageFragment extends Fragment {
 
 
 
-
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+
+        //For firestore test
+        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+        DocumentReference productRef = firestore.collection("products").document();
+        CollectionReference productCollect = firestore.collection("products");
+        productCollect.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+//                        System.out.println(document.getId() + " => " + document.getData());
+                        Item item=document.toObject(Item.class);
+                        ItemList.add(item);
+                        System.out.println(ItemList.isEmpty());
+                        System.out.println(ItemList);
+                    }
+                } else {
+                    System.out.println( "Error getting documents: ");
+                }
+            }
+        });
 
         View view = inflater.inflate(R.layout.fragment_main_page, container, false);
         mGridRv = view.findViewById(R.id.RV_grid_id);
@@ -86,7 +124,8 @@ public class MainPageFragment extends Fragment {
         mGridRv.setLayoutManager(new GridLayoutManager(getActivity(), 2));
 
 
-        mGridRv.setAdapter(new GridRecyclerViewAdapter(getActivity(), getData()));
+
+        mGridRv.setAdapter(new GridRecyclerViewAdapter(getActivity(), ItemList));
 
         //search = view.findViewById(R.id.search);
         //editText = view.findViewById(R.id.et_search);
@@ -104,7 +143,7 @@ public class MainPageFragment extends Fragment {
 
         List<Item> itemList = new ArrayList<>();
         Item item1 = new Item();
-        item1.setImg_url(R.drawable.main_item1);
+        item1.setImg_url("gs://bionic-run-191808.appspot.com/Item/c902964b-e2f9-42f9-b664-f4daaf77bcca.jpeg");
         item1.setItemName("item1");
         item1.setBrand("gucci");
         item1.setPrice(1000);
@@ -112,7 +151,7 @@ public class MainPageFragment extends Fragment {
         itemList.add(item1);
 
         Item item2 = new Item();
-        item2.setImg_url(R.drawable.main_item2);
+        item2.setImg_url("gs://bionic-run-191808.appspot.com/Item/c902964b-e2f9-42f9-b664-f4daaf77bcca.jpeg");
         item2.setItemName("item2");
         item2.setBrand("lv");
         item2.setPrice(2000);
@@ -120,7 +159,7 @@ public class MainPageFragment extends Fragment {
         itemList.add(item2);
 
         Item item3 = new Item();
-        item3.setImg_url(R.drawable.main_item3);
+        item3.setImg_url("gs://bionic-run-191808.appspot.com/Item/c902964b-e2f9-42f9-b664-f4daaf77bcca.jpeg");
         item3.setItemName("item3");
         item3.setBrand("YSL");
         item3.setPrice(600);
@@ -129,7 +168,7 @@ public class MainPageFragment extends Fragment {
 
 
         Item item4 = new Item();
-        item4.setImg_url(R.drawable.main_item4);
+        item4.setImg_url("gs://bionic-run-191808.appspot.com/Item/c902964b-e2f9-42f9-b664-f4daaf77bcca.jpeg");
         item4.setItemName("item4");
         item4.setBrand("gucci");
         item4.setPrice(1000);
@@ -137,7 +176,7 @@ public class MainPageFragment extends Fragment {
         itemList.add(item4);
 
         Item item5 = new Item();
-        item5.setImg_url(R.drawable.main_item5);
+        item5.setImg_url("gs://bionic-run-191808.appspot.com/Item/c902964b-e2f9-42f9-b664-f4daaf77bcca.jpeg");
         item5.setItemName("item5");
         item5.setBrand("lv");
         item5.setPrice(2000);
@@ -145,7 +184,7 @@ public class MainPageFragment extends Fragment {
         itemList.add(item5);
 
         Item item6 = new Item();
-        item6.setImg_url(R.drawable.main_item6);
+        item6.setImg_url("gs://bionic-run-191808.appspot.com/Item/c902964b-e2f9-42f9-b664-f4daaf77bcca.jpeg");
         item6.setItemName("item6");
         item6.setBrand("YSL");
         item6.setPrice(600);
@@ -153,7 +192,7 @@ public class MainPageFragment extends Fragment {
         itemList.add(item6);
 
         Item item7 = new Item();
-        item7.setImg_url(R.drawable.main_item7);
+        item7.setImg_url("gs://bionic-run-191808.appspot.com/Item/c902964b-e2f9-42f9-b664-f4daaf77bcca.jpeg");
         item7.setItemName("item7");
         item7.setBrand("gucci");
         item7.setPrice(1000);
@@ -161,7 +200,7 @@ public class MainPageFragment extends Fragment {
         itemList.add(item7);
 
         Item item8 = new Item();
-        item8.setImg_url(R.drawable.main_item8);
+        item8.setImg_url("gs://bionic-run-191808.appspot.com/Item/c902964b-e2f9-42f9-b664-f4daaf77bcca.jpeg");
         item8.setItemName("item8");
         item8.setBrand("gucci");
         item8.setPrice(1000);

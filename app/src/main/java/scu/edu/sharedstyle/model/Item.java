@@ -13,7 +13,7 @@ public class Item {
     private String condition;
     private double price;
     private String brand;
-    private int Img_url;
+    private String Img_url;
     private @ServerTimestamp Date timestamp;
     private ArrayList<String> imgURLs;
 
@@ -65,11 +65,11 @@ public class Item {
         this.itemDesc = itemDesc;
     }
 
-    public int getImg_url() {
+    public String getImg_url() {
         return Img_url;
     }
 
-    public void setImg_url(int img_url) {
+    public void setImg_url(String img_url) {
         Img_url = img_url;
     }
 
@@ -85,11 +85,12 @@ public class Item {
 
     public Item(){}
 
-    public Item(String itemName, String itemDesc, String brand, double price, ArrayList<String> imgURLs){
+    public Item(String itemName, String itemDesc, String brand, double price, String img_url,ArrayList<String> imgURLs){
         this.itemName=itemName;
         this.itemDesc=itemDesc;
         this.brand=brand;
         this.price=price;
         this.imgURLs=imgURLs;
+        this.Img_url=img_url;
     }
 }

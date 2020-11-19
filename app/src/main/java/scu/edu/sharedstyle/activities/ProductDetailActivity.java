@@ -178,7 +178,7 @@ public class ProductDetailActivity extends AppCompatActivity {
             }
 
             public void setImageView(int url){
-                mstorageReference= FirebaseStorage.getInstance().getReferenceFromUrl("gs://bionic-run-191808.appspot.com/cat.jpeg");
+                mstorageReference= FirebaseStorage.getInstance().getReferenceFromUrl("gs://bionic-run-191808.appspot.com/Item/c902964b-e2f9-42f9-b664-f4daaf77bcca.jpeg");
                 GlideApp.with(context)
                         .load(mstorageReference)
                         .into(imageView);

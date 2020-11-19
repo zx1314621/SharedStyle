@@ -228,7 +228,7 @@ public class Post_item extends AppCompatActivity {
                 images.remove(0); //Remove imageAdd
                 ArrayList<String> imgURLs=upLoadImg(images);
                 Item postItem=new Item(name.getText().toString(),description.getText().toString(),
-                        brand.getText().toString(),Double.parseDouble(price.getText().toString()),imgURLs);
+                        brand.getText().toString(),Double.parseDouble(price.getText().toString()),imgURLs.get(0),imgURLs);
                 productRef=firestore.collection("products").document();
                 productRef.set(postItem);
 

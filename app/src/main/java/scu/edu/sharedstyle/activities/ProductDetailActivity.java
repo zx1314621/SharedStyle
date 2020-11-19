@@ -21,6 +21,8 @@ import android.widget.Toast;
 
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
@@ -44,9 +46,12 @@ public class ProductDetailActivity extends AppCompatActivity {
     private String item_brand;
     private double item_price;
 
+    //For firestore test
+    private FirebaseFirestore firestore;
+    private DocumentReference productRef;
 
 
-    //For image load test
+
     private ArrayList<Integer> url=new ArrayList<>();
 //    private ArrayList<String> url = new ArrayList<>();
 
@@ -71,7 +76,7 @@ public class ProductDetailActivity extends AppCompatActivity {
         int img_url = bundle.getInt("img_url");
         String img_desc = bundle.getString("img_desc");
 
-        
+
 
         Toast.makeText(this, "itemName :" + itemName, Toast.LENGTH_SHORT).show();
 

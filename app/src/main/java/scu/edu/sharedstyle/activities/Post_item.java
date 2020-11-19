@@ -1,5 +1,6 @@
 package scu.edu.sharedstyle.activities;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -38,14 +39,27 @@ import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.Continuation;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
@@ -53,8 +67,10 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Locale;
+import java.util.UUID;
 
 import scu.edu.sharedstyle.R;
+import scu.edu.sharedstyle.model.Item;
 
 public class Post_item extends AppCompatActivity {
     Button cancel;
@@ -67,6 +83,15 @@ public class Post_item extends AppCompatActivity {
     GridView gridView;
     private TextView textView;
     private EditText description;
+
+    //For firestore test
+    private EditText name;
+    private EditText brand;
+    private EditText price;
+    private FirebaseFirestore firestore;
+    private DocumentReference productRef;
+    private FirebaseStorage storage;
+    private StorageReference itemImgRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,6 +111,14 @@ public class Post_item extends AppCompatActivity {
         gridView = (GridView) findViewById(R.id.grid_view);
         textView = findViewById(R.id.count);
         description = findViewById(R.id.description);
+        //For firestore test
+        name = findViewById(R.id.input_name);
+        brand = findViewById(R.id.input_brand);
+        price = findViewById(R.id.input_price);
+        firestore=FirebaseFirestore.getInstance();
+        storage=FirebaseStorage.getInstance();
+        itemImgRef=storage.getReference().child("Item/");
+
         final TextWatcher mTextEditorWatcher = new TextWatcher() {
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
@@ -113,7 +146,7 @@ public class Post_item extends AppCompatActivity {
         Bitmap bmp3 = BitmapFactory.decodeResource(getResources(), R.drawable.main_item3);
         bmp = BitmapFactory.decodeResource(getResources(), R.drawable.imageadd);
         images= new ArrayList<HashMap<String, Object>>();
-        HashMap<String, Object> map = new HashMap<String, Object>();
+        final HashMap<String, Object> map = new HashMap<String, Object>();
         HashMap<String, Object> map1 = new HashMap<String, Object>();
         HashMap<String, Object> map2 = new HashMap<String, Object>();
         HashMap<String, Object> map3 = new HashMap<String, Object>();
@@ -191,6 +224,15 @@ public class Post_item extends AppCompatActivity {
         post.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //For firestore test
+                images.remove(0); //Remove imageAdd
+                ArrayList<String> imgURLs=upLoadImg(images);
+                Item postItem=new Item(name.getText().toString(),description.getText().toString(),
+                        brand.getText().toString(),Double.parseDouble(price.getText().toString()),imgURLs);
+                productRef=firestore.collection("products").document();
+                productRef.set(postItem);
+
+
                 Intent intent = new Intent(Post_item.this, MainActivity.class);
                 startActivity(intent);
                 Toast.makeText(Post_item.this, "post successfully", Toast.LENGTH_SHORT).show();
@@ -389,6 +431,24 @@ public class Post_item extends AppCompatActivity {
             e.printStackTrace();
         }
         return degree;
+    }
+
+    //For firestore test
+    private ArrayList<String> upLoadImg(ArrayList<HashMap<String,Object>> imgMap){
+        ArrayList<String> imgURLs=new ArrayList<>();
+        for(final HashMap<String,Object> img : imgMap){
+            for(final String i:img.keySet()){
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                Bitmap bitmap = (Bitmap) img.get(i);
+                bitmap.compress(Bitmap.CompressFormat.JPEG,100,baos);
+                byte[] data = baos.toByteArray();
+                final StorageReference uploadRef=itemImgRef.child(UUID.randomUUID().toString()+".jpeg");
+                UploadTask uploadTask = uploadRef.putBytes(data);
+                imgURLs.add(uploadRef.toString());
+            }
+        }
+
+        return imgURLs;
     }
 
 

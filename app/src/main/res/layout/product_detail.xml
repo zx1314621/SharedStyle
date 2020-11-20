@@ -66,7 +66,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:id="@+id/scrollView"
-        android:layout_height="230dp"
+        android:layout_height="0dp"
         android:layout_marginLeft="10dp"
         android:layout_marginStart="10dp"
         android:layout_marginRight="10dp"
@@ -74,6 +74,7 @@
         app:layout_constraintEnd_toStartOf="@id/rightGuideline"
         app:layout_constraintStart_toEndOf="@id/leftGuideline"
         android:background="#FFFF"
+        app:layout_constraintTop_toBottomOf="@id/total_price"
         app:layout_constraintBottom_toTopOf="@+id/buy_now">
 
         <TextView
@@ -104,9 +105,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
         android:text="@string/total_price"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@id/scrollView"
+        app:layout_constraintTop_toBottomOf="@id/product_brand"
         app:layout_constraintStart_toStartOf="@id/leftGuideline" />
 
     <EditText
@@ -118,8 +120,7 @@
         android:focusable="false"
         android:inputType="numberDecimal"
         android:text="10.00"
-
-        app:layout_constraintBottom_toTopOf="@id/scrollView"
+        app:layout_constraintTop_toBottomOf="@id/product_brand"
         app:layout_constraintStart_toEndOf="@id/total_price" />
 
 

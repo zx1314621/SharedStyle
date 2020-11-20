@@ -13,26 +13,25 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.google.firebase.storage.FirebaseStorage;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import scu.edu.sharedstyle.activities.MainActivity;
 import scu.edu.sharedstyle.R;
 import scu.edu.sharedstyle.model.Item;
+import scu.edu.sharedstyle.recyclerview.FirestoreAdapter;
 import scu.edu.sharedstyle.recyclerview.GridRecyclerViewAdapter;
 
 /**
@@ -78,6 +77,7 @@ public class MainPageFragment extends Fragment {
     private EditText editText;
     private Button search;
     private ArrayList<Item> ItemList=new ArrayList<>();
+    private FirestoreAdapter adapter;
 
 
     @Override
@@ -87,8 +87,18 @@ public class MainPageFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-
-
+        //For firestore test
+        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+        DocumentReference productRef = firestore.collection("products").document();
+        CollectionReference productCollect = firestore.collection("products");
+        Query query=FirebaseFirestore.getInstance()
+                .collection("products")
+                .orderBy("timestamp",Query.Direction.DESCENDING)
+                .limit(50);
+        FirestoreRecyclerOptions<Item> options = new FirestoreRecyclerOptions.Builder<Item>()
+                .setQuery(query, Item.class)
+                .build();
+        adapter=new FirestoreAdapter(options);
 
     }
 
@@ -97,35 +107,25 @@ public class MainPageFragment extends Fragment {
                              Bundle savedInstanceState) {
 
 
-        //For firestore test
-        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
-        DocumentReference productRef = firestore.collection("products").document();
-        CollectionReference productCollect = firestore.collection("products");
-        productCollect.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    for (QueryDocumentSnapshot document : task.getResult()) {
-//                        System.out.println(document.getId() + " => " + document.getData());
-                        Item item=document.toObject(Item.class);
-                        ItemList.add(item);
-                        System.out.println(ItemList.isEmpty());
-                        System.out.println(ItemList);
-                    }
-                } else {
-                    System.out.println( "Error getting documents: ");
-                }
-            }
-        });
-
         View view = inflater.inflate(R.layout.fragment_main_page, container, false);
         mGridRv = view.findViewById(R.id.RV_grid_id);
 
+
         mGridRv.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+        mGridRv.setAdapter(adapter);
 
-
-
-        mGridRv.setAdapter(new GridRecyclerViewAdapter(getActivity(), ItemList));
+//        query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//
+//            @Override
+//            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                ItemList=(ArrayList<Item>)task.getResult().toObjects(Item.class);
+//                System.out.println("Here is empty "+ItemList.isEmpty());
+//                mGridRv.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+//
+//
+//                mGridRv.setAdapter(new GridRecyclerViewAdapter(getActivity(), getData()));
+//            }
+//        });
 
         //search = view.findViewById(R.id.search);
         //editText = view.findViewById(R.id.et_search);
@@ -137,6 +137,18 @@ public class MainPageFragment extends Fragment {
         });
         // Inflate the layout for this fragment*/
         return view;
+    }
+
+    @Override
+    public void onStart() {
+        adapter.startListening();
+        super.onStart();
+    }
+
+    @Override
+    public void onStop() {
+        adapter.stopListening();
+        super.onStop();
     }
 
     private ArrayList<Item> getData() {

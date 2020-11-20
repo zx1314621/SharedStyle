@@ -1,6 +1,7 @@
 package scu.edu.sharedstyle.activities;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
@@ -22,7 +23,11 @@ import android.widget.Toast;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
@@ -32,8 +37,10 @@ import java.util.List;
 
 import scu.edu.sharedstyle.R;
 import scu.edu.sharedstyle.model.GlideApp;
+import scu.edu.sharedstyle.model.Item;
 
-public class ProductDetailActivity extends AppCompatActivity {
+public class ProductDetailActivity extends AppCompatActivity
+        implements EventListener<DocumentSnapshot> {
 
     private ViewPager2 viewPager2;
     private TabLayout tabLayout;
@@ -45,10 +52,12 @@ public class ProductDetailActivity extends AppCompatActivity {
     private String itemName;
     private String item_brand;
     private double item_price;
+    private String itemPath;
 
     //For firestore test
     private FirebaseFirestore firestore;
     private DocumentReference productRef;
+    private ListenerRegistration productRegistration;
 
 
 
@@ -73,9 +82,12 @@ public class ProductDetailActivity extends AppCompatActivity {
         itemName = bundle.getString("itemName");
         item_brand = bundle.getString("item_brand");
         item_price = bundle.getDouble("item_price");
+        itemPath=bundle.getString("itemPath");
         int img_url = bundle.getInt("img_url");
         String img_desc = bundle.getString("img_desc");
 
+        firestore=FirebaseFirestore.getInstance();
+        productRef=firestore.document(itemPath);
 
 
         Toast.makeText(this, "itemName :" + itemName, Toast.LENGTH_SHORT).show();
@@ -106,14 +118,18 @@ public class ProductDetailActivity extends AppCompatActivity {
         productDescription=findViewById(R.id.product_description);
         productPrice=findViewById(R.id.product_price);
 
-        productName.setText(itemName);
-        productBrand.setText(item_brand);
-        productDescription.setText(img_desc);
-        NumberFormat nm=NumberFormat.getInstance();
-        productPrice.setText(nm.format(item_price));
 
 
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+
+        productRegistration=productRef.addSnapshotListener(this);
+    }
+
     @Override
     public void onBackPressed() {
 
@@ -134,6 +150,26 @@ public class ProductDetailActivity extends AppCompatActivity {
         intent.putExtra("name", itemName);
         intent.putExtra("price", item_price);
         startActivity(intent);
+    }
+
+
+
+    @Override
+    public void onEvent(@Nullable DocumentSnapshot snapshot, @Nullable FirebaseFirestoreException error) {
+        if (error != null) {
+            Log.w("ProductDetailActivity", "restaurant:onEvent", error);
+            return;
+        }
+        System.out.println(snapshot.getId());
+        onProductLoaded(snapshot.toObject(Item.class));
+    }
+
+    private void onProductLoaded(Item item){
+        productName.setText(item.getItemName());
+        productBrand.setText(item.getBrand());
+        productDescription.setText(item.getItemDesc());
+        NumberFormat nm=NumberFormat.getInstance();
+        productPrice.setText(nm.format(item.getPrice()));
     }
 
 
@@ -184,7 +220,6 @@ public class ProductDetailActivity extends AppCompatActivity {
                         .into(imageView);
 
             }
-//            public void setImageView(int url){ imageView.setImageResource(url); }
 
         }
     }

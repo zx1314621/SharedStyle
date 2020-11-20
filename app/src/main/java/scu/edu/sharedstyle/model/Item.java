@@ -1,13 +1,21 @@
 package scu.edu.sharedstyle.model;
 
+import com.google.firebase.firestore.ServerTimestamp;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+
 public class Item {
     private int itemId;
     private String itemName;
-    private String ItemDesc;
+    private String itemDesc;
     private String condition;
     private double price;
     private String brand;
-    private int Img_url;
+    private String Img_url;
+    private @ServerTimestamp Date timestamp;
+    private ArrayList<String> imgURLs;
 
     public String getCondition() {
         return condition;
@@ -50,18 +58,39 @@ public class Item {
     }
 
     public String getItemDesc() {
-        return ItemDesc;
+        return itemDesc;
     }
 
     public void setItemDesc(String itemDesc) {
-        ItemDesc = itemDesc;
+        this.itemDesc = itemDesc;
     }
 
-    public int getImg_url() {
+    public String getImg_url() {
         return Img_url;
     }
 
-    public void setImg_url(int img_url) {
+    public void setImg_url(String img_url) {
         Img_url = img_url;
+    }
+
+    public Date getTimestamp() { return timestamp; }
+
+    public void setTimestamp(Date timestamp) {
+        this.timestamp = timestamp;
+    }
+
+    public ArrayList<String> getImgURLs() { return imgURLs; }
+
+    public void setImgURLs(ArrayList<String> imgURLs) { this.imgURLs = imgURLs; }
+
+    public Item(){}
+
+    public Item(String itemName, String itemDesc, String brand, double price, String img_url,ArrayList<String> imgURLs){
+        this.itemName=itemName;
+        this.itemDesc=itemDesc;
+        this.brand=brand;
+        this.price=price;
+        this.imgURLs=imgURLs;
+        this.Img_url=img_url;
     }
 }

@@ -86,11 +86,8 @@ public class ProductDetailActivity extends AppCompatActivity
 
 
         viewPager2 = findViewById(R.id.pager);
-        viewPager2.setAdapter(new ScreenSlidePagerAdapter(url));
-
         tabLayout=findViewById(R.id.tab_layout);
-
-
+        viewPager2.setAdapter(new ScreenSlidePagerAdapter(url));
         //Indicator
         new TabLayoutMediator(tabLayout, viewPager2,
                 new TabLayoutMediator.TabConfigurationStrategy() {
@@ -99,6 +96,8 @@ public class ProductDetailActivity extends AppCompatActivity
                     }
                 }
         ).attach();
+
+
 
         productName=findViewById(R.id.product_name);
         productBrand=findViewById(R.id.product_brand);
@@ -113,6 +112,7 @@ public class ProductDetailActivity extends AppCompatActivity
         });
 
 
+
     }
 
 
@@ -120,8 +120,8 @@ public class ProductDetailActivity extends AppCompatActivity
     protected void onStart() {
         super.onStart();
 
-
         productRegistration=productRef.addSnapshotListener(this);
+
     }
 
     @Override
@@ -160,16 +160,21 @@ public class ProductDetailActivity extends AppCompatActivity
             Log.w("ProductDetailActivity", "restaurant:onEvent", error);
             return;
         }
-        System.out.println("On Event happend");
         onProductLoaded(snapshot.toObject(Item.class));
     }
 
     private void onProductLoaded(Item item){
+        itemName=item.getItemName();
         productName.setText(item.getItemName());
         productBrand.setText(item.getBrand());
         productDescription.setText(item.getItemDesc());
         NumberFormat nm=NumberFormat.getInstance();
+        item_price=item.getPrice();
         productPrice.setText(nm.format(item.getPrice()));
+//        url=item.getImgURLs();
+
+
+
     }
 
 

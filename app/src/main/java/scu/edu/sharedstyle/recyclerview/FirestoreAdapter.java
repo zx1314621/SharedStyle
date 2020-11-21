@@ -18,6 +18,8 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.util.ArrayList;
+
 import scu.edu.sharedstyle.R;
 import scu.edu.sharedstyle.activities.ProductDetailActivity;
 import scu.edu.sharedstyle.model.GlideApp;
@@ -33,6 +35,7 @@ public class FirestoreAdapter extends FirestoreRecyclerAdapter<Item, FirestoreAd
      */
     private StorageReference mstorageReference;
     private Context mContext;
+    private ArrayList<String> imgURLs;
     public FirestoreAdapter(@NonNull FirestoreRecyclerOptions<Item> options) {
         super(options);
     }
@@ -44,6 +47,8 @@ public class FirestoreAdapter extends FirestoreRecyclerAdapter<Item, FirestoreAd
         holder.item_price.setText(item.getPrice()+"$");
         mstorageReference= FirebaseStorage.getInstance().getReferenceFromUrl(item.getImg_url());
         GlideApp.with(mContext).load(mstorageReference).into(holder.item_image);
+        imgURLs=item.getImgURLs();
+
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,6 +57,7 @@ public class FirestoreAdapter extends FirestoreRecyclerAdapter<Item, FirestoreAd
                 Intent intent=new Intent(mContext, ProductDetailActivity.class);
                 Bundle bundle=new Bundle();
 
+                bundle.putStringArrayList("imgURLs",imgURLs);
                 bundle.putString("itemPath",docRef.getPath());
                 intent.putExtras(bundle);
                 mContext.startActivity(intent);

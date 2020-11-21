@@ -73,8 +73,8 @@ public class Purchase extends AppCompatActivity {
     }
 
     public void cancel(View view) {
-        Intent intent = new Intent(this, ProductDetailActivity.class);
-        startActivity(intent);
-
+//        Intent intent = new Intent(this, ProductDetailActivity.class);
+//        startActivity(intent);
+        finish();
     }
 }

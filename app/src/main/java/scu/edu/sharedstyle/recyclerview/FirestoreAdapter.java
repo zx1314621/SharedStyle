@@ -14,7 +14,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
@@ -35,30 +37,30 @@ public class FirestoreAdapter extends FirestoreRecyclerAdapter<Item, FirestoreAd
      */
     private StorageReference mstorageReference;
     private Context mContext;
-    private ArrayList<String> imgURLs;
     public FirestoreAdapter(@NonNull FirestoreRecyclerOptions<Item> options) {
         super(options);
     }
 
     @Override
-    protected void onBindViewHolder(@NonNull ItemHolder holder, final int position, @NonNull Item item) {
+    protected void onBindViewHolder(@NonNull final ItemHolder holder, final int position, @NonNull final Item item) {
         holder.item_name.setText(item.getItemName());
         holder.item_brand.setText(item.getBrand());
         holder.item_price.setText(item.getPrice()+"$");
         mstorageReference= FirebaseStorage.getInstance().getReferenceFromUrl(item.getImg_url());
         GlideApp.with(mContext).load(mstorageReference).into(holder.item_image);
-        imgURLs=item.getImgURLs();
+        holder.imgURLs=item.getImgURLs();
+
 
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DocumentReference docRef= getSnapshots().getSnapshot(position).getReference();
                 Intent intent=new Intent(mContext, ProductDetailActivity.class);
                 Bundle bundle=new Bundle();
+                final DocumentReference docRef= getSnapshots().getSnapshot(position).getReference();
 
-                bundle.putStringArrayList("imgURLs",imgURLs);
                 bundle.putString("itemPath",docRef.getPath());
+                bundle.putStringArrayList("imgURLs",holder.imgURLs);
                 intent.putExtras(bundle);
                 mContext.startActivity(intent);
             }
@@ -80,6 +82,7 @@ public class FirestoreAdapter extends FirestoreRecyclerAdapter<Item, FirestoreAd
         private TextView item_name;
         private TextView item_brand;
         private TextView item_price;
+        private ArrayList<String> imgURLs;
 
 
         public ItemHolder(@NonNull View itemView) {

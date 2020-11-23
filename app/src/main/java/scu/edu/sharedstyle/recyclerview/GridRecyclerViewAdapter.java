@@ -13,6 +13,8 @@ import android.widget.Toast;
 
 
 import com.bumptech.glide.Glide;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -22,6 +24,7 @@ import java.util.List;
 
 import scu.edu.sharedstyle.R;
 import scu.edu.sharedstyle.activities.ProductDetailActivity;
+import scu.edu.sharedstyle.model.GlideApp;
 import scu.edu.sharedstyle.model.Item;
 
 public class GridRecyclerViewAdapter extends RecyclerView.Adapter<GridRecyclerViewAdapter.MyViewHolder> {
@@ -29,6 +32,7 @@ public class GridRecyclerViewAdapter extends RecyclerView.Adapter<GridRecyclerVi
     private Context mContext;
     private LayoutInflater mLayoutInflater;
     private List<Item> itemList;
+    private StorageReference mstorageReference;
 
     public GridRecyclerViewAdapter(Context context, ArrayList<Item> ar) {
         this.mContext = context;
@@ -46,8 +50,10 @@ public class GridRecyclerViewAdapter extends RecyclerView.Adapter<GridRecyclerVi
         holder.item_name.setText(itemList.get(position).getItemName());
         holder.item_brand.setText(itemList.get(position).getBrand());
         holder.item_price.setText(itemList.get(position).getPrice() + "$");
-        holder.item_image.setImageResource(itemList.get(position).getImg_url());
-        //Glide.with(mContext).load("http://image.bitautoimg.com/appimage/media/20170317/w1600_h900_f6a5cad43dda443184bc2a6d5ecf44b4.jpeg").into(holder.imageView);
+        System.out.println(itemList.get(position).getBrand());
+//        holder.item_image.setImageResource(itemList.get(position).getImg_url());
+        mstorageReference= FirebaseStorage.getInstance().getReferenceFromUrl(itemList.get(position).getImg_url());
+        GlideApp.with(mContext).load(mstorageReference).into(holder.item_image);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,7 +65,7 @@ public class GridRecyclerViewAdapter extends RecyclerView.Adapter<GridRecyclerVi
                 bundle.putString("itemName", itemList.get(position).getItemName());
                 bundle.putString("item_brand", itemList.get(position).getBrand());
                 bundle.putDouble("item_price",itemList.get(position).getPrice());
-                bundle.putInt("img_url", itemList.get(position).getImg_url());
+                bundle.putString("img_url", itemList.get(position).getImg_url());
                 bundle.putString("img_desc", itemList.get(position).getItemDesc());
                 intent.putExtras(bundle);
                 mContext.startActivity(intent);

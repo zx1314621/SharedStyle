@@ -131,6 +131,7 @@ public class MainPageFragment extends Fragment {
             public void onClick(View view) {
                 Toast.makeText(getActivity(), "This is search:" + editText.getText(), Toast.LENGTH_SHORT).show();
                 refreshData(editText.getText().toString());
+                editText.setText("");
 
             }
         });
@@ -177,11 +178,12 @@ public class MainPageFragment extends Fragment {
         CollectionReference productCollect = firestore.collection("products");
         Query query=FirebaseFirestore.getInstance()
                 .collection("products")
-                .orderBy("timestamp",Query.Direction.DESCENDING)
+                .orderBy("itemName",Query.Direction.DESCENDING)
                 .limit(50);
 
         if(pattern != null && !pattern.isEmpty()) {
-            query = query.whereEqualTo("itemName", pattern);
+            
+            //query = query.whereEqualTo("itemName", pattern);
         }
 
         FirestoreRecyclerOptions<Item> options = new FirestoreRecyclerOptions.Builder<Item>()

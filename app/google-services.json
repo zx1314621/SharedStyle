@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "85438710338",
+    "firebase_url": "https://bionic-run-191808.firebaseio.com",
+    "project_id": "bionic-run-191808",
+    "storage_bucket": "bionic-run-191808.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:85438710338:android:fd0ff2f32d67cffbc463db",
+        "android_client_info": {
+          "package_name": "scu.edu.sharedstyle"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "85438710338-ve8qateg32m8l0027gl1548l4lc3vrgs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA9budAcnU_KR-BcLF50hxD9BK1YnQnlAQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "85438710338-ve8qateg32m8l0027gl1548l4lc3vrgs.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,5 +1,6 @@
 package scu.edu.sharedstyle.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,11 +13,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import scu.edu.sharedstyle.R;
+import scu.edu.sharedstyle.activities.LogIn;
 
 public class ProfileFragment extends Fragment {
 
 
     private Button resetPW;
+    private Button logout;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -30,6 +33,17 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Toast.makeText(getActivity(), "Reset Password click", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        logout = view.findViewById(R.id.bt_Logout);
+
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), LogIn.class);
+                Toast.makeText(getActivity(), "Log out", Toast.LENGTH_SHORT).show();
+                startActivity(intent);
             }
         });
         return view;

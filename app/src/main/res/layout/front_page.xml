@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F8F8FF">
+
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_top"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.05"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_bottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.8"/>
+
+    <ImageView
+        android:id="@+id/logo_frontpage"
+        android:layout_width="188dp"
+        android:layout_height="228dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/guideline_top"
+        app:layout_constraintBottom_toTopOf="@id/bt_signin_front"
+        app:srcCompat="@drawable/logodraft" />
+
+    <Button
+        android:id="@+id/bt_signin_front"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Sign In"
+        app:layout_constraintBottom_toTopOf="@id/bt_signup_front"
+        app:layout_constraintEnd_toEndOf="@+id/logo_frontpage"
+        app:layout_constraintStart_toStartOf="@+id/logo_frontpage"
+        app:layout_constraintTop_toBottomOf="@+id/logo_frontpage" />
+
+    <Button
+        android:id="@+id/bt_signup_front"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Sign Up"
+        app:layout_constraintBottom_toBottomOf="@id/guideline_bottom"
+        app:layout_constraintEnd_toEndOf="@+id/bt_signin_front"
+        app:layout_constraintStart_toStartOf="@+id/bt_signin_front"
+        app:layout_constraintTop_toBottomOf="@+id/bt_signin_front" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -18,10 +18,12 @@
         <activity android:name=".activities.MainActivity"/>
         <activity android:name=".activities.Post_item"/>
         <activity android:name=".activities.ProductDetailActivity"/>
+        <activity android:name=".activities.LogIn"/>
+        <activity android:name=".activities.SignUp"/>
 
 
         <activity
-            android:name=".activities.LogIn"
+            android:name=".activities.Front_page"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

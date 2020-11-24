@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F8F8FF">
+
+    <ImageView
+        android:id="@+id/logo_signup"
+        android:layout_width="188dp"
+        android:layout_height="228dp"
+        app:layout_constraintBottom_toTopOf="@id/et_usernamesu"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/guideline_topsu"
+        app:layout_constraintVertical_weight="1"
+        app:srcCompat="@drawable/logodraft" />
+
+    <TextView
+        android:id="@+id/tv_usernamesu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="User Name"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/et_usernamesu"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/et_usernamesu"
+        app:layout_constraintTop_toTopOf="@+id/et_usernamesu" />
+
+    <EditText
+        android:id="@+id/et_usernamesu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Username"
+        android:inputType="textPersonName"
+        android:textColorHint="#050505"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@id/et_passwordsu"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tv_usernamesu"
+        app:layout_constraintTop_toBottomOf="@id/logo_signup"
+        app:layout_constraintVertical_weight="1" />
+
+    <TextView
+        android:id="@+id/tv_passwordsu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Password"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/et_passwordsu"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/et_passwordsu"
+        app:layout_constraintTop_toTopOf="@+id/et_passwordsu" />
+
+    <EditText
+        android:id="@+id/et_passwordsu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Password"
+        android:inputType="textPersonName"
+        android:textColorHint="#050505"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@id/et_confirmpswd"
+        app:layout_constraintLeft_toLeftOf="@id/et_usernamesu"
+        app:layout_constraintRight_toRightOf="@id/et_usernamesu"
+        app:layout_constraintTop_toBottomOf="@+id/et_usernamesu"
+        app:layout_constraintVertical_weight="1" />
+
+    <Button
+        android:id="@+id/bt_signup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/colordarkpurple"
+        android:onClick="signup"
+        android:text="Sign Up"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="@id/guideline_bottomsu"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_confirmpswd"
+        app:layout_constraintVertical_weight="1" />
+
+    <TextView
+        android:id="@+id/tv_confirm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Confirm Password"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/et_confirmpswd"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/et_confirmpswd"
+        app:layout_constraintTop_toTopOf="@+id/et_confirmpswd" />
+
+    <EditText
+        android:id="@+id/et_confirmpswd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Comfirm Password"
+        android:inputType="textPersonName"
+        android:textColorHint="#050505"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/bt_signup"
+        app:layout_constraintEnd_toEndOf="@+id/et_passwordsu"
+        app:layout_constraintLeft_toRightOf="@id/tv_confirm"
+        app:layout_constraintStart_toStartOf="@+id/et_passwordsu"
+        app:layout_constraintTop_toBottomOf="@+id/et_passwordsu" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_topsu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.02"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_bottomsu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.98"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

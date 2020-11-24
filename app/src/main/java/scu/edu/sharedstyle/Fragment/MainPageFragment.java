@@ -183,7 +183,7 @@ public class MainPageFragment extends Fragment {
 
         if(pattern != null && !pattern.isEmpty()) {
             
-            //query = query.whereEqualTo("itemName", pattern);
+            query = query.whereEqualTo("itemName", pattern);
         }
 
         FirestoreRecyclerOptions<Item> options = new FirestoreRecyclerOptions.Builder<Item>()

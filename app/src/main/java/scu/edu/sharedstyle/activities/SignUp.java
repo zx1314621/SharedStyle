@@ -2,49 +2,82 @@ package scu.edu.sharedstyle.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import scu.edu.sharedstyle.R;
 
 public class SignUp extends AppCompatActivity {
-    public static String USERNAME = "testUser";
-    public static String PASSWORD = "123456";
-    EditText username;
+    EditText email;
     EditText password;
     EditText confirmpswd;
+    private FirebaseAuth mAuth;
+    String TAG = "SignUp";
+    String mEmail;
+    String mPassword;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         // set the UI layout for this activity
         setContentView(R.layout.signup_page);
-        username = findViewById(R.id.et_usernamesu);
+        email = findViewById(R.id.et_usernamesu);
         password = findViewById(R.id.et_passwordsu);
         confirmpswd = findViewById(R.id.et_confirmpswd);
-
+        mAuth = FirebaseAuth.getInstance();
     }
 
 
     public void signup(View view) {
-        if(username.getText().toString().matches("")||password.getText().toString().matches("")){
-            Toast.makeText(this, "Please enter valid username and password", Toast.LENGTH_LONG).show();
+        mEmail = email.getText().toString();
+        mPassword = password.getText().toString();
+        if(mEmail.matches("")||mPassword.matches("") || !mEmail.contains("@")){
+            Toast.makeText(this, "Please enter valid email address and password", Toast.LENGTH_LONG).show();
             return;
-        } else if(!password.getText().toString().equals(confirmpswd.getText().toString())){
+        } else if(!mPassword.equals(confirmpswd.getText().toString())){
             Toast.makeText(this, "Please confirm passwords match", Toast.LENGTH_LONG).show();
             return;
+        } else if(mPassword.length() < 8){
+            Toast.makeText(this, "Password has to contain at least 8 characters or numbers", Toast.LENGTH_LONG).show();
+            return;
         }
-        else {
-            USERNAME = username.getText().toString();
-            PASSWORD = password.getText().toString();
-        }
-        Intent intent = new Intent(this, MainActivity.class);
-        intent.putExtra("name", USERNAME);
-        intent.putExtra("password", PASSWORD);
-        startActivity(intent);
 
+        else {
+            mAuth.createUserWithEmailAndPassword(mEmail, mPassword)
+                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                // Sign in success, update UI with the signed-in user's information
+                                Log.d(TAG, "createUserWithEmail:success");
+                                FirebaseUser user = mAuth.getCurrentUser();
+                                goBrowse();
+                            } else {
+                                // If sign in fails, display a message to the user.
+                                Log.w(TAG, "createUserWithEmail:failure", task.getException());
+                                Toast.makeText(SignUp.this, "Authentication failed",
+                                        Toast.LENGTH_SHORT).show(); // TODO: add task error message to the users
+                            }
+                        }
+                    });
+        }
+
+
+    }
+
+    private void goBrowse() {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
     }
 }

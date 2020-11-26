@@ -12,6 +12,8 @@ import androidx.fragment.app.Fragment;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 import scu.edu.sharedstyle.R;
 import scu.edu.sharedstyle.activities.Front_page;
 import scu.edu.sharedstyle.activities.LogIn;
@@ -45,6 +47,7 @@ public class ProfileFragment extends Fragment {
                 Intent intent = new Intent(getActivity(), Front_page.class);
                 Toast.makeText(getActivity(), "Log out", Toast.LENGTH_SHORT).show();
                 startActivity(intent);
+                FirebaseAuth.getInstance().signOut();
             }
         });
         return view;

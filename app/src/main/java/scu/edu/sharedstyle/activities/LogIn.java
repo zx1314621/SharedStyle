@@ -49,6 +49,7 @@ public class LogIn extends AppCompatActivity {
 
         // set the UI layout for this activity
         setContentView(R.layout.login_page);
+        getSupportActionBar().hide();
 
         // initialize UI elements
         email = findViewById(R.id.et_username);

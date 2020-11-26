@@ -39,6 +39,7 @@ public class SignUp extends AppCompatActivity {
 
         // set the UI layout for this activity
         setContentView(R.layout.signup_page);
+        getSupportActionBar().hide();
         email = findViewById(R.id.et_usernamesu);
         password = findViewById(R.id.et_passwordsu);
         password.setTransformationMethod(PasswordTransformationMethod.getInstance());

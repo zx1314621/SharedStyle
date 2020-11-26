@@ -98,6 +98,7 @@ public class Post_item extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_item);
+        getSupportActionBar().hide();
         post = findViewById(R.id.post);
         cancel = findViewById(R.id.cancel);
         //setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);

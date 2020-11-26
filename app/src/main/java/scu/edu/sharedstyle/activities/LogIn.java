@@ -2,10 +2,13 @@ package scu.edu.sharedstyle.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -26,6 +29,8 @@ import com.google.firebase.auth.FirebaseUser;
 import scu.edu.sharedstyle.R;
 
 public class LogIn extends AppCompatActivity {
+    private ImageView ivEye;
+    private boolean isOpenEye = false;
     public final static String TAG = "MainActivity";
     private FirebaseAuth mAuth;
     Button signin;
@@ -48,8 +53,24 @@ public class LogIn extends AppCompatActivity {
         // initialize UI elements
         email = findViewById(R.id.et_username);
         password = findViewById(R.id.et_password);
+        password.setTransformationMethod(PasswordTransformationMethod.getInstance());
         signin = findViewById(R.id.bt_signin);
+        ivEye = (ImageView) findViewById(R.id.iv_eye);
 
+        ivEye.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!isOpenEye) {
+                    ivEye.setSelected(true);
+                    isOpenEye = true;
+                    password.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                }else{
+                    ivEye.setSelected(false);
+                    isOpenEye = false;
+                    password.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                }
+            }
+        });
 
         mAuth = FirebaseAuth.getInstance();
 

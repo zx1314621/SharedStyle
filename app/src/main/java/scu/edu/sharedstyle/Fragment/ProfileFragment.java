@@ -36,7 +36,7 @@ public class ProfileFragment extends Fragment {
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_frofile, container, false);
+        View view = inflater.inflate(R.layout.fragment_profile, container, false);
 
 //        resetPW = view.findViewById(R.id.bt_resetPW);
 //        resetPW.setOnClickListener(new View.OnClickListener() {
@@ -72,7 +72,7 @@ public class ProfileFragment extends Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), AddressActivity.class);
                 startActivity(intent);
-                FirebaseAuth.getInstance().signOut();
+
             }
         });
 

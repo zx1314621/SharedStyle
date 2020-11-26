@@ -14,6 +14,8 @@ import androidx.fragment.app.Fragment;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 import scu.edu.sharedstyle.R;
 import scu.edu.sharedstyle.activities.AddressActivity;
 import scu.edu.sharedstyle.activities.Front_page;
@@ -70,6 +72,7 @@ public class ProfileFragment extends Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), AddressActivity.class);
                 startActivity(intent);
+                FirebaseAuth.getInstance().signOut();
             }
         });
 

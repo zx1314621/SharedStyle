@@ -33,6 +33,8 @@ import com.squareup.okhttp.internal.DiskLruCache;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.RegEx;
+
 import scu.edu.sharedstyle.R;
 import scu.edu.sharedstyle.activities.MainActivity;
 import scu.edu.sharedstyle.model.Item;
@@ -158,7 +160,7 @@ public class MainPageFragment extends Fragment {
         DocumentReference productRef = productCollect.document();
 
         Query query = productCollect
-                .orderBy("itemName",Query.Direction.DESCENDING)
+                .orderBy("timestamp",Query.Direction.DESCENDING)
                 .limit(50);
 
 
@@ -177,18 +179,17 @@ public class MainPageFragment extends Fragment {
         CollectionReference productCollect = firestore.collection("products");
         DocumentReference productRef = productCollect.document();
 
-
         Query query = null;
 
         if(pattern != null && !pattern.isEmpty()) {
             query = productCollect
                     .orderBy("itemName")
                     .startAt(pattern)
-                    .endAt(pattern+"\uf8ff")
+                    .endAt(pattern+"~")
                     .limit(50);
         } else {
             query = productCollect
-                    .orderBy("itemName",Query.Direction.DESCENDING)
+                    .orderBy("timestamp",Query.Direction.DESCENDING)
                     .limit(50);
 
         }

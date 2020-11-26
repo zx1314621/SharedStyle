@@ -12,6 +12,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.common.collect.Table;
+import com.google.firebase.auth.FirebaseAuth;
 
 import scu.edu.sharedstyle.R;
 public class SettingsActivity extends AppCompatActivity {
@@ -43,6 +44,7 @@ public class SettingsActivity extends AppCompatActivity {
         Intent intent = new Intent(this,Front_page.class);
         Toast.makeText(this, "Log out", Toast.LENGTH_SHORT).show();
         startActivity(intent);
+        FirebaseAuth.getInstance().signOut();
         overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left);
     }
 

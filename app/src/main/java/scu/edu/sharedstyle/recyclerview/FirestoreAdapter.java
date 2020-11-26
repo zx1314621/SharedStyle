@@ -45,7 +45,7 @@ public class FirestoreAdapter extends FirestoreRecyclerAdapter<Item, FirestoreAd
     protected void onBindViewHolder(@NonNull final ItemHolder holder, final int position, @NonNull final Item item) {
         holder.item_name.setText(item.getItemName());
         holder.item_brand.setText(item.getBrand());
-        holder.item_price.setText(item.getPrice()+"$");
+        holder.item_price.setText("$"+item.getPrice());
         mstorageReference= FirebaseStorage.getInstance().getReferenceFromUrl(item.getImg_url());
         GlideApp.with(mContext).load(mstorageReference).into(holder.item_image);
         holder.imgURLs=item.getImgURLs();

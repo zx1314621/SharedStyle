@@ -66,6 +66,7 @@ public class ProductDetailActivity extends AppCompatActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.product_detail);
 

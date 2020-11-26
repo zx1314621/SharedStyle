@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorlightpurple"
+    tools:context=".activities.AddressActivity">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/leftGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="10dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/rightGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="10dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/BottomGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_end="200dp"/>
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:gravity="center"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/BottomGuideline"
+        app:layout_constraintStart_toStartOf="@+id/leftGuideline"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TableRow
+            android:id="@+id/tr_name"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:clickable="true"
+            android:focusable="true">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Name:"
+                android:gravity="bottom"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:textSize="24sp" />
+
+            <EditText
+                android:id="@+id/et_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:maxLines="1"
+                android:layout_gravity="end"
+                android:inputType="textPersonName"
+                android:layout_weight="10"
+                android:hint="Name" />
+
+
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/tr_phone"
+            android:layout_marginTop="10dp"
+            android:clickable="true"
+            android:layout_marginBottom="10dp"
+            android:focusable="true">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:maxLines="1"
+                android:text="Phone:"
+                android:layout_gravity="center_vertical"
+                android:gravity="bottom"
+                android:textSize="24sp" />
+
+            <EditText
+                android:id="@+id/et_phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:maxLines="2"
+                android:layout_gravity="end"
+                android:layout_weight="10"
+                android:inputType="phone"
+                android:hint="Phone Number" />
+
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/tr_street"
+            android:layout_marginTop="10dp"
+            android:clickable="true"
+            android:layout_marginBottom="10dp"
+            android:focusable="true">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:maxLines="1"
+                android:text="Street:"
+                android:layout_gravity="center_vertical"
+                android:gravity="bottom"
+                android:textSize="24sp" />
+
+            <EditText
+                android:id="@+id/et_street"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:maxLines="2"
+                android:layout_gravity="end"
+                android:layout_weight="10"
+                android:inputType="textPostalAddress"
+                android:hint="Street Address" />
+
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/tr_logOut"
+            android:clickable="true"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:focusable="true">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="bottom"
+                android:layout_gravity="center_vertical"
+                android:text="State:"
+                android:textSize="24sp" />
+
+            <EditText
+                android:id="@+id/et_state"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:maxLines="1"
+                android:layout_gravity="end"
+                android:layout_weight="10"
+                android:inputType="textPostalAddress"
+                android:hint="State" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/tr_zip"
+            android:clickable="true"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:focusable="true">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="bottom"
+                android:layout_gravity="center_vertical"
+                android:text="ZIP Code:"
+                android:textSize="24sp" />
+
+            <EditText
+                android:id="@+id/et_zip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:maxLines="1"
+                android:layout_weight="10"
+                android:layout_gravity="end"
+                android:inputType="number"
+                android:hint="ZIP" />
+
+        </TableRow>
+
+    </TableLayout>
+
+    <Button
+        android:id="@+id/btn_cancle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/buttonBackground"
+        android:text="Cancle"
+        android:textColor="@color/buttonFont"
+        android:textSize="20sp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/btn_save"
+        app:layout_constraintStart_toStartOf="@id/leftGuideline" />
+
+    <Button
+        android:id="@+id/btn_save"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Save"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/btn_cancle"
+        android:background="@color/buttonBackground"
+        android:textColor="@color/buttonFont"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -33,6 +33,8 @@ import com.squareup.okhttp.internal.DiskLruCache;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.RegEx;
+
 import scu.edu.sharedstyle.R;
 import scu.edu.sharedstyle.activities.MainActivity;
 import scu.edu.sharedstyle.model.Item;
@@ -154,10 +156,10 @@ public class MainPageFragment extends Fragment {
     private void getData() {
 
         FirebaseFirestore firestore = FirebaseFirestore.getInstance();
-        DocumentReference productRef = firestore.collection("products").document();
         CollectionReference productCollect = firestore.collection("products");
-        Query query=FirebaseFirestore.getInstance()
-                .collection("products")
+        DocumentReference productRef = productCollect.document();
+
+        Query query = productCollect
                 .orderBy("timestamp",Query.Direction.DESCENDING)
                 .limit(50);
 
@@ -174,16 +176,22 @@ public class MainPageFragment extends Fragment {
 
 
         FirebaseFirestore firestore = FirebaseFirestore.getInstance();
-        DocumentReference productRef = firestore.collection("products").document();
         CollectionReference productCollect = firestore.collection("products");
-        Query query=FirebaseFirestore.getInstance()
-                .collection("products")
-                .orderBy("itemName",Query.Direction.DESCENDING)
-                .limit(50);
+        DocumentReference productRef = productCollect.document();
+
+        Query query = null;
 
         if(pattern != null && !pattern.isEmpty()) {
-            
-            query = query.whereEqualTo("itemName", pattern);
+            query = productCollect
+                    .orderBy("itemName")
+                    .startAt(pattern)
+                    .endAt(pattern+"~")
+                    .limit(50);
+        } else {
+            query = productCollect
+                    .orderBy("timestamp",Query.Direction.DESCENDING)
+                    .limit(50);
+
         }
 
         FirestoreRecyclerOptions<Item> options = new FirestoreRecyclerOptions.Builder<Item>()

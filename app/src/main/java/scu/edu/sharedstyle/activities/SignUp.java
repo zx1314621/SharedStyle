@@ -2,9 +2,12 @@ package scu.edu.sharedstyle.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -19,6 +22,10 @@ import com.google.firebase.auth.FirebaseUser;
 import scu.edu.sharedstyle.R;
 
 public class SignUp extends AppCompatActivity {
+    private ImageView ivEye;
+    private boolean isOpenEye = false;
+    private ImageView ivEye_confirm;
+    private boolean isOpenEye_confirm = false;
     EditText email;
     EditText password;
     EditText confirmpswd;
@@ -32,9 +39,45 @@ public class SignUp extends AppCompatActivity {
 
         // set the UI layout for this activity
         setContentView(R.layout.signup_page);
+        getSupportActionBar().hide();
         email = findViewById(R.id.et_usernamesu);
         password = findViewById(R.id.et_passwordsu);
+        password.setTransformationMethod(PasswordTransformationMethod.getInstance());
         confirmpswd = findViewById(R.id.et_confirmpswd);
+        confirmpswd.setTransformationMethod(PasswordTransformationMethod.getInstance());
+        ivEye = (ImageView) findViewById(R.id.iv_eye);
+
+        ivEye.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!isOpenEye) {
+                    ivEye.setSelected(true);
+                    isOpenEye = true;
+                    password.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                }else{
+                    ivEye.setSelected(false);
+                    isOpenEye = false;
+                    password.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                }
+            }
+        });
+
+        ivEye_confirm = (ImageView) findViewById(R.id.iv_eye_confirm);
+
+        ivEye_confirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!isOpenEye) {
+                    ivEye_confirm.setSelected(true);
+                    isOpenEye_confirm = true;
+                    confirmpswd.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                }else{
+                    ivEye_confirm.setSelected(false);
+                    isOpenEye_confirm = false;
+                    confirmpswd.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                }
+            }
+        });
         mAuth = FirebaseAuth.getInstance();
     }
 

@@ -201,7 +201,7 @@
 
     <Button
         android:id="@+id/bt_confirm"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@color/colordarkpurple"
         android:text="Confirm"
@@ -215,11 +215,12 @@
 
     <Button
         android:id="@+id/bt_cancel"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:background="@color/colordarkpurple"
-        android:text="Cancel"
         android:onClick="cancel"
+        android:text="Cancel"
         android:textColor="#FFFFFF"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="@+id/bt_confirm"

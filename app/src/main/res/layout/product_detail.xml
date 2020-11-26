@@ -11,14 +11,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_begin="10dp" />
+        app:layout_constraintGuide_percent="0.05"/>
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/rightGuideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_end="10dp" />
+        app:layout_constraintGuide_percent="0.95" />
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/pager"
@@ -73,29 +73,27 @@
         app:layout_constraintStart_toStartOf="@id/leftGuideline"
         app:layout_constraintTop_toBottomOf="@+id/product_name" />
 
+
     <ScrollView
-        android:layout_width="match_parent"
         android:id="@+id/scrollView"
+        android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginEnd="10dp"
-        app:layout_constraintEnd_toStartOf="@id/rightGuideline"
-        app:layout_constraintStart_toEndOf="@id/leftGuideline"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
         android:background="#FFFF"
-        app:layout_constraintTop_toBottomOf="@id/total_price"
-        app:layout_constraintBottom_toTopOf="@+id/buy_now">
+        app:layout_constraintBottom_toTopOf="@+id/buy_now"
+        app:layout_constraintEnd_toEndOf="@id/rightGuideline"
+        app:layout_constraintStart_toStartOf="@id/leftGuideline"
+        app:layout_constraintTop_toBottomOf="@id/total_price">
 
         <TextView
             android:id="@+id/product_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/product_description"
-            android:textSize="14sp" />
+            android:textSize="18sp" />
 
     </ScrollView>
-
 
     <Button
         android:id="@+id/buy_now"

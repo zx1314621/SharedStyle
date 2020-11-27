@@ -18,6 +18,7 @@ import scu.edu.sharedstyle.R;
 public class SettingsActivity extends AppCompatActivity {
 
     private TableRow tr_logOut;
+    private TableRow tr_address;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left);
@@ -38,6 +39,14 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
 
+        tr_address=findViewById(R.id.tr_address);
+        tr_address.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                changeAddress();
+            }
+        });
+
     }
 
     private void logOut(){
@@ -45,6 +54,12 @@ public class SettingsActivity extends AppCompatActivity {
         Toast.makeText(this, "Log out", Toast.LENGTH_SHORT).show();
         startActivity(intent);
         FirebaseAuth.getInstance().signOut();
+        overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left);
+    }
+
+    private void changeAddress(){
+        Intent intent=new Intent(this,AddressActivity.class);
+        startActivity(intent);
         overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left);
     }
 
@@ -65,6 +80,8 @@ public class SettingsActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
+
+
 
     @Override
     public void finish() {

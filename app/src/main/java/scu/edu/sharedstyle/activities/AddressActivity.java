@@ -14,7 +14,7 @@ import scu.edu.sharedstyle.R;
 public class AddressActivity extends AppCompatActivity {
 
 
-    private Button btn_cancle;
+    private Button btn_cancel;
     private Button btn_save;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,11 +28,11 @@ public class AddressActivity extends AppCompatActivity {
         actionBar.setDisplayShowHomeEnabled(false);
         actionBar.setTitle("Address");
 
-        btn_cancle=findViewById(R.id.btn_cancle);
-        btn_cancle.setOnClickListener(new View.OnClickListener() {
+        btn_cancel=findViewById(R.id.btn_cancel);
+        btn_cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                cancle();
+                cancel();
             }
         });
 
@@ -45,7 +45,7 @@ public class AddressActivity extends AppCompatActivity {
         });
     }
 
-    private void cancle(){
+    private void cancel(){
         this.finish();
     }
 

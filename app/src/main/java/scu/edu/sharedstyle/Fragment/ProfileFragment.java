@@ -27,7 +27,7 @@ public class ProfileFragment extends Fragment {
 
     private Button resetPW;
     private Button logout;
-    private TableRow tr_address;
+    private TableRow tr_posted;
     private TableRow tr_purchased;
     private TableRow tr_setting;
     @Nullable
@@ -66,15 +66,7 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-        tr_address=view.findViewById(R.id.tr_address);
-        tr_address.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), AddressActivity.class);
-                startActivity(intent);
 
-            }
-        });
 
 
 

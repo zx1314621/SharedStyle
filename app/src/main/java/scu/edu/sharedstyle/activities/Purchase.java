@@ -10,10 +10,20 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+
 import scu.edu.sharedstyle.R;
+import scu.edu.sharedstyle.model.Item;
 
 public class Purchase extends AppCompatActivity {
     TextView tv_ProductName;
@@ -24,6 +34,7 @@ public class Purchase extends AppCompatActivity {
     EditText cvs;
     private double price;
     private String name;
+    private String itemPath;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +45,7 @@ public class Purchase extends AppCompatActivity {
         tv_Price = findViewById(R.id.tv_pricex);
         name = bundle.getString("name");
         price = bundle.getDouble("price");
+        itemPath=bundle.getString("itemPath");
         tv_ProductName.setText(name);
         tv_Price.setText(String.valueOf(price));
 
@@ -68,6 +80,26 @@ public class Purchase extends AppCompatActivity {
     }
 
     private void gotomain() {
+
+        final DocumentReference productRef= FirebaseFirestore.getInstance().document(itemPath);
+        final DocumentReference purchasedRef=FirebaseFirestore.getInstance().collection("sold").document();
+        productRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        Item item=document.toObject(Item.class);
+                        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                        item.setUserID(user.getUid());
+                        productRef.delete();
+                        purchasedRef.set(item);
+                    }
+
+                }
+            }
+        });
+
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }

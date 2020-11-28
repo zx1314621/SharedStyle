@@ -16,6 +16,15 @@ public class Item {
     private String Img_url;
     private @ServerTimestamp Date timestamp;
     private ArrayList<String> imgURLs;
+    private ArrayList<String> search_keywords;
+
+    public ArrayList<String> getSearch_keywords() {
+        return search_keywords;
+    }
+
+    public void setSearch_keywords(ArrayList<String> search_keywords) {
+        this.search_keywords = search_keywords;
+    }
 
     public String getCondition() {
         return condition;
@@ -85,12 +94,13 @@ public class Item {
 
     public Item(){}
 
-    public Item(String itemName, String itemDesc, String brand, double price, String img_url,ArrayList<String> imgURLs){
+    public Item(String itemName, String itemDesc, String brand, double price, String img_url,ArrayList<String> imgURLs,ArrayList<String> search_keywords){
         this.itemName=itemName;
         this.itemDesc=itemDesc;
         this.brand=brand;
         this.price=price;
         this.imgURLs=imgURLs;
         this.Img_url=img_url;
+        this.search_keywords = search_keywords;
     }
 }

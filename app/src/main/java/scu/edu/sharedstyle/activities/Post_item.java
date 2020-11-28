@@ -1,50 +1,35 @@
 package scu.edu.sharedstyle.activities;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
-import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.media.ExifInterface;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.provider.ContactsContract;
 import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.text.format.DateFormat;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
-import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.Continuation;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
@@ -53,20 +38,14 @@ import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
 import java.util.HashMap;
-import java.util.Locale;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 import scu.edu.sharedstyle.R;
@@ -99,6 +78,7 @@ public class Post_item extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_item);
         getSupportActionBar().hide();
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         post = findViewById(R.id.post);
         cancel = findViewById(R.id.cancel);
         //setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
@@ -227,11 +207,15 @@ public class Post_item extends AppCompatActivity {
             public void onClick(View view) {
                 //For firestore test
                 images.remove(0); //Remove imageAdd
+                ArrayList<String> keywords = generateKeyWord(name.getText().toString());
                 ArrayList<String> imgURLs=upLoadImg(images);
                 Item postItem=new Item(name.getText().toString(),description.getText().toString(),
-                        brand.getText().toString(),Double.parseDouble(price.getText().toString()),imgURLs.get(0),imgURLs);
+                        brand.getText().toString(),Double.parseDouble(price.getText().toString()),imgURLs.get(0),imgURLs,keywords);
                 productRef=firestore.collection("products").document();
                 productRef.set(postItem);
+
+
+
 
 
                 Intent intent = new Intent(Post_item.this, MainActivity.class);
@@ -248,6 +232,22 @@ public class Post_item extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    private ArrayList<String> generateKeyWord(String input) {
+        Set<String> keywords = new HashSet<>();
+        String name = input.toLowerCase();
+
+        for (int i = 0; i < name.length(); i++) {
+            for (int j = i + 1; j <= name.length(); j++) {
+                String sub = name.substring(i,j);
+                if (!sub.isEmpty())
+                    keywords.add(sub);
+            }
+        }
+
+        return new ArrayList<>(keywords);
+
     }
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

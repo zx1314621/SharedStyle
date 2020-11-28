@@ -15,14 +15,20 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.common.collect.Table;
 import com.google.firebase.auth.FirebaseAuth;
+
 import com.google.firebase.auth.FirebaseUser;
+
 
 import scu.edu.sharedstyle.R;
 public class SettingsActivity extends AppCompatActivity {
 
     private TableRow tr_logOut;
+
     private TableRow tr_address;
     private TableRow tr_resetPW;
+
+    FirebaseAuth mAuth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left);
@@ -42,6 +48,7 @@ public class SettingsActivity extends AppCompatActivity {
                 logOut();
             }
         });
+        mAuth = FirebaseAuth.getInstance();
 
         tr_address=findViewById(R.id.tr_address);
         tr_address.setOnClickListener(new View.OnClickListener() {
@@ -63,6 +70,7 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     private void logOut(){
+        mAuth.signOut();
         Intent intent = new Intent(this,Front_page.class);
         Toast.makeText(this, "Log out", Toast.LENGTH_SHORT).show();
         startActivity(intent);

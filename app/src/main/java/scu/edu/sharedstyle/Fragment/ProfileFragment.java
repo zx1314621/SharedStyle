@@ -19,10 +19,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentSnapshot;
 
 import scu.edu.sharedstyle.R;
 import scu.edu.sharedstyle.activities.AddressActivity;
@@ -40,7 +41,14 @@ public class ProfileFragment extends Fragment {
     private TableRow tr_posted;
     private TableRow tr_purchased;
     private TableRow tr_setting;
+
     private TextView tv_user;
+
+    private FirebaseAuth mAuth;
+    private FirebaseFirestore mFirestore;
+    private String UserId;
+    private TextView username;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -48,6 +56,40 @@ public class ProfileFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
+
+
+
+//        resetPW = view.findViewById(R.id.bt_resetPW);
+//        resetPW.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Toast.makeText(getActivity(), "Reset Password click", Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//
+//        logout = view.findViewById(R.id.bt_Logout);
+//
+//        logout.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(getActivity(), Front_page.class);
+//                Toast.makeText(getActivity(), "Log out", Toast.LENGTH_SHORT).show();
+//                startActivity(intent);
+//            }
+//        });
+        mAuth = FirebaseAuth.getInstance();
+        mFirestore = FirebaseFirestore.getInstance();
+        UserId = mAuth.getCurrentUser().getUid();
+        username = view.findViewById(R.id.tv_user);
+        mFirestore.collection("Users").document(UserId).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                String User_name = documentSnapshot.getString("name");
+                username.setText(User_name);
+
+
+            }
+        });
 
 
 

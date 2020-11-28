@@ -37,6 +37,7 @@ public class FirestoreAdapter extends FirestoreRecyclerAdapter<Item, FirestoreAd
      */
     private StorageReference mstorageReference;
     private Context mContext;
+    public boolean isClickable = true;
     public FirestoreAdapter(@NonNull FirestoreRecyclerOptions<Item> options) {
         super(options);
     }
@@ -55,6 +56,9 @@ public class FirestoreAdapter extends FirestoreRecyclerAdapter<Item, FirestoreAd
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(!isClickable){
+                    return;
+                }
                 Intent intent=new Intent(mContext, ProductDetailActivity.class);
                 Bundle bundle=new Bundle();
                 final DocumentReference docRef= getSnapshots().getSnapshot(position).getReference();

@@ -10,8 +10,12 @@ import scu.edu.sharedstyle.R;
 import scu.edu.sharedstyle.model.Item;
 import scu.edu.sharedstyle.recyclerview.FirestoreAdapter;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.view.GestureDetector;
 import android.view.MenuItem;
+import android.view.MotionEvent;
+import android.view.View;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
@@ -41,6 +45,7 @@ public class Posted extends AppCompatActivity {
         postView=findViewById(R.id.rv_post);
         postView.setLayoutManager(new LinearLayoutManager(this));
         getData();
+        adapter.isClickable=false;
         postView.setAdapter(adapter);
 
     }
@@ -103,4 +108,5 @@ public class Posted extends AppCompatActivity {
 
 
     }
+
 }

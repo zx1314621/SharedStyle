@@ -8,6 +8,7 @@ import java.util.HashMap;
 
 public class Item {
     private int itemId;
+    private String userID;
     private String itemName;
     private String itemDesc;
     private String condition;
@@ -25,6 +26,10 @@ public class Item {
     public void setSearch_keywords(ArrayList<String> search_keywords) {
         this.search_keywords = search_keywords;
     }
+
+    public String getUserID(){ return userID; }
+
+    public void setUserID(String userID){ this.userID=userID; }
 
     public String getCondition() {
         return condition;
@@ -94,7 +99,7 @@ public class Item {
 
     public Item(){}
 
-    public Item(String itemName, String itemDesc, String brand, double price, String img_url,ArrayList<String> imgURLs,ArrayList<String> search_keywords){
+    public Item(String itemName, String itemDesc, String brand, double price, String img_url,ArrayList<String> imgURLs,String userID,ArrayList<String> search_keywords){
         this.itemName=itemName;
         this.itemDesc=itemDesc;
         this.brand=brand;
@@ -102,5 +107,6 @@ public class Item {
         this.imgURLs=imgURLs;
         this.Img_url=img_url;
         this.search_keywords = search_keywords;
+        this.userID=userID;
     }
 }

@@ -18,8 +18,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import scu.edu.sharedstyle.R;
+import scu.edu.sharedstyle.model.User;
 
 public class SignUp extends AppCompatActivity {
     private ImageView ivEye;
@@ -105,6 +108,7 @@ public class SignUp extends AppCompatActivity {
                                 // Sign in success, update UI with the signed-in user's information
                                 Log.d(TAG, "createUserWithEmail:success");
                                 FirebaseUser user = mAuth.getCurrentUser();
+                                addUser(user,mEmail);
                                 goBrowse();
                             } else {
                                 // If sign in fails, display a message to the user.
@@ -122,5 +126,12 @@ public class SignUp extends AppCompatActivity {
     private void goBrowse() {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
+    }
+
+    private void addUser(FirebaseUser user,String email){
+        DocumentReference userRef=
+                FirebaseFirestore.getInstance().collection("users").document();
+        User addedUser=new User(user.getUid(),email.substring(0,email.indexOf("@")));
+        userRef.set(addedUser);
     }
 }

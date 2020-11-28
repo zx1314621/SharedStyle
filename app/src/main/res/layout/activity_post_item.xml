@@ -109,6 +109,7 @@
                     android:background="@drawable/text_view_border"
                     android:gravity="left"
                     android:hint="Description"
+                    android:maxLength="150"
                     android:maxLines="4"
                     android:minLines="1"
                     android:textSize="16sp" />

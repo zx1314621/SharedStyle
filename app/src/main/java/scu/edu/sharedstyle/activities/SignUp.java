@@ -19,19 +19,17 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-<<<<<<< Updated upstream
+
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-=======
-import com.google.firebase.firestore.FirebaseFirestore;
+
 import com.google.firebase.firestore.auth.User;
 
 import java.util.HashMap;
 import java.util.Map;
->>>>>>> Stashed changes
+
 
 import scu.edu.sharedstyle.R;
-import scu.edu.sharedstyle.model.User;
 
 public class SignUp extends AppCompatActivity {
     private ImageView ivEye;
@@ -117,12 +115,11 @@ public class SignUp extends AppCompatActivity {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
                                 // Sign in success, update UI with the signed-in user's information
-<<<<<<< Updated upstream
+
                                 Log.d(TAG, "createUserWithEmail:success");
                                 FirebaseUser user = mAuth.getCurrentUser();
-                                addUser(user,mEmail);
-                                goBrowse();
-=======
+
+
                                 String User_id = FirebaseAuth.getInstance().getUid();
                                 Map<String, Object> map = new HashMap<>();
                                 map.put("name", mEmail);
@@ -134,11 +131,10 @@ public class SignUp extends AppCompatActivity {
                                     @Override
                                     public void onSuccess(Void aVoid) {
                                         Log.d(TAG, "createUserWithEmail:success");
-                                        FirebaseUser user = mAuth.getCurrentUser();
                                         goBrowse();
                                     }
                                 });
->>>>>>> Stashed changes
+
                             } else {
                                 // If sign in fails, display a message to the user.
                                 Log.w(TAG, "createUserWithEmail:failure", task.getException());
@@ -156,11 +152,13 @@ public class SignUp extends AppCompatActivity {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
-
+/*
     private void addUser(FirebaseUser user,String email){
         DocumentReference userRef=
                 FirebaseFirestore.getInstance().collection("users").document();
         User addedUser=new User(user.getUid(),email.substring(0,email.indexOf("@")));
         userRef.set(addedUser);
     }
+    */
+
 }

@@ -16,7 +16,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-<<<<<<< Updated upstream
         <activity android:name=".activities.PurchasedItem"></activity>
         <activity android:name=".activities.Posted" />
         <activity android:name=".activities.FirstStartActivity" />
@@ -27,7 +26,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-=======
         <service
             android:name=".activities.MyFirebaseService"
             android:enabled="true"
@@ -37,7 +35,7 @@
             </intent-filter>
         </service>
 
->>>>>>> Stashed changes
+
         <activity android:name=".activities.AddressActivity" />
         <activity
             android:name=".activities.SettingsActivity"

@@ -218,6 +218,7 @@ public class MainPageFragment extends Fragment {
         Query query = null;
 
         if(pattern != null && !pattern.isEmpty()) {
+            pattern = pattern.toLowerCase();
             query = productCollect
                     .whereArrayContains("search_keywords", pattern)
                     .orderBy("timestamp")

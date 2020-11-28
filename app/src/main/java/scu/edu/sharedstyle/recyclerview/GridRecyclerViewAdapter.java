@@ -49,7 +49,7 @@ public class GridRecyclerViewAdapter extends RecyclerView.Adapter<GridRecyclerVi
     public void onBindViewHolder(GridRecyclerViewAdapter.MyViewHolder holder, final int position) {
         holder.item_name.setText(itemList.get(position).getItemName());
         holder.item_brand.setText(itemList.get(position).getBrand());
-        holder.item_price.setText(itemList.get(position).getPrice() + "$");
+        holder.item_price.setText("$"+itemList.get(position).getPrice());
         System.out.println(itemList.get(position).getBrand());
 //        holder.item_image.setImageResource(itemList.get(position).getImg_url());
         mstorageReference= FirebaseStorage.getInstance().getReferenceFromUrl(itemList.get(position).getImg_url());

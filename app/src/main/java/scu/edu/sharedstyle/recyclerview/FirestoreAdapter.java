@@ -37,6 +37,7 @@ public class FirestoreAdapter extends FirestoreRecyclerAdapter<Item, FirestoreAd
      */
     private StorageReference mstorageReference;
     private Context mContext;
+    public boolean isClickable = true;
     public FirestoreAdapter(@NonNull FirestoreRecyclerOptions<Item> options) {
         super(options);
     }
@@ -45,7 +46,7 @@ public class FirestoreAdapter extends FirestoreRecyclerAdapter<Item, FirestoreAd
     protected void onBindViewHolder(@NonNull final ItemHolder holder, final int position, @NonNull final Item item) {
         holder.item_name.setText(item.getItemName());
         holder.item_brand.setText(item.getBrand());
-        holder.item_price.setText(item.getPrice()+"$");
+        holder.item_price.setText("$"+item.getPrice());
         mstorageReference= FirebaseStorage.getInstance().getReferenceFromUrl(item.getImg_url());
         GlideApp.with(mContext).load(mstorageReference).into(holder.item_image);
         holder.imgURLs=item.getImgURLs();
@@ -55,6 +56,9 @@ public class FirestoreAdapter extends FirestoreRecyclerAdapter<Item, FirestoreAd
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(!isClickable){
+                    return;
+                }
                 Intent intent=new Intent(mContext, ProductDetailActivity.class);
                 Bundle bundle=new Bundle();
                 final DocumentReference docRef= getSnapshots().getSnapshot(position).getReference();

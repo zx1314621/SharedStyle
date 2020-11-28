@@ -70,11 +70,6 @@ public class ProductDetailActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.product_detail);
 
-//        ActionBar actionBar=getSupportActionBar();
-//        if(actionBar != null){
-//            actionBar.setHomeButtonEnabled(true);
-//            actionBar.setDisplayHomeAsUpEnabled(true);
-//        }
         getSupportActionBar().hide();
 
 
@@ -126,6 +121,15 @@ public class ProductDetailActivity extends AppCompatActivity
     }
 
     @Override
+    protected void onStop() {
+        super.onStop();
+        if(productRegistration!=null){
+            productRegistration.remove();
+            productRegistration=null;
+        }
+    }
+
+    @Override
     public void onBackPressed() {
 
         this.finish();
@@ -150,6 +154,7 @@ public class ProductDetailActivity extends AppCompatActivity
         Intent intent = new Intent(this, Purchase.class);
         intent.putExtra("name", itemName);
         intent.putExtra("price", item_price);
+        intent.putExtra("itemPath",itemPath);
         startActivity(intent);
     }
 
@@ -158,7 +163,6 @@ public class ProductDetailActivity extends AppCompatActivity
     @Override
     public void onEvent(@Nullable DocumentSnapshot snapshot, @Nullable FirebaseFirestoreException error) {
         if (error != null) {
-            Log.w("ProductDetailActivity", "restaurant:onEvent", error);
             return;
         }
         onProductLoaded(snapshot.toObject(Item.class));

@@ -21,12 +21,12 @@
         android:id="@+id/tv_username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="User Name"
+        android:text="E-mail"
         android:textSize="18sp"
-        app:layout_constraintRight_toLeftOf="@id/et_username"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/et_username"
         app:layout_constraintBottom_toBottomOf="@id/et_username"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/et_username"
+        app:layout_constraintTop_toTopOf="@+id/et_username"
         app:layout_constraintVertical_weight="1" />
 
     <EditText
@@ -34,7 +34,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="Username"
+        android:hint="E-mail"
         android:inputType="textPersonName"
         android:textSize="14sp"
         app:layout_constraintBottom_toTopOf="@+id/et_password"
@@ -66,6 +66,15 @@
         app:layout_constraintRight_toRightOf="@+id/et_username"
         app:layout_constraintLeft_toLeftOf="@+id/et_username"
         app:layout_constraintTop_toBottomOf="@+id/et_username" />
+
+    <ImageView
+        android:id="@+id/iv_eye"
+        android:layout_width="20dp"
+        android:layout_height="25dp"
+        app:layout_constraintRight_toRightOf="@+id/et_password"
+        app:layout_constraintTop_toTopOf="@+id/et_password"
+        app:layout_constraintBottom_toBottomOf="@+id/et_password"
+        android:src="@drawable/icon_eye" />
 
     <com.google.android.gms.common.SignInButton
         android:id="@+id/sign_in_button"

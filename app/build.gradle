@@ -7,7 +7,7 @@ android {
 
     defaultConfig {
         applicationId "scu.edu.sharedstyle"
-        minSdkVersion 24
+        minSdkVersion 21
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
@@ -40,6 +40,7 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
     implementation 'com.google.android.gms:play-services-auth:19.0.0'
+    implementation 'androidx.viewpager:viewpager:1.0.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
@@ -57,8 +58,10 @@ dependencies {
     implementation 'com.firebaseui:firebase-ui-storage:6.2.1'
     implementation 'com.firebaseui:firebase-ui-firestore:6.2.1'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
+    implementation 'com.google.firebase:firebase-messaging'
 
     //Firebase Authentication
     implementation 'com.google.firebase:firebase-auth'
+
 
 }

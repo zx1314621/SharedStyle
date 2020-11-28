@@ -1,72 +1,77 @@
 package scu.edu.sharedstyle.activities;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.Manifest;
+<<<<<<< Updated upstream
+=======
+import android.content.ClipData;
+>>>>>>> Stashed changes
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
-import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.media.ExifInterface;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.provider.ContactsContract;
 import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.text.format.DateFormat;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
-import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+<<<<<<< Updated upstream
+
 import com.google.android.gms.tasks.Continuation;
+=======
+>>>>>>> Stashed changes
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+<<<<<<< Updated upstream
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+=======
+import com.google.firebase.auth.FirebaseAuth;
+>>>>>>> Stashed changes
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
 import java.util.HashMap;
-import java.util.Locale;
+<<<<<<< Updated upstream
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+=======
+import java.util.List;
+import java.util.Map;
+>>>>>>> Stashed changes
 import java.util.UUID;
 
 import scu.edu.sharedstyle.R;
@@ -92,12 +97,19 @@ public class Post_item extends AppCompatActivity {
     private DocumentReference productRef;
     private FirebaseStorage storage;
     private StorageReference itemImgRef;
+    private String new_item = "There is a new item123";
+    String User_id;
+    List<String> list;
+    int size = 0;
+    FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_item);
+        getSupportActionBar().hide();
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         post = findViewById(R.id.post);
         cancel = findViewById(R.id.cancel);
         //setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
@@ -118,6 +130,7 @@ public class Post_item extends AppCompatActivity {
         firestore=FirebaseFirestore.getInstance();
         storage=FirebaseStorage.getInstance();
         itemImgRef=storage.getReference().child("Item/");
+        mAuth = FirebaseAuth.getInstance();
 
         final TextWatcher mTextEditorWatcher = new TextWatcher() {
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -125,7 +138,7 @@ public class Post_item extends AppCompatActivity {
 
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 //This sets a textview to the current length
-                textView.setText(String.valueOf(s.length()) + "/120");
+                textView.setText(String.valueOf(s.length()) + "/150");
             }
 
             @Override
@@ -136,11 +149,7 @@ public class Post_item extends AppCompatActivity {
         };
         description.addTextChangedListener(mTextEditorWatcher);
 
-        /*
-         * 载入默认图片添加图片加号
-         * 通过适配器实现
-         * SimpleAdapter参数imageItem为数据源 R.layout.griditem_addpic为布局
-         */
+
         Bitmap bmp1 = BitmapFactory.decodeResource(getResources(), R.drawable.main_item1);
         Bitmap bmp2 = BitmapFactory.decodeResource(getResources(), R.drawable.main_item2);
         Bitmap bmp3 = BitmapFactory.decodeResource(getResources(), R.drawable.main_item3);
@@ -179,9 +188,10 @@ public class Post_item extends AppCompatActivity {
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                if(position == 0){
+                if(position == 0 && images.size() < 7){
                     if( images.size() == 7) { //第一张为默认图片
-                        Toast.makeText(Post_item.this, "The number of photos is up to seven", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Post_item.this, "The number of photos can not be up to seven", Toast.LENGTH_SHORT).show();
+
                     }
                     else {
                         Toast.makeText(Post_item.this, "Add a photo", Toast.LENGTH_SHORT).show();
@@ -225,17 +235,58 @@ public class Post_item extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //For firestore test
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 images.remove(0); //Remove imageAdd
+                ArrayList<String> keywords = generateKeyWord(name.getText().toString());
                 ArrayList<String> imgURLs=upLoadImg(images);
                 Item postItem=new Item(name.getText().toString(),description.getText().toString(),
-                        brand.getText().toString(),Double.parseDouble(price.getText().toString()),imgURLs.get(0),imgURLs);
+                                       brand.getText().toString(),Double.parseDouble(price.getText().toString()),
+                        imgURLs.get(0),imgURLs,user.getUid(),keywords);
+
                 productRef=firestore.collection("products").document();
                 productRef.set(postItem);
+                //User_id = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+//                firestore.collection("Users").document(User_id).collection()
+                String from = mAuth.getCurrentUser().getUid();
+                final Map<String, Object> map = new HashMap<>();
+                map.put("Itemname", name.getText().toString());
+                map.put("Image", imgURLs.get(0));
+                map.put("from", from);
+                map.put("message", new_item);
+                Log.d("tag", String.valueOf(map.keySet()));
+                list = new ArrayList<String>();
+                firestore.collection("Users").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (DocumentSnapshot document : task.getResult()) {
+                                size++;
+                                list.add(document.getId());
+                            }
+
+                            Log.d("tag size", String.valueOf(size));
+                            for(int i = 0; i < size; i++) {
+                                String User_id = list.get(i);
+                                firestore.collection("Users/" + User_id + "/Notifications").add(map).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                    @Override
+                                    public void onSuccess(DocumentReference documentReference) {
+                                        Log.d("tag", "add work");
+                                        Toast.makeText(Post_item.this, "send notification", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                            }
+                        } else {
+                            Log.d("TAG", "Error getting documents: ", task.getException());
+                        }
+                    }});
+
+
 
 
                 Intent intent = new Intent(Post_item.this, MainActivity.class);
                 startActivity(intent);
-                Toast.makeText(Post_item.this, "post successfully", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(Post_item.this, "post successfully", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -243,10 +294,27 @@ public class Post_item extends AppCompatActivity {
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Post_item.this, MainActivity.class);
-                startActivity(intent);
+//                Intent intent = new Intent(Post_item.this, MainActivity.class);
+//                startActivity(intent);
+                finish();
             }
         });
+    }
+
+    private ArrayList<String> generateKeyWord(String input) {
+        Set<String> keywords = new HashSet<>();
+        String name = input.toLowerCase();
+
+        for (int i = 0; i < name.length(); i++) {
+            for (int j = i + 1; j <= name.length(); j++) {
+                String sub = name.substring(i,j);
+                if (!sub.isEmpty())
+                    keywords.add(sub);
+            }
+        }
+
+        return new ArrayList<>(keywords);
+
     }
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

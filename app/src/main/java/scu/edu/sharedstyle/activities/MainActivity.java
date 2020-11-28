@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -27,8 +28,8 @@ public class MainActivity extends AppCompatActivity {
 
     private EasyNavigationBar navigationBar;
     private String[] tabText = {"MainPage","", "Profile"};
-    private int[] normalIcon = {R.drawable.ic_baseline_home_not_select, R.drawable.ic_baseline_add_24, R.drawable.ic_baseline_person_not_selected};
-    private int[] selectIcon = {R.drawable.ic_baseline_home_24, R.drawable.ic_baseline_add_24, R.drawable.ic_baseline_person_24};
+    private int[] normalIcon = {R.drawable.ic_baseline_home_not_select, R.drawable.plus, R.drawable.ic_baseline_person_not_selected};
+    private int[] selectIcon = {R.drawable.ic_baseline_home_24, R.drawable.plus, R.drawable.ic_baseline_person_24};
 
     private List<Fragment> fragments = new ArrayList<>();
     @Override
@@ -37,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         getSupportActionBar().hide();
         navigationBar = findViewById(R.id.navigationBar);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
         fragments.add(new MainPageFragment());
         fragments.add(new ProfileFragment());

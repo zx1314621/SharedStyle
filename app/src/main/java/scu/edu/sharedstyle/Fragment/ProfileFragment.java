@@ -14,22 +14,16 @@ import androidx.fragment.app.Fragment;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-<<<<<<< Updated upstream
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-=======
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
->>>>>>> Stashed changes
 
 import scu.edu.sharedstyle.R;
 import scu.edu.sharedstyle.activities.AddressActivity;
@@ -47,24 +41,22 @@ public class ProfileFragment extends Fragment {
     private TableRow tr_posted;
     private TableRow tr_purchased;
     private TableRow tr_setting;
-<<<<<<< Updated upstream
+
     private TextView tv_user;
-=======
+
     private FirebaseAuth mAuth;
     private FirebaseFirestore mFirestore;
     private String UserId;
     private TextView username;
->>>>>>> Stashed changes
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
 
-<<<<<<< Updated upstream
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
-=======
-        View view = inflater.inflate(R.layout.fragment_frofile, container, false);
+
 
 
 //        resetPW = view.findViewById(R.id.bt_resetPW);
@@ -98,7 +90,6 @@ public class ProfileFragment extends Fragment {
 
             }
         });
->>>>>>> Stashed changes
 
 
 

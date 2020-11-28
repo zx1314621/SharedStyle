@@ -1,12 +1,10 @@
 package scu.edu.sharedstyle.activities;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-<<<<<<< Updated upstream
-=======
-import android.content.ClipData;
->>>>>>> Stashed changes
+
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
@@ -34,21 +32,20 @@ import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
-<<<<<<< Updated upstream
+
 
 import com.google.android.gms.tasks.Continuation;
-=======
->>>>>>> Stashed changes
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-<<<<<<< Updated upstream
+
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-=======
+
 import com.google.firebase.auth.FirebaseAuth;
->>>>>>> Stashed changes
+
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -64,14 +61,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-<<<<<<< Updated upstream
+
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-=======
-import java.util.List;
 import java.util.Map;
->>>>>>> Stashed changes
 import java.util.UUID;
 
 import scu.edu.sharedstyle.R;

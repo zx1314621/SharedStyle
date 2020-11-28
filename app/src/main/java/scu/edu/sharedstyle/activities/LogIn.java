@@ -38,13 +38,10 @@ import java.util.Map;
 
 import scu.edu.sharedstyle.R;
 
-<<<<<<< Updated upstream
 public class LogIn extends AppCompatActivity {
     private ImageView ivEye;
     private boolean isOpenEye = false;
-=======
-public class LogIn extends AppCompatActivity{
->>>>>>> Stashed changes
+
     public final static String TAG = "MainActivity";
     private FirebaseAuth mAuth;
     Button signin;

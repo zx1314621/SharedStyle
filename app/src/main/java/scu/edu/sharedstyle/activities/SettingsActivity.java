@@ -15,21 +15,20 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.common.collect.Table;
 import com.google.firebase.auth.FirebaseAuth;
-<<<<<<< Updated upstream
+
 import com.google.firebase.auth.FirebaseUser;
-=======
->>>>>>> Stashed changes
+
 
 import scu.edu.sharedstyle.R;
 public class SettingsActivity extends AppCompatActivity {
 
     private TableRow tr_logOut;
-<<<<<<< Updated upstream
+
     private TableRow tr_address;
     private TableRow tr_resetPW;
-=======
+
     FirebaseAuth mAuth;
->>>>>>> Stashed changes
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left);

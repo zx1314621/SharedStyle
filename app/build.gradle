@@ -7,7 +7,7 @@ android {
 
     defaultConfig {
         applicationId "scu.edu.sharedstyle"
-        minSdkVersion 24
+        minSdkVersion 21
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
@@ -58,8 +58,10 @@ dependencies {
     implementation 'com.firebaseui:firebase-ui-storage:6.2.1'
     implementation 'com.firebaseui:firebase-ui-firestore:6.2.1'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
+    implementation 'com.google.firebase:firebase-messaging'
 
     //Firebase Authentication
     implementation 'com.google.firebase:firebase-auth'
+
 
 }

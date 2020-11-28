@@ -10,6 +10,9 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,10 +28,17 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.gson.JsonObject;
 import com.squareup.okhttp.internal.DiskLruCache;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.w3c.dom.Document;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,6 +68,7 @@ public class MainPageFragment extends Fragment {
     private String mParam2;
 
     private RecyclerView mGridRv;
+    private final String TAG = "MainPageFragment";
 
     public MainPageFragment() {
         // Required empty public constructor
@@ -85,6 +96,8 @@ public class MainPageFragment extends Fragment {
     private Button search;
     private ArrayList<Item> ItemList=new ArrayList<>();
     private FirestoreAdapter adapter;
+    private String YourApplicationID = "NJJWZQBRZK";
+    private String YourAdminAPIKey = "8e67e2f7cd3f6bd8ec5bb93df63fd397";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -126,17 +139,38 @@ public class MainPageFragment extends Fragment {
 //            }
 //        });
 
-        search = view.findViewById(R.id.search);
+        //search = view.findViewById(R.id.search);
         editText = view.findViewById(R.id.et_search);
-        search.setOnClickListener(new View.OnClickListener() {
+        editText.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onClick(View view) {
-                Toast.makeText(getActivity(), "This is search:" + editText.getText(), Toast.LENGTH_SHORT).show();
-                refreshData(editText.getText().toString());
-                editText.setText("");
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
             }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                //Toast.makeText(getActivity(), "This is search:" + editText.getText(), Toast.LENGTH_SHORT).show();
+                String input = editText.getText().toString();
+                if (input.length() >= 30) {
+                    Toast.makeText(getActivity(), "You have reach my max!", Toast.LENGTH_SHORT).show();
+                }
+                refreshData(editText.getText().toString());
+            }
         });
+//        search.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Toast.makeText(getActivity(), "This is search:" + editText.getText(), Toast.LENGTH_SHORT).show();
+//                refreshData(editText.getText().toString());
+//                editText.setText("");
+//
+//            }
+//        });
         // Inflate the layout for this fragment*/
         return view;
     }
@@ -179,13 +213,15 @@ public class MainPageFragment extends Fragment {
         CollectionReference productCollect = firestore.collection("products");
         DocumentReference productRef = productCollect.document();
 
+
+
         Query query = null;
 
         if(pattern != null && !pattern.isEmpty()) {
+            pattern = pattern.toLowerCase();
             query = productCollect
-                    .orderBy("itemName")
-                    .startAt(pattern)
-                    .endAt(pattern+"~")
+                    .whereArrayContains("search_keywords", pattern)
+                    .orderBy("timestamp")
                     .limit(50);
         } else {
             query = productCollect

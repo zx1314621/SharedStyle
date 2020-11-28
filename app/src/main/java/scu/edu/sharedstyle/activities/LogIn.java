@@ -1,6 +1,9 @@
 package scu.edu.sharedstyle.activities;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
@@ -21,16 +24,27 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.messaging.FirebaseMessaging;
+import com.google.firebase.messaging.FirebaseMessagingService;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import scu.edu.sharedstyle.R;
 
+<<<<<<< Updated upstream
 public class LogIn extends AppCompatActivity {
     private ImageView ivEye;
     private boolean isOpenEye = false;
+=======
+public class LogIn extends AppCompatActivity{
+>>>>>>> Stashed changes
     public final static String TAG = "MainActivity";
     private FirebaseAuth mAuth;
     Button signin;
@@ -40,6 +54,8 @@ public class LogIn extends AppCompatActivity {
     String mPassword;
     int RC_SIGN_IN = 0;
     private GoogleSignInClient mGoogleSignInClient;
+    FirebaseFirestore firestore;
+    Context context;
 
 
     @Override
@@ -74,6 +90,10 @@ public class LogIn extends AppCompatActivity {
         });
 
         mAuth = FirebaseAuth.getInstance();
+        firestore = FirebaseFirestore.getInstance();
+
+
+
 
         signin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -172,8 +192,19 @@ public class LogIn extends AppCompatActivity {
                             if (task.isSuccessful()) {
                                 // Sign in success, update UI with the signed-in user's information
                                 Log.i(TAG, "signInWithEmail:success");
-                                FirebaseUser user = mAuth.getCurrentUser();
-                                goBrowse();
+                                String token_id = MyFirebaseService.getToken(LogIn.this);
+                                Log.d("token", token_id);
+                                String User_id = mAuth.getCurrentUser().getUid();
+                                Map<String, Object> map = new HashMap<>();
+                                map.put("token_id", token_id);
+                                firestore.collection("Users").document(User_id).update(map).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        FirebaseUser user = mAuth.getCurrentUser();
+                                        goBrowse();
+                                    }
+                                });
+
                             } else {
                                 // If sign in fails, display a message to the user.
                                 Log.i(TAG, "signInWithEmail:failure", task.getException());
@@ -191,3 +222,4 @@ public class LogIn extends AppCompatActivity {
     }
 
 }
+

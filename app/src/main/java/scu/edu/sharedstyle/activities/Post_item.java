@@ -115,7 +115,7 @@ public class Post_item extends AppCompatActivity {
 
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 //This sets a textview to the current length
-                textView.setText(String.valueOf(s.length()) + "/120");
+                textView.setText(String.valueOf(s.length()) + "/150");
             }
 
             @Override
@@ -126,11 +126,7 @@ public class Post_item extends AppCompatActivity {
         };
         description.addTextChangedListener(mTextEditorWatcher);
 
-        /*
-         * 载入默认图片添加图片加号
-         * 通过适配器实现
-         * SimpleAdapter参数imageItem为数据源 R.layout.griditem_addpic为布局
-         */
+
         Bitmap bmp1 = BitmapFactory.decodeResource(getResources(), R.drawable.main_item1);
         Bitmap bmp2 = BitmapFactory.decodeResource(getResources(), R.drawable.main_item2);
         Bitmap bmp3 = BitmapFactory.decodeResource(getResources(), R.drawable.main_item3);

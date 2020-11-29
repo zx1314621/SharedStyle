@@ -1,9 +1,13 @@
 package scu.edu.sharedstyle.activities;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TableRow;
 import android.widget.Toast;
 
@@ -85,21 +89,57 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     private void resetPassword(){
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        user.updatePassword("123456")
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if(task.isSuccessful()){
-                            return;
-                        }
-                    }
-                });
-        Toast.makeText(this,"Reset Password to 123456",Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(this,Front_page.class);
-        startActivity(intent);
-        FirebaseAuth.getInstance().signOut();
-        Toast.makeText(this,"Please Sign in again",Toast.LENGTH_SHORT).show();
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Please input your new password");
+
+        final View dialogView = LayoutInflater.from(this)
+                .inflate(R.layout.dialog_changepassword,null);
+        builder.setView(dialogView);
+        builder.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                EditText newPSW=dialogView.findViewById(R.id.et_newpswd);
+                EditText conPSW=dialogView.findViewById(R.id.et_confirmpswd);
+                String newPassword=newPSW.getText().toString();
+                String nextPassword=conPSW.getText().toString();
+                if(newPassword.length()>6&&newPassword.equals(nextPassword)){
+                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                    user.updatePassword(newPassword)
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if(task.isSuccessful()){
+                                        System.out.println("change success");
+                                        return;
+                                    }
+                                }
+                            });
+                    Intent intent = new Intent(getApplicationContext(),Front_page.class);
+                    startActivity(intent);
+                    FirebaseAuth.getInstance().signOut();
+                    Toast.makeText(getApplicationContext(),"Please Sign in again",Toast.LENGTH_SHORT).show();
+                    finish();
+                }
+                else if(!newPassword.equals(nextPassword)){
+                    Toast.makeText(getApplicationContext(),"Password does not match",Toast.LENGTH_SHORT).show();
+                }
+                else if(newPassword.length()<6){
+                    Toast.makeText(getApplicationContext(),"Password has to be at least 8 characters or numbers",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+
+        builder.setCancelable(true);
+        AlertDialog dialog = builder.create();
+        dialog.setCanceledOnTouchOutside(true);
+        dialog.show();
+
     }
 
 

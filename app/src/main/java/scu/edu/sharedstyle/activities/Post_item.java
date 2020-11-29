@@ -91,7 +91,7 @@ public class Post_item extends AppCompatActivity {
     private DocumentReference productRef;
     private FirebaseStorage storage;
     private StorageReference itemImgRef;
-    private String new_item = "There is a new item123";
+    private String new_item = "There is a new item ";
     String User_id;
     List<String> list;
     int size = 0;
@@ -103,13 +103,13 @@ public class Post_item extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_item);
         getSupportActionBar().hide();
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+        //getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         post = findViewById(R.id.post);
         cancel = findViewById(R.id.cancel);
         //setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         WindowManager wm=(WindowManager) getSystemService(WINDOW_SERVICE);
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.
-                SOFT_INPUT_ADJUST_PAN);
+//        getWindow().setSoftInputMode(WindowManager.LayoutParams.
+//                SOFT_INPUT_ADJUST_PAN);
 //        //锁定屏幕
 //        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 //        setContentView(R.layout.activity_post_item);
@@ -143,25 +143,12 @@ public class Post_item extends AppCompatActivity {
         };
         description.addTextChangedListener(mTextEditorWatcher);
 
-
-        Bitmap bmp1 = BitmapFactory.decodeResource(getResources(), R.drawable.main_item1);
-        Bitmap bmp2 = BitmapFactory.decodeResource(getResources(), R.drawable.main_item2);
-        Bitmap bmp3 = BitmapFactory.decodeResource(getResources(), R.drawable.main_item3);
         bmp = BitmapFactory.decodeResource(getResources(), R.drawable.imageadd);
         images= new ArrayList<HashMap<String, Object>>();
         final HashMap<String, Object> map = new HashMap<String, Object>();
-        HashMap<String, Object> map1 = new HashMap<String, Object>();
-        HashMap<String, Object> map2 = new HashMap<String, Object>();
-        HashMap<String, Object> map3 = new HashMap<String, Object>();
 
-        map1.put("itemImage", bmp1);
-        map2.put("itemImage", bmp2);
-        map3.put("itemImage", bmp3);
         map.put("itemImage", bmp);
         images.add(map);
-        images.add(map1);
-        images.add(map2);
-        images.add(map3);
 
         simpleAdapter = new SimpleAdapter(this,
                 images, R.layout.griditem_addpic,
@@ -182,18 +169,12 @@ public class Post_item extends AppCompatActivity {
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                if(position == 0 && images.size() < 7){
-                    if( images.size() == 7) { //第一张为默认图片
-                        Toast.makeText(Post_item.this, "The number of photos can not be up to seven", Toast.LENGTH_SHORT).show();
-
-                    }
-                    else {
+                if(position == 0){
                         Toast.makeText(Post_item.this, "Add a photo", Toast.LENGTH_SHORT).show();
                         //选择图片
 //                    Intent intent = new Intent(Intent.ACTION_PICK,
 //                            android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
 //                    startActivityForResult(intent, IMAGE_OPEN);
-                    }
 
                     final String [] strs=new String[]{"Take photo","Album"};
                     AlertDialog.Builder builder=new AlertDialog.Builder(Post_item.this);
@@ -203,17 +184,21 @@ public class Post_item extends AppCompatActivity {
                         public void onClick(DialogInterface dialog, int which) {
                             //拍照可以用两种方法来实现
                             //1.调用系统相机 2.自定义相机
-                            if (which==0) {
+                            if(images.size() < 6) {
+                                if (which == 0) {
 
-                                Intent intent=new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                                startActivityForResult(intent,CAMERA);
+                                    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                                    startActivityForResult(intent, CAMERA);
 
-                            }
-                            //调用系统相册
-                            if (which==1) {
-                                Intent intent = new Intent(Intent.ACTION_PICK,
-                                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                                startActivityForResult(intent, IMAGE_OPEN);
+                                }
+                                //调用系统相册
+                                if (which == 1) {
+                                    Intent intent = new Intent(Intent.ACTION_PICK,
+                                            android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                                    startActivityForResult(intent, IMAGE_OPEN);
+                                }
+                            }else{
+                                Toast.makeText(Post_item.this, "The picture can not be up to six",Toast.LENGTH_SHORT).show();
                             }
 
                         }
@@ -229,59 +214,65 @@ public class Post_item extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //For firestore test
-                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                images.remove(0); //Remove imageAdd
-                ArrayList<String> keywords = generateKeyWord(name.getText().toString());
-                ArrayList<String> imgURLs=upLoadImg(images);
-                Item postItem=new Item(name.getText().toString(),description.getText().toString(),
-                                       brand.getText().toString(),Double.parseDouble(price.getText().toString()),
-                        imgURLs.get(0),imgURLs,user.getUid(),keywords);
+                if (TextUtils.isEmpty(name.getText()) || TextUtils.isEmpty(brand.getText())) {
+                    Toast.makeText(Post_item.this, "You need to complete all the information about the product", Toast.LENGTH_SHORT).show();
+                } else {
+                    if (isInteger(price.getText().toString()) == false) {
+                        Toast.makeText(Post_item.this, "The price can not be character", Toast.LENGTH_SHORT).show();
+                    } else {
+                        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                        images.remove(0); //Remove imageAdd
+                        ArrayList<String> keywords = generateKeyWord(name.getText().toString());
+                        ArrayList<String> imgURLs = upLoadImg(images);
+                        Item postItem = new Item(name.getText().toString(), description.getText().toString(),
+                                brand.getText().toString(), Double.parseDouble(price.getText().toString()),
+                                imgURLs.get(0), imgURLs, user.getUid(), keywords);
 
-                productRef=firestore.collection("products").document();
-                productRef.set(postItem);
-                //User_id = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                        productRef = firestore.collection("products").document();
+                        productRef.set(postItem);
+                        //User_id = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
 //                firestore.collection("Users").document(User_id).collection()
-                String from = mAuth.getCurrentUser().getUid();
-                final Map<String, Object> map = new HashMap<>();
-                map.put("Itemname", name.getText().toString());
-                map.put("Image", imgURLs.get(0));
-                map.put("from", from);
-                map.put("message", new_item);
-                Log.d("tag", String.valueOf(map.keySet()));
-                list = new ArrayList<String>();
-                firestore.collection("Users").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (DocumentSnapshot document : task.getResult()) {
-                                size++;
-                                list.add(document.getId());
-                            }
-
-                            Log.d("tag size", String.valueOf(size));
-                            for(int i = 0; i < size; i++) {
-                                String User_id = list.get(i);
-                                firestore.collection("Users/" + User_id + "/Notifications").add(map).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                                    @Override
-                                    public void onSuccess(DocumentReference documentReference) {
-                                        Log.d("tag", "add work");
-                                        Toast.makeText(Post_item.this, "send notification", Toast.LENGTH_SHORT).show();
+                        String from = mAuth.getCurrentUser().getUid();
+                        final Map<String, Object> map = new HashMap<>();
+                        map.put("Itemname", name.getText().toString());
+                        map.put("Image", imgURLs.get(0));
+                        map.put("from", from);
+                        map.put("message", new_item);
+                        Log.d("tag", String.valueOf(map.keySet()));
+                        list = new ArrayList<String>();
+                        firestore.collection("Users").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    for (DocumentSnapshot document : task.getResult()) {
+                                        size++;
+                                        list.add(document.getId());
                                     }
-                                });
+
+                                    Log.d("tag size", String.valueOf(size));
+                                    for (int i = 0; i < size; i++) {
+                                        String User_id = list.get(i);
+                                        firestore.collection("Users/" + User_id + "/Notifications").add(map).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                            @Override
+                                            public void onSuccess(DocumentReference documentReference) {
+                                                Log.d("tag", "add work");
+                                                Toast.makeText(Post_item.this, "send notification", Toast.LENGTH_SHORT).show();
+                                            }
+                                        });
+                                    }
+                                } else {
+                                    Log.d("TAG", "Error getting documents: ", task.getException());
+                                }
                             }
-                        } else {
-                            Log.d("TAG", "Error getting documents: ", task.getException());
-                        }
-                    }});
-
-
-
-
-                Intent intent = new Intent(Post_item.this, MainActivity.class);
-                startActivity(intent);
-                //Toast.makeText(Post_item.this, "post successfully", Toast.LENGTH_SHORT).show();
+                        });
+                        Intent intent = new Intent(Post_item.this, MainActivity.class);
+                        startActivity(intent);
+                        //Toast.makeText(Post_item.this, "post successfully", Toast.LENGTH_SHORT).show();
+                    }
+                }
             }
+
         });
 
 
@@ -512,6 +503,15 @@ public class Post_item extends AppCompatActivity {
 
         return imgURLs;
     }
+    public static boolean isInteger(String value){
+        try {
+            Integer.parseInt(value);
+            return true;
+        }catch(NumberFormatException e){
+            return false;
+        }
+    }
+
 
 
 }

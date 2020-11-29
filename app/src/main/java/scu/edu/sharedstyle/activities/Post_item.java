@@ -95,7 +95,7 @@ public class Post_item extends AppCompatActivity {
     private DocumentReference productRef;
     private FirebaseStorage storage;
     private StorageReference itemImgRef;
-    private String new_item = "There is a new item ";
+    private String new_item = "A Big Bargain starting ";
     String User_id;
     List<String> list;
     int size = 0;
@@ -196,22 +196,22 @@ public class Post_item extends AppCompatActivity {
                                     startActivityForResult(intent, CAMERA);
 
                                 }
-                                
+
                                 if (which == 1) {
                                     if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
-                                    if (ActivityCompat.checkSelfPermission(Post_item.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                                        ActivityCompat.requestPermissions(Post_item.this, PERMISSIONS_STORAGE, REQUEST_PERMISSION_CODE);
-                                    }else {
-                                        Intent intent = new Intent(Intent.ACTION_PICK,
-                                                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                                        startActivityForResult(intent, IMAGE_OPEN);
+                                        if (ActivityCompat.checkSelfPermission(Post_item.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                                            ActivityCompat.requestPermissions(Post_item.this, PERMISSIONS_STORAGE, REQUEST_PERMISSION_CODE);
+                                        } else {
+                                            Intent intent = new Intent(Intent.ACTION_PICK,
+                                                    android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                                            startActivityForResult(intent, IMAGE_OPEN);
+                                        }
                                     }
+                                } else {
+                                    Toast.makeText(Post_item.this, "The picture can not be up to six", Toast.LENGTH_SHORT).show();
+
                                 }
-                            }else{
-                                Toast.makeText(Post_item.this, "The picture can not be up to six",Toast.LENGTH_SHORT).show();
-
                             }
-
                         }
                     });
                     builder.show();

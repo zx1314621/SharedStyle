@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="scu.edu.sharedstyle">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -16,10 +17,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.PurchasedItem"></activity>
-        <activity android:name=".activities.Posted" />
-        <activity android:name=".activities.FirstStartActivity" />
-        <activity android:name=".activities.Splash">
+        <activity android:name=".activities.PurchasedItem"
+            android:screenOrientation="portrait"></activity>
+        <activity android:name=".activities.Posted"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activities.FirstStartActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activities.Splash"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -28,27 +33,38 @@
         </activity>
         <service
             android:name=".activities.MyFirebaseService"
+            android:screenOrientation="portrait"
             android:enabled="true"
-            android:exported="true">
+            android:exported="true"
+            tools:ignore="Instantiatable">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
 
 
-        <activity android:name=".activities.AddressActivity" />
+        <activity android:name=".activities.AddressActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activities.SettingsActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_settings" />
-        <activity android:name=".activities.MainActivity" />
-        <activity android:name=".activities.Post_item" />
-        <activity android:name=".activities.ProductDetailActivity" />
-        <activity android:name=".activities.LogIn" />
-        <activity android:name=".activities.SignUp" />
+        <activity android:name=".activities.MainActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activities.Post_item"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activities.ProductDetailActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activities.LogIn"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activities.SignUp"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activities.Front_page"
+            android:screenOrientation="portrait"
             android:label="@string/app_name" />
-        <activity android:name=".activities.Purchase" />
+        <activity android:name=".activities.Purchase"
+            android:screenOrientation="portrait"/>
 
         <meta-data
             android:name="preloaded_fonts"

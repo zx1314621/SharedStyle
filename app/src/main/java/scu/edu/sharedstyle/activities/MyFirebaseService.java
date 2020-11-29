@@ -21,6 +21,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -28,6 +29,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 import scu.edu.sharedstyle.R;
+import scu.edu.sharedstyle.model.GlideApp;
 
 
 public class MyFirebaseService extends FirebaseMessagingService {
@@ -126,19 +128,19 @@ public class MyFirebaseService extends FirebaseMessagingService {
     }
 
     public Bitmap getBitmapfromUrl(String imageUrl) {
+
+        StorageReference storageRef = FirebaseStorage.getInstance().getReferenceFromUrl(imageUrl);
+        Bitmap bitmap=null;
         try {
-            URL url = new URL(imageUrl);
-            HttpURLConnection Connection = (HttpURLConnection) url.openConnection();
-            Connection.setDoInput(true);
-            Connection.connect();
-            InputStream input = Connection.getInputStream();
-            Bitmap bitmap = BitmapFactory.decodeStream(input);
-            return bitmap;
+            bitmap = GlideApp
+                    .with(this)
+                    .asBitmap()
+                    .load(storageRef)
+                    .submit()
+                    .get();
+        }catch(Exception e){
 
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
         }
+        return bitmap;
     }
-}
+    }

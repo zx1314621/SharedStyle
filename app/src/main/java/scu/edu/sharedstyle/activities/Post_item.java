@@ -120,6 +120,7 @@ public class Post_item extends AppCompatActivity {
         //setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         WindowManager wm=(WindowManager) getSystemService(WINDOW_SERVICE);
 
+
 //        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 //        setContentView(R.layout.activity_post_item);
 

@@ -39,7 +39,7 @@ public class SettingsActivity extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
         actionBar.setDisplayShowHomeEnabled(false);
-        actionBar.setTitle("Setting");
+        actionBar.setTitle("Settings");
 
         tr_logOut=findViewById(R.id.tr_logOut);
         tr_logOut.setOnClickListener(new View.OnClickListener() {

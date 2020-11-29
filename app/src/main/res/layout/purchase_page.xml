@@ -200,33 +200,33 @@
         app:layout_constraintTop_toTopOf="@+id/tv_cvs" />
 
     <Button
+        android:id="@+id/bt_cancel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/colordarkpurple"
+        android:text="Cancel"
+        android:onClick="cancel"
+        android:textColor="#FFFFFF"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="@+id/guidelineleft"
+        app:layout_constraintRight_toLeftOf="@id/bt_confirm"
+        app:layout_constraintTop_toBottomOf="@+id/tv_cvs" />
+
+    <Button
         android:id="@+id/bt_confirm"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:background="@color/colordarkpurple"
         android:text="Confirm"
         android:onClick="alert"
         android:textColor="#FFFFFF"
         android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="@+id/guidelineleft"
-        app:layout_constraintRight_toLeftOf="@id/bt_cancel"
-        app:layout_constraintTop_toBottomOf="@+id/tv_cvs" />
-
-    <Button
-        android:id="@+id/bt_cancel"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:background="@color/colordarkpurple"
-        android:onClick="cancel"
-        android:text="Cancel"
-        android:textColor="#FFFFFF"
-        android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="@+id/bt_confirm"
+        app:layout_constraintBottom_toBottomOf="@+id/bt_cancel"
         app:layout_constraintEnd_toStartOf="@+id/guidelineright"
-        app:layout_constraintStart_toEndOf="@+id/bt_confirm"
-        app:layout_constraintTop_toTopOf="@+id/bt_confirm" />
+        app:layout_constraintStart_toEndOf="@+id/bt_cancel"
+        app:layout_constraintTop_toTopOf="@+id/bt_cancel" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

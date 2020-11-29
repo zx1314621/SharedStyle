@@ -24,7 +24,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import scu.edu.sharedstyle.R;
-import scu.edu.sharedstyle.model.User;
+import scu.edu.sharedstyle.model.UserInfo;
 
 public class AddressActivity extends AppCompatActivity {
 
@@ -85,7 +85,7 @@ public class AddressActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if(task.isSuccessful()){
                             for(QueryDocumentSnapshot document : task.getResult()){
-                                User user=document.toObject(User.class);
+                                UserInfo user=document.toObject(UserInfo.class);
                                 et_name.setText(user.getName());
                                 et_phone.setText(user.getPhone());
                                 et_street.setText(user.getStreet());
@@ -122,7 +122,7 @@ public class AddressActivity extends AppCompatActivity {
                         public void onComplete(@NonNull Task<QuerySnapshot> task) {
                             if(task.isSuccessful()){
                                 for (QueryDocumentSnapshot document : task.getResult()) {
-                                    User user=document.toObject(User.class);
+                                    UserInfo user=document.toObject(UserInfo.class);
                                     user.setName(name);
                                     user.setPhone(phone);
                                     user.setStreet(street);

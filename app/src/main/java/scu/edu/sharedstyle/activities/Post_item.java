@@ -108,8 +108,7 @@ public class Post_item extends AppCompatActivity {
         cancel = findViewById(R.id.cancel);
         //setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         WindowManager wm=(WindowManager) getSystemService(WINDOW_SERVICE);
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.
-                SOFT_INPUT_ADJUST_PAN);
+
 //        //锁定屏幕
 //        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 //        setContentView(R.layout.activity_post_item);

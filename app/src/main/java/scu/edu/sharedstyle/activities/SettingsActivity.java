@@ -76,7 +76,7 @@ public class SettingsActivity extends AppCompatActivity {
     private void logOut(){
         mAuth.signOut();
         Intent intent = new Intent(this,Front_page.class);
-        Toast.makeText(this, "Log out", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "You are now logged out.", Toast.LENGTH_LONG).show();
         startActivity(intent);
         FirebaseAuth.getInstance().signOut();
         overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left);
@@ -90,7 +90,7 @@ public class SettingsActivity extends AppCompatActivity {
 
     private void resetPassword(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Please input your new password");
+        builder.setTitle("Please input your new password.");
 
         final View dialogView = LayoutInflater.from(this)
                 .inflate(R.layout.dialog_changepassword,null);
@@ -117,14 +117,14 @@ public class SettingsActivity extends AppCompatActivity {
                     Intent intent = new Intent(getApplicationContext(),Front_page.class);
                     startActivity(intent);
                     FirebaseAuth.getInstance().signOut();
-                    Toast.makeText(getApplicationContext(),"Please Sign in again",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(),"Please Sign in again.",Toast.LENGTH_SHORT).show();
                     finish();
                 }
                 else if(!newPassword.equals(nextPassword)){
-                    Toast.makeText(getApplicationContext(),"Password does not match",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(),"Passwords do not match.",Toast.LENGTH_SHORT).show();
                 }
                 else if(newPassword.length()<6){
-                    Toast.makeText(getApplicationContext(),"Password has to be at least 8 characters or numbers",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(),"Password has to be at least 8 characters or numbers.",Toast.LENGTH_SHORT).show();
                 }
             }
         });

@@ -208,10 +208,10 @@ public class Post_item extends AppCompatActivity {
                                             startActivityForResult(intent, IMAGE_OPEN);
                                         }
                                     }
-                                } else {
-                                    Toast.makeText(Post_item.this, "The picture can not be up to six", Toast.LENGTH_SHORT).show();
-
                                 }
+                            }else {
+                                Toast.makeText(Post_item.this, "The picture can not be up to six", Toast.LENGTH_SHORT).show();
+
                             }
                         }
                     });

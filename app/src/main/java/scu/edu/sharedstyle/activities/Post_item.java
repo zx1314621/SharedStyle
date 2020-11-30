@@ -302,7 +302,7 @@ public class Post_item extends AppCompatActivity {
         if (requestCode == REQUEST_PERMISSION_CODE) {
             for (int i = 0; i < permissions.length; i++) {
                 if(grantResults[i] == -1) {
-                    Toast.makeText(Post_item.this, "you cannot use album unless open the storage permission", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Post_item.this, "Please give us permission to access photo album.", Toast.LENGTH_SHORT).show();
                     return;
                 }
 

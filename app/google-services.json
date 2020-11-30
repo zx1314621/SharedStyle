@@ -8,12 +8,144 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:85438710338:android:2d3f323ee3e94697c463db",
+        "android_client_info": {
+          "package_name": "com.google.firebase.example.fireeats"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "85438710338-ve8qateg32m8l0027gl1548l4lc3vrgs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA9budAcnU_KR-BcLF50hxD9BK1YnQnlAQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "85438710338-ve8qateg32m8l0027gl1548l4lc3vrgs.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:85438710338:android:d92f81c176ab6352c463db",
+        "android_client_info": {
+          "package_name": "com.vaibhavmojidra.notificationdemo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "85438710338-ve8qateg32m8l0027gl1548l4lc3vrgs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA9budAcnU_KR-BcLF50hxD9BK1YnQnlAQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "85438710338-ve8qateg32m8l0027gl1548l4lc3vrgs.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:85438710338:android:fd0ff2f32d67cffbc463db",
         "android_client_info": {
           "package_name": "scu.edu.sharedstyle"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "85438710338-luj260d6t5rudq8vsu71ihspgfm7plpn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "scu.edu.sharedstyle",
+            "certificate_hash": "d3c436b09fd3e68beeb17c8597adceed463dc9ab"
+          }
+        },
+        {
+          "client_id": "85438710338-ve8qateg32m8l0027gl1548l4lc3vrgs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA9budAcnU_KR-BcLF50hxD9BK1YnQnlAQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "85438710338-ve8qateg32m8l0027gl1548l4lc3vrgs.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:85438710338:android:a6423e6e97bee913c463db",
+        "android_client_info": {
+          "package_name": "scu.edu.sharedstyle.activities"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "85438710338-ve8qateg32m8l0027gl1548l4lc3vrgs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA9budAcnU_KR-BcLF50hxD9BK1YnQnlAQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "85438710338-ve8qateg32m8l0027gl1548l4lc3vrgs.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:85438710338:android:7c1ad311cac55ed7c463db",
+        "android_client_info": {
+          "package_name": "scu.edu.testfcmstorage"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "85438710338-3ibb4j5mne3c8lmn0q3ao2srsov85j2q.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "scu.edu.testfcmstorage",
+            "certificate_hash": "b2e5b3697cccfc3cdbded11937b57994821ccc36"
+          }
+        },
         {
           "client_id": "85438710338-ve8qateg32m8l0027gl1548l4lc3vrgs.apps.googleusercontent.com",
           "client_type": 3

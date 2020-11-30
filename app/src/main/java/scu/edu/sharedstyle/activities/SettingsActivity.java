@@ -16,12 +16,17 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.common.collect.Table;
 import com.google.firebase.auth.FirebaseAuth;
 
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
 
+
+import java.util.HashMap;
+import java.util.Map;
 
 import scu.edu.sharedstyle.R;
 public class SettingsActivity extends AppCompatActivity {
@@ -32,6 +37,7 @@ public class SettingsActivity extends AppCompatActivity {
     private TableRow tr_resetPW;
 
     FirebaseAuth mAuth;
+    FirebaseFirestore firestore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +59,7 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
         mAuth = FirebaseAuth.getInstance();
-
+        firestore = FirebaseFirestore.getInstance();
         tr_address=findViewById(R.id.tr_address);
         tr_address.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,12 +80,22 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     private void logOut(){
-        mAuth.signOut();
-        Intent intent = new Intent(this,Front_page.class);
-        Toast.makeText(this, "You are now logged out.", Toast.LENGTH_LONG).show();
-        startActivity(intent);
-        FirebaseAuth.getInstance().signOut();
-        overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left);
+
+        String User_id = mAuth.getCurrentUser().getUid();
+        Map<String, Object> map = new HashMap<>();
+        String token_id = "";
+        map.put("token_id", token_id);
+        firestore.collection("Users").document(User_id).update(map).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                Intent intent = new Intent(SettingsActivity.this,Front_page.class);
+                Toast.makeText(this, "You are now logged out.", Toast.LENGTH_LONG).show();
+                startActivity(intent);
+                FirebaseAuth.getInstance().signOut();
+                overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left);
+            }
+        });
+
     }
 
     private void changeAddress(){
@@ -102,7 +118,7 @@ public class SettingsActivity extends AppCompatActivity {
                 EditText conPSW=dialogView.findViewById(R.id.et_confirmpswd);
                 String newPassword=newPSW.getText().toString();
                 String nextPassword=conPSW.getText().toString();
-                if(newPassword.length()>6&&newPassword.equals(nextPassword)){
+                if(newPassword.length()>7&&newPassword.equals(nextPassword)){
                     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                     user.updatePassword(newPassword)
                             .addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -123,8 +139,10 @@ public class SettingsActivity extends AppCompatActivity {
                 else if(!newPassword.equals(nextPassword)){
                     Toast.makeText(getApplicationContext(),"Passwords do not match.",Toast.LENGTH_SHORT).show();
                 }
-                else if(newPassword.length()<6){
-                    Toast.makeText(getApplicationContext(),"Password has to be at least 8 characters or numbers.",Toast.LENGTH_SHORT).show();
+
+                else if(newPassword.length()<8){
+                    Toast.makeText(getApplicationContext(),"Password has to be at least 8 characters or numbers",Toast.LENGTH_SHORT).show();
+
                 }
             }
         });

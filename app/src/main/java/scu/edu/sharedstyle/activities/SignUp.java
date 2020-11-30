@@ -123,9 +123,11 @@ public class SignUp extends AppCompatActivity {
                                 String User_id = FirebaseAuth.getInstance().getUid();
                                 Map<String, Object> map = new HashMap<>();
                                 map.put("name", mEmail);
+                                String user_name = mEmail.substring(0, mEmail.indexOf("@"));
                                 String token_id = MyFirebaseService.getToken(SignUp.this);
                                 Log.d("token", token_id);
                                 map.put("token_id", token_id);
+                                map.put("user_name", user_name);
 
                                 mFirestroe.collection("Users").document(User_id).set(map).addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
@@ -159,6 +161,5 @@ public class SignUp extends AppCompatActivity {
         UserInfo addedUser=new UserInfo(user.getUid(),email.substring(0,email.indexOf("@")));
         userRef.set(addedUser);
     }
-
 
 }

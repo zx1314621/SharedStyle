@@ -1,5 +1,6 @@
 package scu.edu.sharedstyle.activities;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
@@ -23,13 +24,12 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import com.google.firebase.firestore.auth.User;
-
 import java.util.HashMap;
 import java.util.Map;
 
 
 import scu.edu.sharedstyle.R;
+import scu.edu.sharedstyle.model.UserInfo;
 
 public class SignUp extends AppCompatActivity {
     private ImageView ivEye;
@@ -118,7 +118,7 @@ public class SignUp extends AppCompatActivity {
 
                                 Log.d(TAG, "createUserWithEmail:success");
                                 FirebaseUser user = mAuth.getCurrentUser();
-
+                                addUser(user,mEmail);
 
                                 String User_id = FirebaseAuth.getInstance().getUid();
                                 Map<String, Object> map = new HashMap<>();
@@ -152,13 +152,13 @@ public class SignUp extends AppCompatActivity {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
-/*
+
     private void addUser(FirebaseUser user,String email){
         DocumentReference userRef=
                 FirebaseFirestore.getInstance().collection("users").document();
-        User addedUser=new User(user.getUid(),email.substring(0,email.indexOf("@")));
+        UserInfo addedUser=new UserInfo(user.getUid(),email.substring(0,email.indexOf("@")));
         userRef.set(addedUser);
     }
-    */
+
 
 }

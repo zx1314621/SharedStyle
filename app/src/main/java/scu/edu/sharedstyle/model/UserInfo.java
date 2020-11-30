@@ -1,6 +1,6 @@
 package scu.edu.sharedstyle.model;
 
-public class User {
+public class UserInfo {
     private String UID;
     private String Name;
     private String Phone;
@@ -32,9 +32,9 @@ public class User {
 
     public void setZIP(String ZIP){this.ZIP=ZIP;}
 
-    public User(){}
+    public UserInfo(){}
 
-    public User(String UID,String Name){
+    public UserInfo(String UID, String Name){
         this.UID=UID;
         this.Name=Name;
     }

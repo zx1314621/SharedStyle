@@ -21,11 +21,11 @@
         android:id="@+id/tv_usernamesu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="User Name"
+        android:text="      E-mail      "
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@+id/et_usernamesu"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/et_usernamesu"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/et_usernamesu" />
 
     <EditText
@@ -33,7 +33,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="Username"
+        android:hint="E-mail"
         android:inputType="textPersonName"
         android:textColorHint="#050505"
         android:textSize="14sp"
@@ -108,7 +108,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="Comfirm Password"
+        android:hint="Confirm Password"
         android:inputType="textPersonName"
         android:textColorHint="#050505"
         android:textSize="14sp"

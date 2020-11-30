@@ -155,7 +155,7 @@ public class LogIn extends AppCompatActivity {
             Log.d(TAG, "firebaseAuthWithGoogle: account exists" );
             Log.d(TAG, "firebaseAuthWithGoogle:" + account.getIdToken());
             firebaseAuthWithGoogle(account.getIdToken());
-            updateUI(account);
+//            updateUI(account);
         } catch (ApiException e) {
             // The ApiException status code indicates the detailed failure reason.
             // Please refer to the GoogleSignInStatusCodes class reference for more information.
@@ -164,8 +164,27 @@ public class LogIn extends AppCompatActivity {
         }
     }
 
-    private void updateUI(GoogleSignInAccount account) {
-        if (account!= null){
+    private void updateUI(FirebaseUser user) {
+        if (user!= null){
+
+            mEmail = user.getEmail();
+            addUser(user,mEmail);
+
+            String User_id = FirebaseAuth.getInstance().getUid();
+
+            Map<String, Object> map = new HashMap<>();
+            map.put("name", mEmail);
+            String token_id = MyFirebaseService.getToken(LogIn.this);
+            Log.d("token", token_id);
+            map.put("token_id", token_id);
+
+            firestore.collection("Users").document(User_id).set(map).addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void aVoid) {
+                    Log.d(TAG, "createUserWithEmail:success");
+                    goBrowse();
+                }
+            });
 
             goBrowse();
         } else{
@@ -184,25 +203,26 @@ public class LogIn extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-                            mEmail = user.getEmail();
-                            addUser(user,mEmail);
+//                            mEmail = user.getEmail();
+//                            addUser(user,mEmail);
+//
+//                            String User_id = FirebaseAuth.getInstance().getUid();
+//
+//                            Map<String, Object> map = new HashMap<>();
+//                            map.put("name", mEmail);
+//                            String token_id = MyFirebaseService.getToken(LogIn.this);
+//                            Log.d("token", token_id);
+//                            map.put("token_id", token_id);
+//
+//                            firestore.collection("Users").document(User_id).set(map).addOnSuccessListener(new OnSuccessListener<Void>() {
+//                                @Override
+//                                public void onSuccess(Void aVoid) {
+//                                    Log.d(TAG, "createUserWithEmail:success");
+//                                    goBrowse();
+//                                }
+//                            });
 
-                            String User_id = FirebaseAuth.getInstance().getUid();
-
-                            Map<String, Object> map = new HashMap<>();
-                            map.put("name", mEmail);
-                            String token_id = MyFirebaseService.getToken(LogIn.this);
-                            Log.d("token", token_id);
-                            map.put("token_id", token_id);
-
-                            firestore.collection("Users").document(User_id).set(map).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void aVoid) {
-                                    Log.d(TAG, "createUserWithEmail:success");
-                                    goBrowse();
-                                }
-                            });
-
+                            updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());

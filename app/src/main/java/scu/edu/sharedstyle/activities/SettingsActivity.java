@@ -89,7 +89,7 @@ public class SettingsActivity extends AppCompatActivity {
             @Override
             public void onSuccess(Void aVoid) {
                 Intent intent = new Intent(SettingsActivity.this,Front_page.class);
-                Toast.makeText(this, "You are now logged out.", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "You are now logged out.", Toast.LENGTH_LONG).show();
                 startActivity(intent);
                 FirebaseAuth.getInstance().signOut();
                 overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left);
@@ -141,7 +141,7 @@ public class SettingsActivity extends AppCompatActivity {
                 }
 
                 else if(newPassword.length()<8){
-                    Toast.makeText(getApplicationContext(),"Password has to be at least 8 characters or numbers",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(),"Password has to be at least 8 characters or numbers.",Toast.LENGTH_SHORT).show();
 
                 }
             }

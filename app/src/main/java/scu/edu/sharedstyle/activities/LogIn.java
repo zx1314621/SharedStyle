@@ -175,8 +175,10 @@ public class LogIn extends AppCompatActivity {
             Map<String, Object> map = new HashMap<>();
             map.put("name", mEmail);
             String token_id = MyFirebaseService.getToken(LogIn.this);
+            String user_name = mEmail.substring(0, mEmail.indexOf("@"));
             Log.d("token", token_id);
             map.put("token_id", token_id);
+            map.put("user_name", user_name);
 
             firestore.collection("Users").document(User_id).set(map).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override

@@ -52,7 +52,7 @@
         app:layout_constraintEnd_toStartOf="@id/rightGuideline"
         app:layout_constraintTop_toBottomOf="@id/topGuideline"
         app:layout_constraintBottom_toTopOf="@id/bottomGuideline"
-        android:text="Nothing here"
+        android:text="You have not posted anything yet"
         android:textSize="24sp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

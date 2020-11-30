@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -35,6 +36,11 @@ public class Purchase extends AppCompatActivity {
     private double price;
     private String name;
     private String itemPath;
+    private String HolderName;
+    private String CardNumber;
+    private String ExpirationDate;
+    private String CVS;
+    private String TAG = "Purchase";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,12 +63,9 @@ public class Purchase extends AppCompatActivity {
     }
 
     public void alert(View view) {
-        if(cardholder.getText().toString().matches("")|| cardnum.getText().toString().matches("")
-                || expdate.getText().toString().matches("") || cvs.getText().toString().matches("")){
-            Toast.makeText(this, "Please enter valid credit card information", Toast.LENGTH_LONG).show();
+        if(!isValid()){
         } else {
-            AlertDialog.Builder alert = new AlertDialog.Builder(this);//this here just means the current object == Main Activity
-            // this here is the same as getActivityContext -- very common way to get context
+            AlertDialog.Builder alert = new AlertDialog.Builder(this);
             alert.setTitle("Purchase Completed");
             alert.setCancelable(false);
             alert.setMessage("Thank you for your purchase!");
@@ -74,8 +77,62 @@ public class Purchase extends AppCompatActivity {
             });
             alert.show();
         }
+    }
 
+    public Boolean isValid(){
+        HolderName = cardholder.getText().toString();
+        CardNumber = cardnum.getText().toString();
+        ExpirationDate = expdate.getText().toString();
+        CVS = cvs.getText().toString();
+        if(HolderName.matches("")|| CardNumber.matches("")
+                || ExpirationDate.matches("") || CVS.matches("")){
+            Toast.makeText(this, "Credit card information cannot be empty.", Toast.LENGTH_LONG).show();
+            return false;
+        } else try{
+            Integer i = Integer.parseInt(CVS);
+            if(CVS.length() < 3 || CVS.length() > 4){
+                Toast.makeText(this, "Please enter valid CVS number.", Toast.LENGTH_LONG).show();
+                return false;
+            }
+        } catch (NumberFormatException e){
+            Toast.makeText(this, "Please enter valid CVS number.", Toast.LENGTH_LONG).show();
+            return false;
+        }
+        try{
+            Integer.parseInt(CardNumber);
 
+        } catch (NumberFormatException er){
+            Toast.makeText(this, "Please enter valid card number", Toast.LENGTH_LONG).show();
+            return false;
+        }
+
+        return checkdate(ExpirationDate);
+
+    }
+
+    private Boolean checkdate(String ExpirationDate) {
+        if (ExpirationDate.length() != 5){
+            Toast.makeText(this, "Please enter valid expiration date", Toast.LENGTH_LONG).show();
+            return false;
+        } else if(!ExpirationDate.contains("/")){
+            Toast.makeText(this, "Please enter valid expiration date", Toast.LENGTH_LONG).show();
+            return false;
+        } else try {
+            Integer month = Integer.parseInt(ExpirationDate.substring(0,2));
+            Integer year = Integer.parseInt(ExpirationDate.substring(3));
+            if (month < 1 || month > 12){
+                Toast.makeText(this, "Please enter valid expiration date", Toast.LENGTH_LONG).show();
+                return false;
+            }
+            if (year < 21){
+                Toast.makeText(this, "Please enter valid expiration date", Toast.LENGTH_LONG).show();
+                return false;
+            }
+        } catch (NumberFormatException e){
+            Toast.makeText(this, "Please enter valid expiration date, not number", Toast.LENGTH_LONG).show();
+            return false; }
+
+        return true;
 
     }
 

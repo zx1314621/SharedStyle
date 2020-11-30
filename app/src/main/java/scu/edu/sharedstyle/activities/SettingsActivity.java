@@ -102,7 +102,7 @@ public class SettingsActivity extends AppCompatActivity {
                 EditText conPSW=dialogView.findViewById(R.id.et_confirmpswd);
                 String newPassword=newPSW.getText().toString();
                 String nextPassword=conPSW.getText().toString();
-                if(newPassword.length()>6&&newPassword.equals(nextPassword)){
+                if(newPassword.length()>7&&newPassword.equals(nextPassword)){
                     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                     user.updatePassword(newPassword)
                             .addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -123,7 +123,7 @@ public class SettingsActivity extends AppCompatActivity {
                 else if(!newPassword.equals(nextPassword)){
                     Toast.makeText(getApplicationContext(),"Password does not match",Toast.LENGTH_SHORT).show();
                 }
-                else if(newPassword.length()<6){
+                else if(newPassword.length()<8){
                     Toast.makeText(getApplicationContext(),"Password has to be at least 8 characters or numbers",Toast.LENGTH_SHORT).show();
                 }
             }

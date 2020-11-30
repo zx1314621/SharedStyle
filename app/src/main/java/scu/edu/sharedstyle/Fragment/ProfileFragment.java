@@ -36,18 +36,12 @@ import scu.edu.sharedstyle.activities.SettingsActivity;
 public class ProfileFragment extends Fragment {
 
 
-    private Button resetPW;
-    private Button logout;
     private TableRow tr_posted;
     private TableRow tr_purchased;
     private TableRow tr_setting;
 
     private TextView tv_user;
 
-    private FirebaseAuth mAuth;
-    private FirebaseFirestore mFirestore;
-    private String UserId;
-    private TextView username;
 
     @Nullable
     @Override
@@ -56,41 +50,6 @@ public class ProfileFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
-
-
-
-//        resetPW = view.findViewById(R.id.bt_resetPW);
-//        resetPW.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Toast.makeText(getActivity(), "Reset Password click", Toast.LENGTH_SHORT).show();
-//            }
-//        });
-//
-//        logout = view.findViewById(R.id.bt_Logout);
-//
-//        logout.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(getActivity(), Front_page.class);
-//                Toast.makeText(getActivity(), "Log out", Toast.LENGTH_SHORT).show();
-//                startActivity(intent);
-//            }
-//        });
-        mAuth = FirebaseAuth.getInstance();
-        mFirestore = FirebaseFirestore.getInstance();
-        UserId = mAuth.getCurrentUser().getUid();
-        username = view.findViewById(R.id.tv_user);
-        mFirestore.collection("Users").document(UserId).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                String User_name = documentSnapshot.getString("name");
-                username.setText(User_name);
-
-
-            }
-        });
-
 
 
         //Go to setting

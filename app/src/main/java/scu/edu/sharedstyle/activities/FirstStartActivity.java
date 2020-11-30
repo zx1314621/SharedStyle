@@ -34,8 +34,8 @@ public class  FirstStartActivity extends Activity implements ViewPager.OnPageCha
     }
     private void initview(){
         mviewPager = (ViewPager) findViewById(R.id.first_start_viewpager);
-        View view4 = getLayoutInflater().inflate(R.layout.first_start_layout4,null);
-        button = view4.findViewById(R.id.button);
+        View view3 = getLayoutInflater().inflate(R.layout.first_start_layout3,null);
+        button = view3.findViewById(R.id.button);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -44,8 +44,8 @@ public class  FirstStartActivity extends Activity implements ViewPager.OnPageCha
         });
         views.add(getLayoutInflater().inflate(R.layout.first_start_layout1,null));
         views.add(getLayoutInflater().inflate(R.layout.first_start_layout2,null));
-        views.add(getLayoutInflater().inflate(R.layout.first_start_layout3,null));
-        views.add(view4);
+
+        views.add(view3);
         mviewPager.addOnPageChangeListener(this);
         mviewPager.setAdapter(new ViewPagerAdapter());
 

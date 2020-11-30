@@ -3,16 +3,20 @@ package scu.edu.sharedstyle.activities;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 
+import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.media.ExifInterface;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -91,11 +95,18 @@ public class Post_item extends AppCompatActivity {
     private DocumentReference productRef;
     private FirebaseStorage storage;
     private StorageReference itemImgRef;
-    private String new_item = "There is a new item ";
+    private String new_item = "A Big Bargain starting ";
     String User_id;
     List<String> list;
     int size = 0;
     FirebaseAuth mAuth;
+
+    //读写权限
+    private static String[] PERMISSIONS_STORAGE = {
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE};
+    //请求状态码
+    private static int REQUEST_PERMISSION_CODE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,12 +119,11 @@ public class Post_item extends AppCompatActivity {
         cancel = findViewById(R.id.cancel);
         //setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         WindowManager wm=(WindowManager) getSystemService(WINDOW_SERVICE);
-//        getWindow().setSoftInputMode(WindowManager.LayoutParams.
-//                SOFT_INPUT_ADJUST_PAN);
-//        //锁定屏幕
+
+
 //        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 //        setContentView(R.layout.activity_post_item);
-        //获取控件对象
+
         gridView = (GridView) findViewById(R.id.grid_view);
         textView = findViewById(R.id.count);
         description = findViewById(R.id.description);
@@ -171,10 +181,7 @@ public class Post_item extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 if(position == 0){
                         Toast.makeText(Post_item.this, "Add a photo", Toast.LENGTH_SHORT).show();
-                        //选择图片
-//                    Intent intent = new Intent(Intent.ACTION_PICK,
-//                            android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-//                    startActivityForResult(intent, IMAGE_OPEN);
+
 
                     final String [] strs=new String[]{"Take photo","Album"};
                     AlertDialog.Builder builder=new AlertDialog.Builder(Post_item.this);
@@ -182,8 +189,7 @@ public class Post_item extends AppCompatActivity {
                     builder.setItems(strs, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            //拍照可以用两种方法来实现
-                            //1.调用系统相机 2.自定义相机
+
                             if(images.size() < 6) {
                                 if (which == 0) {
 
@@ -191,16 +197,22 @@ public class Post_item extends AppCompatActivity {
                                     startActivityForResult(intent, CAMERA);
 
                                 }
-                                //调用系统相册
-                                if (which == 1) {
-                                    Intent intent = new Intent(Intent.ACTION_PICK,
-                                            android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                                    startActivityForResult(intent, IMAGE_OPEN);
-                                }
-                            }else{
-                                Toast.makeText(Post_item.this, "The picture can not be up to six",Toast.LENGTH_SHORT).show();
-                            }
 
+                                if (which == 1) {
+                                    if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
+                                        if (ActivityCompat.checkSelfPermission(Post_item.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                                            ActivityCompat.requestPermissions(Post_item.this, PERMISSIONS_STORAGE, REQUEST_PERMISSION_CODE);
+                                        } else {
+                                            Intent intent = new Intent(Intent.ACTION_PICK,
+                                                    android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                                            startActivityForResult(intent, IMAGE_OPEN);
+                                        }
+                                    }
+                                } else {
+                                    Toast.makeText(Post_item.this, "The picture can not be up to six", Toast.LENGTH_SHORT).show();
+
+                                }
+                            }
                         }
                     });
                     builder.show();
@@ -285,6 +297,24 @@ public class Post_item extends AppCompatActivity {
             }
         });
     }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == REQUEST_PERMISSION_CODE) {
+            for (int i = 0; i < permissions.length; i++) {
+                if(grantResults[i] == -1) {
+                    Toast.makeText(Post_item.this, "you cannot use album unless open the storage permission", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+            }
+        }
+        Intent intent = new Intent(Intent.ACTION_PICK,
+                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(intent, IMAGE_OPEN);
+
+    }
+
 
     private ArrayList<String> generateKeyWord(String input) {
         Set<String> keywords = new HashSet<>();

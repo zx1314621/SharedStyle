@@ -13,24 +13,22 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_begin="10dp" />
+        app:layout_constraintGuide_percent="0.05"/>
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/rightGuideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_end="10dp" />
+        app:layout_constraintGuide_percent="0.95" />
 
 
     <TableLayout
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:gravity="center"
-        android:layout_marginEnd="20dp"
+        app:layout_constraintStart_toStartOf="@id/leftGuideline"
         app:layout_constraintBottom_toTopOf="@+id/BottomGuideline"
-        app:layout_constraintStart_toStartOf="@+id/leftGuideline"
+        app:layout_constraintEnd_toEndOf="@id/rightGuideline"
         app:layout_constraintTop_toTopOf="parent">
 
         <TableRow
@@ -46,8 +44,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
-                android:text="Reset Password"
                 android:layout_weight="1"
+                android:text="Change Password"
                 android:textSize="24sp" />
 
 
@@ -60,12 +58,12 @@
         </TableRow>
 
         <TableRow
+            android:id="@+id/tr_address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/tr_address"
             android:layout_marginTop="10dp"
-            android:clickable="true"
             android:layout_marginBottom="10dp"
+            android:clickable="true"
             android:focusable="true">
 
             <TextView
@@ -84,12 +82,12 @@
         </TableRow>
 
         <TableRow
+            android:id="@+id/tr_logOut"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/tr_logOut"
-            android:clickable="true"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
+            android:clickable="true"
             android:focusable="true">
 
             <TextView
@@ -115,7 +113,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_end="200dp"/>
+        app:layout_constraintGuide_percent="0.8"/>
 
 
 

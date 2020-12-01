@@ -232,54 +232,59 @@ public class Post_item extends AppCompatActivity {
                         Toast.makeText(Post_item.this, "Please enter a valid number for the price.", Toast.LENGTH_SHORT).show();
                     } else {
                         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                        images.remove(0); //Remove imageAdd
-                        ArrayList<String> keywords = generateKeyWord(name.getText().toString());
-                        ArrayList<String> imgURLs = upLoadImg(images);
-                        Item postItem = new Item(name.getText().toString(), description.getText().toString(),
-                                brand.getText().toString(), Double.parseDouble(price.getText().toString()),
-                                imgURLs.get(0), imgURLs, user.getUid(), keywords);
+                        if (images.size()==1) {
+                            System.out.println("imgURLs is empty"+images.isEmpty());
+                            Toast.makeText(Post_item.this, "Please select at least one picture.", Toast.LENGTH_SHORT).show();
+                        } else {
+                            images.remove(0); //Remove imageAdd
+                            ArrayList<String> keywords = generateKeyWord(name.getText().toString());
+                            ArrayList<String> imgURLs = upLoadImg(images);
+                            Item postItem = new Item(name.getText().toString(), description.getText().toString(),
+                                    brand.getText().toString(), Double.parseDouble(price.getText().toString()),
+                                    imgURLs.get(0), imgURLs, user.getUid(), keywords);
 
-                        productRef = firestore.collection("products").document();
-                        productRef.set(postItem);
-                        //User_id = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                            productRef = firestore.collection("products").document();
+                            productRef.set(postItem);
+                            //User_id = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
 //                firestore.collection("Users").document(User_id).collection()
-                        String from = mAuth.getCurrentUser().getUid();
-                        final Map<String, Object> map = new HashMap<>();
-                        map.put("Itemname", name.getText().toString());
-                        map.put("Image", imgURLs.get(0));
-                        map.put("from", from);
-                        map.put("message", new_item);
-                        Log.d("tag", String.valueOf(map.keySet()));
-                        list = new ArrayList<String>();
-                        firestore.collection("Users").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                            @Override
-                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                if (task.isSuccessful()) {
-                                    for (DocumentSnapshot document : task.getResult()) {
-                                        size++;
-                                        list.add(document.getId());
-                                    }
+                            String from = mAuth.getCurrentUser().getUid();
+                            final Map<String, Object> map = new HashMap<>();
+                            map.put("Itemname", name.getText().toString());
+                            map.put("Image", imgURLs.get(0));
+                            map.put("from", from);
+                            map.put("message", new_item);
+                            Log.d("tag", String.valueOf(map.keySet()));
+                            list = new ArrayList<String>();
+                            firestore.collection("Users").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                    if (task.isSuccessful()) {
+                                        for (DocumentSnapshot document : task.getResult()) {
+                                            size++;
+                                            list.add(document.getId());
+                                        }
 
-                                    Log.d("tag size", String.valueOf(size));
-                                    for (int i = 0; i < size; i++) {
-                                        String User_id = list.get(i);
-                                        firestore.collection("Users/" + User_id + "/Notifications").add(map).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                                            @Override
-                                            public void onSuccess(DocumentReference documentReference) {
-                                                Log.d("tag", "add work");
-                                               // Toast.makeText(Post_item.this, "send notification", Toast.LENGTH_SHORT).show();
-                                            }
-                                        });
+                                        Log.d("tag size", String.valueOf(size));
+                                        for (int i = 0; i < size; i++) {
+                                            String User_id = list.get(i);
+                                            firestore.collection("Users/" + User_id + "/Notifications").add(map).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                                @Override
+                                                public void onSuccess(DocumentReference documentReference) {
+                                                    Log.d("tag", "add work");
+                                                    // Toast.makeText(Post_item.this, "send notification", Toast.LENGTH_SHORT).show();
+                                                }
+                                            });
+                                        }
+                                    } else {
+                                        Log.d("TAG", "Error getting documents: ", task.getException());
                                     }
-                                } else {
-                                    Log.d("TAG", "Error getting documents: ", task.getException());
                                 }
-                            }
-                        });
-                        Intent intent = new Intent(Post_item.this, MainActivity.class);
-                        startActivity(intent);
-                        //Toast.makeText(Post_item.this, "post successfully", Toast.LENGTH_SHORT).show();
+                            });
+                            Intent intent = new Intent(Post_item.this, MainActivity.class);
+                            startActivity(intent);
+                            //Toast.makeText(Post_item.this, "post successfully", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 }
             }

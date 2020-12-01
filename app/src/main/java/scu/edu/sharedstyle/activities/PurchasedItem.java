@@ -12,6 +12,7 @@ import android.view.GestureDetector;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.TextView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
@@ -24,11 +25,13 @@ import com.google.firebase.firestore.Query;
 import scu.edu.sharedstyle.R;
 import scu.edu.sharedstyle.model.Item;
 import scu.edu.sharedstyle.recyclerview.FirestoreAdapter;
+import scu.edu.sharedstyle.recyclerview.PurchaseAdapter;
 
 public class PurchasedItem extends AppCompatActivity {
 
-    private FirestoreAdapter adapter;
+    private PurchaseAdapter adapter;
     private RecyclerView purchasedView;
+    private TextView tv_nothing;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,8 +49,9 @@ public class PurchasedItem extends AppCompatActivity {
         purchasedView=findViewById(R.id.rv_purchased);
         purchasedView.setLayoutManager(new LinearLayoutManager(this));
         getData();
-        adapter.isClickable=false;
+        //adapter.isClickable=false;
         purchasedView.setAdapter(adapter);
+        tv_nothing=findViewById(R.id.tv_purchased);
 
     }
 
@@ -103,7 +107,17 @@ public class PurchasedItem extends AppCompatActivity {
                 .setQuery(query, Item.class)
                 .build();
 
-        adapter=new FirestoreAdapter(options);
+        adapter=new PurchaseAdapter(options){
+            @Override
+            public void onDataChanged() {
+                if (getItemCount() == 0){
+                    tv_nothing.setVisibility(View.VISIBLE);
+                }
+                else{
+                    tv_nothing.setVisibility(View.GONE);
+                }
+            }
+        };
 
     }
 

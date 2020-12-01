@@ -98,13 +98,13 @@ public class SignUp extends AppCompatActivity {
         mEmail = email.getText().toString();
         mPassword = password.getText().toString();
         if(mEmail.matches("")||mPassword.matches("") || !mEmail.contains("@")){
-            Toast.makeText(this, "Please enter valid email address and password", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Please enter valid email address and password.", Toast.LENGTH_LONG).show();
             return;
         } else if(!mPassword.equals(confirmpswd.getText().toString())){
-            Toast.makeText(this, "Please confirm passwords match", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Passwords do not match.", Toast.LENGTH_LONG).show();
             return;
         } else if(mPassword.length() < 8){
-            Toast.makeText(this, "Password has to contain at least 8 characters or numbers", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Password has to contain at least 8 characters or numbers.", Toast.LENGTH_LONG).show();
             return;
         }
 

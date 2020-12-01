@@ -113,7 +113,7 @@ public class MyFirebaseService extends FirebaseMessagingService {
 
         Notification notification1 = new NotificationCompat.Builder(MyFirebaseService.this, "default")
                 .setLargeIcon(image)
-                .setSmallIcon(R.drawable.ic_stat_name1)
+                .setSmallIcon(R.drawable.ic_stat_name)
                 .setColor(Color.parseColor("#5B358D"))
                 .setContentTitle(notification.getTitle())
                 .setContentText(notification.getBody())

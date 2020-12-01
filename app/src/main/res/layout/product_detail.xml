@@ -20,13 +20,22 @@
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.95" />
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.97"/>
+
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/pager"
         android:layout_width="match_parent"
         android:layout_height="250dp"
         app:layout_constraintEnd_toStartOf="@+id/rightGuideline"
         app:layout_constraintStart_toStartOf="@id/leftGuideline"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/product_name"
+        android:layout_marginTop="16dp">
 
 
     </androidx.viewpager2.widget.ViewPager2>
@@ -56,35 +65,40 @@
         android:id="@+id/product_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:text="@string/product_name"
         android:textSize="20sp"
-        android:layout_marginTop="10dp"
+        app:layout_constraintBottom_toTopOf="@id/product_brand"
         app:layout_constraintStart_toStartOf="@id/leftGuideline"
-        app:layout_constraintTop_toBottomOf="@id/pager"/>
+        app:layout_constraintTop_toBottomOf="@id/pager"
+        app:layout_constraintVertical_weight="1" />
 
 
     <TextView
         android:id="@+id/product_brand"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:text="@string/product_brand"
         android:textSize="20sp"
-        android:layout_marginTop="10dp"
+        app:layout_constraintBottom_toTopOf="@id/product_price"
         app:layout_constraintStart_toStartOf="@id/leftGuideline"
-        app:layout_constraintTop_toBottomOf="@+id/product_name" />
+        app:layout_constraintTop_toBottomOf="@+id/product_name"
+        app:layout_constraintVertical_weight="1" />
 
 
     <ScrollView
         android:id="@+id/scrollView"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
         android:background="#FFFF"
         app:layout_constraintBottom_toTopOf="@+id/buy_now"
         app:layout_constraintEnd_toEndOf="@id/rightGuideline"
         app:layout_constraintStart_toStartOf="@id/leftGuideline"
-        app:layout_constraintTop_toBottomOf="@id/total_price">
+        app:layout_constraintTop_toBottomOf="@id/product_price"
+        app:layout_constraintVertical_weight="1">
 
         <TextView
             android:id="@+id/product_description"
@@ -97,39 +111,43 @@
 
     <Button
         android:id="@+id/buy_now"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="@string/buy_now"
+        android:background="@color/colordarkpurple"
         android:onClick="buy"
+        android:text="@string/buy_now"
+        android:textColor="@color/buttonFont"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:background="@color/buttonBackground"
-        android:textColor="@color/buttonFont"/>
+        app:layout_constraintBottom_toBottomOf="@id/guideline3"
+        app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
+        app:layout_constraintRight_toRightOf="@id/rightGuideline"
+        app:layout_constraintTop_toBottomOf="@id/scrollView"
+        app:layout_constraintVertical_weight="1" />
 
     <TextView
         android:id="@+id/total_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:layout_marginTop="10dp"
         android:text="@string/total_price"
         android:textSize="20sp"
-        app:layout_constraintTop_toBottomOf="@id/product_brand"
-        app:layout_constraintStart_toStartOf="@id/leftGuideline" />
+        app:layout_constraintTop_toTopOf="@id/product_price"
+        app:layout_constraintBottom_toBottomOf="@id/product_price"
+        app:layout_constraintStart_toStartOf="@id/leftGuideline"
+        app:layout_constraintVertical_weight="1" />
 
     <EditText
         android:id="@+id/product_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:gravity="center"
         android:focusable="false"
+        android:gravity="center"
         android:inputType="numberDecimal"
         android:text="10.00"
-        app:layout_constraintTop_toBottomOf="@id/product_brand"
-        app:layout_constraintStart_toEndOf="@id/total_price" />
+        app:layout_constraintBottom_toTopOf="@id/scrollView"
+        app:layout_constraintStart_toEndOf="@id/total_price"
+        app:layout_constraintTop_toBottomOf="@+id/product_brand"
+        app:layout_constraintVertical_weight="1" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

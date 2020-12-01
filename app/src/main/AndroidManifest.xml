@@ -17,13 +17,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.PurchasedItem"
-            android:screenOrientation="portrait"></activity>
-        <activity android:name=".activities.Posted"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".activities.FirstStartActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".activities.Splash"
+        <activity android:name=".activities.purchased_details"></activity>
+        <activity
+            android:name=".activities.PurchasedItem"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.Posted"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.FirstStartActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.Splash"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -31,40 +36,47 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <service
             android:name=".activities.MyFirebaseService"
-            android:screenOrientation="portrait"
             android:enabled="true"
             android:exported="true"
+            android:screenOrientation="portrait"
             tools:ignore="Instantiatable">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
 
-
-        <activity android:name=".activities.AddressActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activities.AddressActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activities.SettingsActivity"
-            android:screenOrientation="portrait"
-            android:label="@string/title_activity_settings" />
-        <activity android:name=".activities.MainActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".activities.Post_item"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".activities.ProductDetailActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".activities.LogIn"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".activities.SignUp"
-            android:screenOrientation="portrait"/>
+            android:label="@string/title_activity_settings"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.MainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.Post_item"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.ProductDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.LogIn"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.SignUp"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activities.Front_page"
-            android:screenOrientation="portrait"
-            android:label="@string/app_name" />
-        <activity android:name=".activities.Purchase"
-            android:screenOrientation="portrait"/>
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.Purchase"
+            android:screenOrientation="portrait" />
 
         <meta-data
             android:name="preloaded_fonts"

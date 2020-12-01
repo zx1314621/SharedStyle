@@ -12,21 +12,28 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_begin="10dp" />
+        app:layout_constraintGuide_percent="0.05" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/rightGuideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_end="10dp" />
+        app:layout_constraintGuide_percent="0.95" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/MiddleGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.75"/>
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/BottomGuideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_end="200dp"/>
+        app:layout_constraintGuide_percent="0.97"/>
 
     <TableLayout
         android:layout_width="match_parent"
@@ -34,7 +41,7 @@
         android:layout_marginStart="20dp"
         android:gravity="center"
         android:layout_marginEnd="20dp"
-        app:layout_constraintBottom_toTopOf="@+id/BottomGuideline"
+        app:layout_constraintBottom_toTopOf="@+id/MiddleGuideline"
         app:layout_constraintStart_toStartOf="@+id/leftGuideline"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -54,7 +61,7 @@
                 android:gravity="bottom"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
-                android:textSize="24sp" />
+                android:textSize="20sp" />
 
             <EditText
                 android:id="@+id/et_name"
@@ -86,7 +93,7 @@
                 android:text="Phone:"
                 android:layout_gravity="center_vertical"
                 android:gravity="bottom"
-                android:textSize="24sp" />
+                android:textSize="20sp" />
 
             <EditText
                 android:id="@+id/et_phone"
@@ -119,7 +126,7 @@
                 android:text="Street:"
                 android:layout_gravity="center_vertical"
                 android:gravity="bottom"
-                android:textSize="24sp" />
+                android:textSize="20sp" />
 
             <EditText
                 android:id="@+id/et_street"
@@ -151,7 +158,7 @@
                 android:gravity="bottom"
                 android:layout_gravity="center_vertical"
                 android:text="State:"
-                android:textSize="24sp" />
+                android:textSize="20sp" />
 
             <EditText
                 android:id="@+id/et_state"
@@ -182,7 +189,7 @@
                 android:gravity="bottom"
                 android:layout_gravity="center_vertical"
                 android:text="ZIP Code:"
-                android:textSize="24sp" />
+                android:textSize="20sp" />
 
             <EditText
                 android:id="@+id/et_zip"
@@ -203,28 +210,26 @@
         android:id="@+id/btn_cancel"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@color/buttonBackground"
-        android:text="Cancle"
-        android:textColor="@color/buttonFont"
-        android:textSize="20sp"
         android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:background="@color/colordarkpurple"
+        android:text="Cancel"
+        android:textColor="@color/buttonFont"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@id/BottomGuideline"
         app:layout_constraintEnd_toStartOf="@id/btn_save"
+        app:layout_constraintLeft_toLeftOf="@id/leftGuideline"
         app:layout_constraintStart_toStartOf="@id/leftGuideline" />
 
     <Button
         android:id="@+id/btn_save"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:background="@color/colordarkpurple"
         android:text="Save"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/btn_cancel"
-        android:background="@color/buttonBackground"
-        android:textColor="@color/buttonFont"/>
+        android:textColor="@color/buttonFont"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@id/BottomGuideline"
+        app:layout_constraintEnd_toEndOf="@id/rightGuideline"
+        app:layout_constraintStart_toEndOf="@id/btn_cancel" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

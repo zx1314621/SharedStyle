@@ -51,7 +51,7 @@
         android:id="@+id/tableview"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/BottomGuideline"
+        app:layout_constraintBottom_toTopOf="@+id/MiddleGuideline"
         app:layout_constraintEnd_toStartOf="@+id/rightGuideline"
         app:layout_constraintStart_toStartOf="@+id/leftGuideline"
         app:layout_constraintTop_toBottomOf="@+id/tv_user">
@@ -134,7 +134,7 @@
     </TableLayout>
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/BottomGuideline"
+        android:id="@+id/MiddleGuideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"

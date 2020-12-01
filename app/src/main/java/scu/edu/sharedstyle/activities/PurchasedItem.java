@@ -25,10 +25,11 @@ import com.google.firebase.firestore.Query;
 import scu.edu.sharedstyle.R;
 import scu.edu.sharedstyle.model.Item;
 import scu.edu.sharedstyle.recyclerview.FirestoreAdapter;
+import scu.edu.sharedstyle.recyclerview.PurchaseAdapter;
 
 public class PurchasedItem extends AppCompatActivity {
 
-    private FirestoreAdapter adapter;
+    private PurchaseAdapter adapter;
     private RecyclerView purchasedView;
     private TextView tv_nothing;
 
@@ -48,7 +49,7 @@ public class PurchasedItem extends AppCompatActivity {
         purchasedView=findViewById(R.id.rv_purchased);
         purchasedView.setLayoutManager(new LinearLayoutManager(this));
         getData();
-        adapter.isClickable=false;
+        //adapter.isClickable=false;
         purchasedView.setAdapter(adapter);
         tv_nothing=findViewById(R.id.tv_purchased);
 
@@ -106,7 +107,7 @@ public class PurchasedItem extends AppCompatActivity {
                 .setQuery(query, Item.class)
                 .build();
 
-        adapter=new FirestoreAdapter(options){
+        adapter=new PurchaseAdapter(options){
             @Override
             public void onDataChanged() {
                 if (getItemCount() == 0){
@@ -117,6 +118,7 @@ public class PurchasedItem extends AppCompatActivity {
                 }
             }
         };
+
     }
 
 }

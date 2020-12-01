@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/leftGuideline1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.05"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/rightGuideline1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.95" />
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/pager1"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        app:layout_constraintEnd_toStartOf="@+id/rightGuideline1"
+        app:layout_constraintStart_toStartOf="@id/leftGuideline1"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+    </androidx.viewpager2.widget.ViewPager2>
+
+    <ImageView
+        android:id="@+id/ButtonBack1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toEndOf="@id/leftGuideline1"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_arrow_back_white_24px" />
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tab_layout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:tabBackground="@drawable/tab_selector"
+        app:tabGravity="center"
+        app:tabIndicatorHeight="0dp"
+        android:background="#00000000"
+        app:layout_constraintBottom_toBottomOf="@id/pager1"/>
+
+
+    <TextView
+        android:id="@+id/product_name1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/product_name"
+        android:textSize="20sp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintStart_toStartOf="@id/leftGuideline1"
+        app:layout_constraintTop_toBottomOf="@id/pager1"/>
+
+
+    <TextView
+        android:id="@+id/product_brand1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/product_brand"
+        android:textSize="20sp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintStart_toStartOf="@id/leftGuideline1"
+        app:layout_constraintTop_toBottomOf="@+id/product_name1" />
+
+
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="#FFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/rightGuideline1"
+        app:layout_constraintStart_toStartOf="@id/leftGuideline1"
+        app:layout_constraintTop_toBottomOf="@id/total_price1">
+
+        <TextView
+            android:id="@+id/product_description1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/product_description"
+            android:textSize="18sp" />
+
+    </ScrollView>
+
+
+    <TextView
+        android:id="@+id/total_price1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:text="@string/total_price"
+        android:textSize="20sp"
+        app:layout_constraintTop_toBottomOf="@id/product_brand1"
+        app:layout_constraintStart_toStartOf="@id/leftGuideline1" />
+
+    <EditText
+        android:id="@+id/product_price1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:gravity="center"
+        android:focusable="false"
+        android:inputType="numberDecimal"
+        android:text="10.00"
+        app:layout_constraintTop_toBottomOf="@id/product_brand1"
+        app:layout_constraintStart_toEndOf="@id/total_price1" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

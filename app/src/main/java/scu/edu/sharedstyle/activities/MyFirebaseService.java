@@ -96,7 +96,7 @@ public class MyFirebaseService extends FirebaseMessagingService {
         //8.0 以后需要加上channelId 才能正常显示
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             String channelId = "default";
-            String channelName = "默认通知";
+            String channelName = "defalut notification";
             manager.createNotificationChannel(new NotificationChannel(channelId, channelName, NotificationManager.IMPORTANCE_HIGH));
         }
 

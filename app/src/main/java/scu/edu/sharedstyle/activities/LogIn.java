@@ -26,21 +26,26 @@ import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import scu.edu.sharedstyle.R;
+import scu.edu.sharedstyle.model.UserInfo;
 
 public class LogIn extends AppCompatActivity {
     private ImageView ivEye;
     private boolean isOpenEye = false;
 
-    public final static String TAG = "MainActivity";
+    public final static String TAG = "LogIn";
     private FirebaseAuth mAuth;
     Button signin;
     EditText email;
@@ -51,6 +56,7 @@ public class LogIn extends AppCompatActivity {
     private GoogleSignInClient mGoogleSignInClient;
     FirebaseFirestore firestore;
     Context context;
+
 
 
     @Override
@@ -87,9 +93,6 @@ public class LogIn extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         firestore = FirebaseFirestore.getInstance();
 
-
-
-
         signin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -102,6 +105,7 @@ public class LogIn extends AppCompatActivity {
         // Configure sign-in to request the user's ID, email address, and basic
         // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build();
         // Build a GoogleSignInClient with the options specified by gso.
@@ -147,24 +151,89 @@ public class LogIn extends AppCompatActivity {
     private void handleSignInResult(Task<GoogleSignInAccount> task) {
         try {
             GoogleSignInAccount account = task.getResult(ApiException.class);
-
             // Signed in successfully, show authenticated UI.
-            updateUI(account);
+            Log.d(TAG, "firebaseAuthWithGoogle: account exists" );
+            Log.d(TAG, "firebaseAuthWithGoogle:" + account.getIdToken());
+            firebaseAuthWithGoogle(account.getIdToken());
+//            updateUI(account);
         } catch (ApiException e) {
             // The ApiException status code indicates the detailed failure reason.
             // Please refer to the GoogleSignInStatusCodes class reference for more information.
-            Log.w(TAG, "signInResult:failed code=" + e.getStatusCode());
+            Log.d(TAG, "signInResult:failed code=" + e);
             updateUI(null);
         }
     }
 
-    private void updateUI(GoogleSignInAccount account) {
-        if (account!= null){
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
+    private void updateUI(FirebaseUser user) {
+        if (user!= null){
+
+            mEmail = user.getEmail();
+            addUser(user,mEmail);
+
+            String User_id = FirebaseAuth.getInstance().getUid();
+
+            Map<String, Object> map = new HashMap<>();
+            map.put("name", mEmail);
+            String token_id = MyFirebaseService.getToken(LogIn.this);
+            String user_name = mEmail.substring(0, mEmail.indexOf("@"));
+            Log.d("token", token_id);
+            map.put("token_id", token_id);
+            map.put("user_name", user_name);
+
+            firestore.collection("Users").document(User_id).set(map).addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void aVoid) {
+                    Log.d(TAG, "createUserWithEmail:success");
+                    goBrowse();
+                }
+            });
+
+            goBrowse();
         } else{
             Toast.makeText(this, "Sign-in with Google account failed.", Toast.LENGTH_LONG).show();
         }
+
+    }
+
+    private void firebaseAuthWithGoogle(String idToken) {
+        AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
+        mAuth.signInWithCredential(credential)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.d(TAG, "signInWithCredential:success");
+                            FirebaseUser user = mAuth.getCurrentUser();
+//                            mEmail = user.getEmail();
+//                            addUser(user,mEmail);
+//
+//                            String User_id = FirebaseAuth.getInstance().getUid();
+//
+//                            Map<String, Object> map = new HashMap<>();
+//                            map.put("name", mEmail);
+//                            String token_id = MyFirebaseService.getToken(LogIn.this);
+//                            Log.d("token", token_id);
+//                            map.put("token_id", token_id);
+//
+//                            firestore.collection("Users").document(User_id).set(map).addOnSuccessListener(new OnSuccessListener<Void>() {
+//                                @Override
+//                                public void onSuccess(Void aVoid) {
+//                                    Log.d(TAG, "createUserWithEmail:success");
+//                                    goBrowse();
+//                                }
+//                            });
+
+                            updateUI(user);
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.w(TAG, "signInWithCredential:failure", task.getException());
+                            Toast.makeText(LogIn.this, "Authentication Failed.", Toast.LENGTH_LONG).show();
+                            updateUI(null);
+                        }
+
+                    }
+                });
 
     }
 
@@ -183,7 +252,6 @@ public class LogIn extends AppCompatActivity {
                         @Override
                         public void onComplete(Task<AuthResult> task) {
                             Log.d(TAG, "createUserWithEmail:success");
-
                             if (task.isSuccessful()) {
                                 // Sign in success, update UI with the signed-in user's information
                                 Log.i(TAG, "signInWithEmail:success");
@@ -214,6 +282,12 @@ public class LogIn extends AppCompatActivity {
     private void goBrowse() {
         Intent intent = new Intent(LogIn.this, MainActivity.class);
         startActivity(intent);
+    }
+    private void addUser(FirebaseUser user,String email){
+        DocumentReference userRef=
+                FirebaseFirestore.getInstance().collection("users").document();
+        UserInfo addedUser=new UserInfo(user.getUid(),email.substring(0,email.indexOf("@")));
+        userRef.set(addedUser);
     }
 
 }

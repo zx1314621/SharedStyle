@@ -12,6 +12,7 @@ import android.view.GestureDetector;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.TextView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
@@ -30,6 +31,7 @@ public class PurchasedItem extends AppCompatActivity {
 
     private PurchaseAdapter adapter;
     private RecyclerView purchasedView;
+    private TextView tv_nothing;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +51,7 @@ public class PurchasedItem extends AppCompatActivity {
         getData();
         //adapter.isClickable=false;
         purchasedView.setAdapter(adapter);
+        tv_nothing=findViewById(R.id.tv_purchased);
 
     }
 
@@ -104,7 +107,17 @@ public class PurchasedItem extends AppCompatActivity {
                 .setQuery(query, Item.class)
                 .build();
 
-        adapter=new PurchaseAdapter(options);
+        adapter=new PurchaseAdapter(options){
+            @Override
+            public void onDataChanged() {
+                if (getItemCount() == 0){
+                    tv_nothing.setVisibility(View.VISIBLE);
+                }
+                else{
+                    tv_nothing.setVisibility(View.GONE);
+                }
+            }
+        };
 
     }
 

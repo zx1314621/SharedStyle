@@ -18,7 +18,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.95"/>
+        app:layout_constraintGuide_percent="0.95" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guidelinemid"
@@ -27,6 +27,13 @@
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.38" />
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelinebottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.97"/>
+
     <TextView
         android:id="@+id/tv_orderdetails"
         android:layout_width="wrap_content"
@@ -34,7 +41,7 @@
         android:layout_marginTop="24dp"
         android:text="Order Details"
 
-        android:textSize="24sp"
+        android:textSize="30sp"
         app:layout_constraintEnd_toStartOf="@+id/guidelineright"
         app:layout_constraintStart_toStartOf="@+id/guidelineleft"
         app:layout_constraintTop_toTopOf="parent" />
@@ -45,7 +52,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="42dp"
         android:text="Product Description"
-        android:textSize="18sp"
+        android:textSize="24sp"
         app:layout_constraintStart_toStartOf="@+id/guidelineleft"
         app:layout_constraintTop_toBottomOf="@+id/tv_orderdetails" />
 
@@ -100,7 +107,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:text="Payment Method"
-        android:textSize="18sp"
+        android:textSize="24sp"
         app:layout_constraintStart_toStartOf="@+id/guidelineleft"
         app:layout_constraintTop_toBottomOf="@+id/tv_price" />
 
@@ -204,14 +211,13 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@color/colordarkpurple"
-        android:text="Cancel"
         android:onClick="cancel"
+        android:text="Cancel"
         android:textColor="#FFFFFF"
         android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/guidelinebottom"
         app:layout_constraintLeft_toLeftOf="@+id/guidelineleft"
-        app:layout_constraintRight_toLeftOf="@id/bt_confirm"
-        app:layout_constraintTop_toBottomOf="@+id/tv_cvs" />
+        app:layout_constraintRight_toLeftOf="@id/bt_confirm" />
 
     <Button
         android:id="@+id/bt_confirm"

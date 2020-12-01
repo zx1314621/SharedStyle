@@ -10,12 +10,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.IBinder;
 import android.util.Log;
 import android.view.View;
 
 import androidx.core.app.NotificationCompat;
+import androidx.core.content.ContextCompat;
 
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.messaging.FirebaseMessagingService;
@@ -30,6 +32,8 @@ import java.net.URL;
 
 import scu.edu.sharedstyle.R;
 import scu.edu.sharedstyle.model.GlideApp;
+
+import static android.content.Context.NOTIFICATION_SERVICE;
 
 
 public class MyFirebaseService extends FirebaseMessagingService {
@@ -107,9 +111,10 @@ public class MyFirebaseService extends FirebaseMessagingService {
 
         PendingIntent pendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
 
-        Notification notification1 = new NotificationCompat.Builder(this, "default")
+        Notification notification1 = new NotificationCompat.Builder(MyFirebaseService.this, "default")
                 .setLargeIcon(image)
-                .setSmallIcon(R.drawable.icon)
+                .setSmallIcon(R.drawable.ic_stat_name)
+                .setColor(ContextCompat.getColor(MyFirebaseService.this, R.color.colordarkpurple))
                 .setContentTitle(notification.getTitle())
                 .setContentText(notification.getBody())
                 .setStyle(new NotificationCompat.BigPictureStyle().bigPicture(image))
